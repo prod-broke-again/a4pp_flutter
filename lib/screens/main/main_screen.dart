@@ -91,7 +91,8 @@ class _MainScreenState extends State<MainScreen> {
 
       // Парсим уведомления
       final notificationsData = data.notificationsData!;
-      _notifications = _safeGetList(notificationsData, 'notifications');
+      _notifications = _safeGetList(notificationsData, 'notifications')
+          .cast<Map<String, dynamic>>();
 
       setState(() {
         _isLoading = false;

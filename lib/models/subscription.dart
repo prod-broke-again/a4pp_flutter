@@ -80,7 +80,14 @@ class Subscription {
       'created_at': createdAt.toIso8601String(),
       'updated_at': updatedAt.toIso8601String(),
       'user': user?.toJson(),
-      'product': product?.toJson(),
+      'product': product != null ? {
+        'id': product.id,
+        'name': product.name,
+        'slug': product.slug,
+        'price': product.price,
+        'currency': product.currency,
+        'level': product.level,
+      } : null,
     };
   }
 }
