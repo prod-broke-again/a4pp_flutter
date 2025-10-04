@@ -25,6 +25,7 @@ class AppDrawer extends StatefulWidget {
   final int unreadNotificationsCount;
   final int currentIndex;
   final Function(int) onIndexChanged;
+  final Function(int)? onUnreadCountChanged;
 
   const AppDrawer({
     super.key,
@@ -35,6 +36,7 @@ class AppDrawer extends StatefulWidget {
     this.unreadNotificationsCount = 0,
     required this.currentIndex,
     required this.onIndexChanged,
+    this.onUnreadCountChanged,
   });
 
   @override
@@ -239,6 +241,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     products: widget.products,
                     initialNotifications: widget.notifications,
                     initialUnreadCount: widget.unreadNotificationsCount,
+                    onUnreadCountChanged: widget.onUnreadCountChanged,
                   ),
                 ),
               );

@@ -12,6 +12,7 @@ class NotificationsScreen extends StatefulWidget {
   final List<Product> products;
   final List<Map<String, dynamic>>? initialNotifications;
   final int? initialUnreadCount;
+  final Function(int)? onUnreadCountChanged;
 
   const NotificationsScreen({
     super.key,
@@ -20,6 +21,7 @@ class NotificationsScreen extends StatefulWidget {
     this.products = const [],
     this.initialNotifications,
     this.initialUnreadCount,
+    this.onUnreadCountChanged,
   });
 
   @override
@@ -98,6 +100,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             return notification;
           }).toList();
         });
+        // Обновляем счетчик непрочитанных уведомлений
+        final unreadCount = _notifications.where((n) => !n.isRead).length;
+        widget.onUnreadCountChanged?.call(unreadCount);
       }
     } catch (e) {
       print('❌ Ошибка отметки уведомления как прочитанного: $e');
@@ -122,6 +127,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             return notification.copyWith(readAt: DateTime.now());
           }).toList();
         });
+        // Обновляем счетчик непрочитанных уведомлений (все прочитаны)
+        widget.onUnreadCountChanged?.call(0);
       }
     } catch (e) {
       print('❌ Ошибка отметки всех уведомлений как прочитанных: $e');

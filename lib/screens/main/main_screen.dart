@@ -107,6 +107,13 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
+  /// Обновление счетчика непрочитанных уведомлений
+  void _updateUnreadNotificationsCount(int count) {
+    setState(() {
+      _unreadNotificationsCount = count;
+    });
+  }
+
   /// Безопасное получение массива из данных API
   List<dynamic> _safeGetList(Map<String, dynamic> data, String key) {
     final value = data[key];
@@ -239,6 +246,7 @@ class _MainScreenState extends State<MainScreen> {
               break;
           }
         },
+        onUnreadCountChanged: _updateUnreadNotificationsCount,
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())

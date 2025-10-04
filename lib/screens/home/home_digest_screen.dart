@@ -126,6 +126,9 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
           _continueWatchingVideo = _continueWatchingList.first;
         }
 
+        // Инициализируем прогресс видео
+        _videoProgress = {};
+
         // Парсим предстоящие встречи
         final meetingsData = data.meetingsData!;
         final meetingsList = _safeGetList(meetingsData, 'meetings');
@@ -134,7 +137,10 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
           _nextMeeting = _upcomingMeetings.first;
         }
 
-        // Инициализируем fallback данные
+        // Инициализируем список последних новостей (пустой, так как у нас только одна последняя новость)
+        _recentNews = [];
+
+        // Инициализируем fallback данные для полей, которые могут быть пустыми
         _initializeFallbackData();
       });
 
