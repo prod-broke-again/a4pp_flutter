@@ -437,13 +437,13 @@ class _AppDrawerState extends State<AppDrawer> {
     int? badgeCount,
   }) {
     return ListTile(
-      leading: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, color: Colors.white),
-          if (badgeCount != null && badgeCount > 0) ...[
-            const SizedBox(width: 8),
-            Container(
+      leading: Icon(icon, color: Colors.white),
+      title: Text(
+        title,
+        style: const TextStyle(color: Colors.white),
+      ),
+      trailing: badgeCount != null && badgeCount > 0
+          ? Container(
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
                 color: const Color(0xFF8B5CF6),
@@ -462,14 +462,8 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
                 textAlign: TextAlign.center,
               ),
-            ),
-          ],
-        ],
-      ),
-      title: Text(
-        title,
-        style: const TextStyle(color: Colors.white),
-      ),
+            )
+          : null,
       onTap: onTap,
     );
   }
