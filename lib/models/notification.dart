@@ -16,13 +16,23 @@ class Notification {
   });
 
   factory Notification.fromJson(Map<String, dynamic> json) {
+    // Проверяем обязательные поля
+    final id = json['id'];
+    final type = json['type'];
+    final createdAtStr = json['created_at'];
+    final updatedAtStr = json['updated_at'];
+
+    if (id == null || type == null || createdAtStr == null || updatedAtStr == null) {
+      throw FormatException('Missing required fields in notification JSON');
+    }
+
     return Notification(
-      id: json['id'] as String,
-      type: json['type'] as String,
+      id: id as String,
+      type: type as String,
       data: json['data'] as Map<String, dynamic>? ?? {},
       readAt: json['read_at'] != null ? DateTime.parse(json['read_at'] as String) : null,
-      createdAt: DateTime.parse(json['created_at'] as String),
-      updatedAt: DateTime.parse(json['updated_at'] as String),
+      createdAt: DateTime.parse(createdAtStr as String),
+      updatedAt: DateTime.parse(updatedAtStr as String),
     );
   }
 
@@ -57,7 +67,28 @@ class Notification {
 
   // Геттеры для удобства
   bool get isRead => readAt != null;
-  String get message => data['message'] ?? 'Уведомление';
-  String? get actionUrl => data['action_url'];
-  String? get userName => data['user_name'];
+
+  String get message {
+    final msg = data['message'];
+    if (msg is String) return msg;
+    return 'Уведомление';
+  }
+
+  String? get actionUrl {
+    final url = data['action_url'];
+    if (url is String) return url;
+    return null;
+  }
+
+  String? get userName {
+    final name = data['user_name'];
+    if (name is String) return name;
+    return null;
+  }
+
+  String get title {
+    final title = data['title'];
+    if (title is String) return title;
+    return message; // fallback to message if no title
+  }
 }

@@ -50,7 +50,18 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     if (widget.initialNotifications != null && widget.initialNotifications!.isNotEmpty) {
       setState(() {
         _notifications = widget.initialNotifications!
-            .map((json) => notification_model.Notification.fromJson(json))
+            .where((json) => json != null) // Фильтруем null значения
+            .map((json) {
+              try {
+                return notification_model.Notification.fromJson(json as Map<String, dynamic>);
+              } catch (e) {
+                print('Ошибка парсинга уведомления из профиля: $e');
+                print('JSON уведомления: $json');
+                return null;
+              }
+            })
+            .where((notification) => notification != null) // Убираем неудачно распарсенные
+            .cast<notification_model.Notification>()
             .toList();
         _isLoading = false;
       });
@@ -421,7 +432,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                     ),
                                   ),
                                   title: Text(
-                                    notification.message,
+                                    notification.title,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,
@@ -431,6 +442,14 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                   subtitle: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
+                                      if (notification.message != notification.title)
+                                        Text(
+                                          notification.message,
+                                          style: TextStyle(
+                                            color: Colors.grey[400],
+                                            fontSize: 14,
+                                          ),
+                                        ),
                                       const SizedBox(height: 4),
                                       if (notification.userName != null)
                                         Text(

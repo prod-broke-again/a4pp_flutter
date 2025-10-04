@@ -23,19 +23,31 @@ class NotificationService {
       unreadOnly: unreadOnly,
     );
 
-    final notificationsData = data['notifications'] as Map<String, dynamic>;
+    // Проверяем, что data['notifications'] не null и является Map
+    final notificationsData = data['notifications'] as Map<String, dynamic>?;
+    if (notificationsData == null) {
+      return (
+        notifications: [],
+        pagination: {},
+        unreadCount: 0,
+      );
+    }
+
     final rawNotifications = notificationsData['data'] as List<dynamic>? ?? [];
 
     final notifications = rawNotifications
+        .where((json) => json != null) // Фильтруем null значения
         .map((json) {
           try {
-            return Notification.fromJson(json);
+            return Notification.fromJson(json as Map<String, dynamic>);
           } catch (e) {
             print('Ошибка парсинга уведомления: $e');
             print('JSON уведомления: $json');
-            rethrow;
+            return null;
           }
         })
+        .where((notification) => notification != null) // Убираем неудачно распарсенные
+        .cast<Notification>()
         .toList();
 
     final pagination = Map<String, dynamic>.from(notificationsData);
