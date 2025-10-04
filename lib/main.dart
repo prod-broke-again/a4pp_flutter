@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/blocs/auth/auth_bloc.dart';
 import 'package:mobile/repositories/auth_repository.dart';
+import 'package:mobile/services/preload_service.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/auth/register_screen.dart';
 import 'screens/auth/forgot_password_screen.dart';
@@ -75,7 +76,10 @@ class _PsychologistAppState extends State<PsychologistApp> {
         GoRoute(
           path: '/',
           name: 'home',
-          builder: (context, state) => const MainScreen(),
+          builder: (context, state) {
+            final preloadedData = state.extra as PreloadedData?;
+            return MainScreen(preloadedData: preloadedData);
+          },
           routes: [
             GoRoute(
               path: 'courses',

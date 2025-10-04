@@ -10,6 +10,7 @@ import 'package:mobile/models/meeting.dart';
 import 'package:mobile/models/club.dart';
 import 'package:mobile/models/course.dart';
 import 'package:mobile/models/profile_response.dart';
+import 'package:mobile/services/preload_service.dart';
 import 'package:mobile/repositories/auth_repository.dart';
 import 'package:mobile/repositories/news_repository.dart';
 import 'package:mobile/repositories/video_repository.dart';
@@ -19,12 +20,14 @@ class HomeDigestScreen extends StatefulWidget {
   final User? user;
   final Subscription? subscription;
   final List<Product> products;
+  final PreloadedData? preloadedData;
 
   const HomeDigestScreen({
     super.key,
     this.user,
     this.subscription,
     this.products = const [],
+    this.preloadedData,
   });
 
   @override
@@ -57,7 +60,91 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
   @override
   void initState() {
     super.initState();
-    _loadRealData();
+    _initializeWithPreloadedData();
+  }
+
+  /// Инициализация с предварительно загруженными данными или загрузка с API
+  void _initializeWithPreloadedData() {
+    if (widget.preloadedData != null && widget.preloadedData!.isComplete && !widget.preloadedData!.isExpired) {
+      print('✅ HomeDigestScreen: используем предварительно загруженные данные');
+      _initializeFromPreloadedData(widget.preloadedData!);
+    } else {
+      print('🔄 HomeDigestScreen: предзагруженные данные недоступны, загружаем с API');
+      _loadRealData();
+    }
+  }
+
+  /// Инициализация состояния из предварительно загруженных данных
+  void _initializeFromPreloadedData(PreloadedData data) {
+    try {
+      setState(() {
+        _isLoading = false;
+
+        // Парсим профиль
+        final profileData = data.profileData!;
+        // Проверка премиум статуса будет выполнена из данных подписки ниже
+
+        // Парсим текущую подписку
+        final subscriptionData = data.subscriptionData!;
+        final subscription = subscriptionData['subscription'];
+        if (subscription != null) {
+          _isPremium = subscription['status'] == 'active';
+        }
+
+        // Парсим избранное
+        final favoritesData = data.favoritesData!;
+        final favorites = _safeGetList(favoritesData, 'favorites');
+        print('📋 HomeDigest: загружено избранных элементов: ${favorites.length}');
+        _initializeFavoritesFromApi(favorites);
+
+        // Парсим уведомления
+        final notificationsData = data.notificationsData!;
+        final notifications = _safeGetList(notificationsData, 'notifications');
+        final unreadNotifications = notifications.where((n) => n['read_at'] == null).toList();
+        if (unreadNotifications.isNotEmpty) {
+          _unreadNotification = unreadNotifications.first['message'] as String?;
+        }
+
+        // Парсим последние новости
+        final newsData = data.newsData!;
+        final newsList = _safeGetList(newsData, 'news');
+        if (newsList.isNotEmpty) {
+          _latestNews = News.fromJson(newsList.first);
+        }
+
+        // Парсим последнее видео
+        final videoData = data.videoData!;
+        if (videoData['video'] != null) {
+          _latestVideo = Video.fromJson(videoData['video']);
+        }
+
+        // Парсим историю просмотров
+        final watchHistoryData = data.watchHistoryData!;
+        final videosList = _safeGetList(watchHistoryData, 'videos');
+        _continueWatchingList = videosList.map((v) => Video.fromJson(v)).toList();
+        if (_continueWatchingList.isNotEmpty) {
+          _continueWatchingVideo = _continueWatchingList.first;
+        }
+
+        // Парсим предстоящие встречи
+        final meetingsData = data.meetingsData!;
+        final meetingsList = _safeGetList(meetingsData, 'meetings');
+        _upcomingMeetings = meetingsList.map((m) => Meeting.fromJson(m)).toList();
+        if (_upcomingMeetings.isNotEmpty) {
+          _nextMeeting = _upcomingMeetings.first;
+        }
+
+        // Инициализируем fallback данные
+        _initializeFallbackData();
+      });
+
+      print('✅ HomeDigestScreen: данные успешно инициализированы из предзагрузки');
+
+    } catch (e) {
+      print('❌ HomeDigestScreen: ошибка инициализации предзагруженных данных: $e');
+      // В случае ошибки переходим к обычной загрузке
+      _loadRealData();
+    }
   }
 
   Future<void> _loadRealData() async {

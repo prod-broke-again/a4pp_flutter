@@ -9,6 +9,7 @@ import 'package:mobile/models/subscription.dart';
 import 'package:mobile/models/transaction.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mobile/services/preload_service.dart';
 import '../../widgets/app_drawer.dart';
 import '../home/home_digest_screen.dart';
 import '../video_library/video_library_screen.dart';
@@ -18,7 +19,9 @@ import '../favorites/favorites_screen.dart';
 import '../transactions/transactions_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  final PreloadedData? preloadedData;
+
+  const MainScreen({super.key, this.preloadedData});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -42,8 +45,75 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    _loadProfile();
+    _initializeWithPreloadedData();
     _loadLastSection();
+  }
+
+  /// Инициализация с предварительно загруженными данными или загрузка с API
+  void _initializeWithPreloadedData() {
+    if (widget.preloadedData != null && widget.preloadedData!.isComplete && !widget.preloadedData!.isExpired) {
+      print('✅ Используем предварительно загруженные данные');
+      _initializeFromPreloadedData(widget.preloadedData!);
+    } else {
+      print('🔄 Предзагруженные данные недоступны или устарели, загружаем с API');
+      _loadProfile();
+    }
+  }
+
+  /// Инициализация состояния из предварительно загруженных данных
+  void _initializeFromPreloadedData(PreloadedData data) {
+    try {
+      // Парсим профиль
+      final profileData = data.profileData!;
+      _user = profileData.user;
+      _products = profileData.products ?? [];
+      _unreadNotificationsCount = profileData.unreadNotificationsCount;
+
+      // Парсим текущую подписку
+      final subscriptionData = data.subscriptionData!;
+      final subscription = subscriptionData['subscription'];
+      _subscriptionStatus = SubscriptionStatus(
+        subscription: subscription != null ? Subscription.fromJson(subscription) : null,
+        product: subscription != null && subscription['product'] != null
+            ? Product.fromJson(subscription['product'])
+            : null,
+        isActive: subscription != null && subscription['status'] == 'active',
+        auto: subscription != null ? subscription['auto_renew'] ?? false : false,
+        expiresAt: subscription != null && subscription['expires_at'] != null
+            ? DateTime.parse(subscription['expires_at'])
+            : null,
+      );
+
+      // Парсим избранное
+      final favoritesData = data.favoritesData!;
+      final favorites = _safeGetList(favoritesData, 'favorites');
+      // Здесь можно инициализировать избранное, если нужно
+
+      // Парсим уведомления
+      final notificationsData = data.notificationsData!;
+      _notifications = _safeGetList(notificationsData, 'notifications');
+
+      setState(() {
+        _isLoading = false;
+      });
+
+      print('✅ Данные успешно инициализированы из предзагрузки');
+
+    } catch (e) {
+      print('❌ Ошибка инициализации предзагруженных данных: $e');
+      // В случае ошибки переходим к обычной загрузке
+      _loadProfile();
+    }
+  }
+
+  /// Безопасное получение массива из данных API
+  List<dynamic> _safeGetList(Map<String, dynamic> data, String key) {
+    final value = data[key];
+    if (value is List<dynamic>) {
+      return value;
+    }
+    print('⚠️ MainScreen: ожидался массив для ключа "$key", но получен: ${value.runtimeType}');
+    return [];
   }
 
   Future<void> _loadProfile() async {
@@ -193,7 +263,12 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 )
               : _selectedIndex == 0
-                  ? const HomeDigestScreen()
+                  ? HomeDigestScreen(
+                      user: _user,
+                      subscription: _subscriptionStatus?.subscription,
+                      products: _products,
+                      preloadedData: widget.preloadedData,
+                    )
                   : const VideoLibraryScreen(
                       showAppBar: false,
                     ),

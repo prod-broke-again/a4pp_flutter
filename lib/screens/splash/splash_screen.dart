@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/blocs/auth/auth_bloc.dart';
+import 'package:mobile/services/preload_service.dart';
 import 'dart:math' as math;
 
 class SplashScreen extends StatefulWidget {
@@ -20,6 +21,8 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<Color?> _colorAnimation;
 
   bool _animationCompleted = false;
+  bool _preloadCompleted = false;
+  PreloadedData? _preloadedData;
 
   @override
   void initState() {
@@ -76,7 +79,34 @@ class _SplashScreenState extends State<SplashScreen>
       }
     });
 
+    // Запускаем предварительную загрузку данных параллельно с анимацией
+    _startPreloading();
+
     _controller.forward();
+  }
+
+  /// Запуск предварительной загрузки данных главной страницы
+  void _startPreloading() async {
+    print('🔄 Запуск предварительной загрузки данных...');
+    try {
+      final preloadService = PreloadService();
+      _preloadedData = await preloadService.preloadHomeData();
+      if (mounted) {
+        setState(() {
+          _preloadCompleted = true;
+        });
+        print('✅ Предварительная загрузка завершена');
+      }
+    } catch (e) {
+      print('❌ Ошибка предварительной загрузки: $e');
+      // Даже при ошибке отмечаем как завершенное, чтобы не блокировать навигацию
+      if (mounted) {
+        setState(() {
+          _preloadCompleted = true;
+          _preloadedData = PreloadedData.empty();
+        });
+      }
+    }
   }
 
   void _checkAuthAfterAnimation() {
@@ -105,7 +135,8 @@ class _SplashScreenState extends State<SplashScreen>
         // Навигация только после завершения анимации
         if (_animationCompleted) {
           if (state is AuthTokenValid) {
-            context.goNamed('home');
+            // Передаем предварительно загруженные данные
+            context.goNamed('home', extra: _preloadedData);
           } else if (state is AuthInitial) {
             context.goNamed('login');
           }
