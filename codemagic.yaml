@@ -1,0 +1,41 @@
+workflows:
+  ios-debug:
+    name: iOS Debug Build
+    environment:
+      flutter: stable
+      xcode: latest
+    scripts:
+      - flutter packages pub get
+      - flutter build ios --debug --no-codesign
+    artifacts:
+      - build/ios/iphoneos/*.app
+      - build/ios/iphoneos/Runner.app
+
+  ios-release:
+    name: iOS Release Build for TestFlight
+    environment:
+      flutter: stable
+      xcode: latest
+      groups:
+        - app_store_credentials
+      vars:
+        XCODE_PROJECT: "ios/Runner.xcodeproj"
+        XCODE_SCHEME: "Runner"
+        BUNDLE_ID: "lol.satoru.mobile"
+        APP_STORE_APP_ID: "YOUR_APP_STORE_ID"
+        CERTIFICATE_PRIVATE_KEY: Encrypted(...)  # Нужно зашифровать
+        CERTIFICATE_PASSWORD: Encrypted(...)     # Нужно зашифровать
+    scripts:
+      - flutter packages pub get
+      - |
+        # Build and sign for TestFlight
+        flutter build ipa --release \
+          --export-options-plist=$CM_BUILD_DIR/ios/export_options.plist
+    artifacts:
+      - build/ios/ipa/*.ipa
+    publishing:
+      app_store_connect:
+        api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+        key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+        issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+        submit_to_testflight: true
