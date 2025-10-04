@@ -227,6 +227,7 @@ class _AppDrawerState extends State<AppDrawer> {
             context,
             icon: Icons.notifications,
             title: 'Уведомления',
+            badgeCount: widget.unreadNotificationsCount,
             onTap: () {
               Navigator.pop(context);
               Navigator.push(
@@ -433,9 +434,38 @@ class _AppDrawerState extends State<AppDrawer> {
     required IconData icon,
     required String title,
     required VoidCallback onTap,
+    int? badgeCount,
   }) {
     return ListTile(
-      leading: Icon(icon, color: Colors.white),
+      leading: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: Colors.white),
+          if (badgeCount != null && badgeCount > 0) ...[
+            const SizedBox(width: 8),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              decoration: BoxDecoration(
+                color: const Color(0xFF8B5CF6),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              constraints: const BoxConstraints(
+                minWidth: 20,
+                minHeight: 20,
+              ),
+              child: Text(
+                badgeCount > 99 ? '99+' : badgeCount.toString(),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ],
+      ),
       title: Text(
         title,
         style: const TextStyle(color: Colors.white),

@@ -27,8 +27,8 @@ class NotificationService {
     final notificationsData = data['notifications'] as Map<String, dynamic>?;
     if (notificationsData == null) {
       return (
-        notifications: [],
-        pagination: {},
+        notifications: <Notification>[],
+        pagination: <String, dynamic>{},
         unreadCount: 0,
       );
     }
