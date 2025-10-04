@@ -110,12 +110,54 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
         final newsList = _safeGetList(newsData, 'news');
         if (newsList.isNotEmpty) {
           _latestNews = News.fromJson(newsList.first);
+        } else {
+          // Fallback новость если данные не загружены
+          _latestNews = News(
+            id: 1,
+            title: 'Новости скоро появятся',
+            slug: 'no-news',
+            excerpt: 'Следите за обновлениями',
+            content: 'Новости АЧПП скоро будут доступны',
+            thumbnail: null,
+            publishedAt: DateTime.now(),
+            author: null,
+            tags: const [],
+            category: null,
+            isFeatured: false,
+            viewsCount: 0,
+            likesCount: 0,
+            commentsCount: 0,
+            isLiked: false,
+            isBookmarked: false,
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
+          );
         }
 
         // Парсим последнее видео
         final videoData = data.videoData!;
         if (videoData['video'] != null) {
           _latestVideo = Video.fromJson(videoData['video']);
+        } else {
+          // Fallback видео если данные не загружены
+          _latestVideo = Video(
+            id: 1,
+            title: 'Видео скоро появится',
+            slug: 'no-video',
+            description: 'Следите за обновлениями',
+            thumbnail: null,
+            videoUrl: null,
+            duration: '00:00',
+            viewsCount: 0,
+            likesCount: 0,
+            commentsCount: 0,
+            isLiked: false,
+            isBookmarked: false,
+            tags: const [],
+            category: null,
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
+          );
         }
 
         // Парсим историю просмотров
@@ -124,6 +166,9 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
         _continueWatchingList = videosList.map((v) => Video.fromJson(v)).toList();
         if (_continueWatchingList.isNotEmpty) {
           _continueWatchingVideo = _continueWatchingList.first;
+        } else {
+          // Fallback видео для продолжения просмотра
+          _continueWatchingVideo = _latestVideo;
         }
 
         // Инициализируем прогресс видео
@@ -135,6 +180,40 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
         _upcomingMeetings = meetingsList.map((m) => Meeting.fromJson(m)).toList();
         if (_upcomingMeetings.isNotEmpty) {
           _nextMeeting = _upcomingMeetings.first;
+        } else {
+          // Fallback встреча если данные не загружены
+          _nextMeeting = Meeting(
+            id: 1,
+            name: 'Встречи скоро появятся',
+            slug: 'no-meetings',
+            description: 'Следите за обновлениями АЧПП',
+            image: null,
+            date: DateTime.now().add(const Duration(days: 7)).toIso8601String(),
+            formattedDate: 'Через неделю',
+            startTime: DateTime.now().add(const Duration(days: 7)).toIso8601String(),
+            endTime: DateTime.now().add(const Duration(days: 7, hours: 1)).toIso8601String(),
+            formattedStartTime: '10:00',
+            formattedEndTime: '11:00',
+            duration: '1 час',
+            format: 'online',
+            formatLabel: 'Онлайн',
+            platform: 'Zoom',
+            joinUrl: null,
+            location: null,
+            maxParticipants: 100,
+            status: 'upcoming',
+            statusLabel: 'Предстоящая',
+            price: null,
+            formattedPrice: null,
+            isRegistered: false,
+            canRegister: true,
+            registrationDeadline: null,
+            tags: const [],
+            category: null,
+            speaker: null,
+            createdAt: DateTime.now().toIso8601String(),
+            updatedAt: DateTime.now().toIso8601String(),
+          );
         }
 
         // Инициализируем список последних новостей (пустой, так как у нас только одна последняя новость)
