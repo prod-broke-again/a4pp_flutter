@@ -1,5 +1,5 @@
-import 'package:mobile/models/notification.dart';
-import 'package:mobile/repositories/notification_repository.dart';
+import 'package:achpp/models/notification.dart';
+import 'package:achpp/repositories/notification_repository.dart';
 
 class NotificationService {
   final NotificationRepository _repository;

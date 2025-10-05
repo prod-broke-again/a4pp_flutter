@@ -1,16 +1,16 @@
-import 'package:mobile/models/user.dart';
-import 'package:mobile/models/subscription.dart';
-import 'package:mobile/models/product.dart';
-import 'package:mobile/models/news.dart';
-import 'package:mobile/models/video.dart';
-import 'package:mobile/models/meeting.dart';
-import 'package:mobile/models/club.dart';
-import 'package:mobile/models/course.dart';
-import 'package:mobile/models/profile_response.dart';
-import 'package:mobile/repositories/auth_repository.dart';
-import 'package:mobile/repositories/news_repository.dart';
-import 'package:mobile/repositories/video_repository.dart';
-import 'package:mobile/repositories/meeting_repository.dart';
+import 'package:achpp/models/user.dart';
+import 'package:achpp/models/subscription.dart';
+import 'package:achpp/models/product.dart';
+import 'package:achpp/models/news.dart';
+import 'package:achpp/models/video.dart';
+import 'package:achpp/models/meeting.dart';
+import 'package:achpp/models/club.dart';
+import 'package:achpp/models/course.dart';
+import 'package:achpp/models/profile_response.dart';
+import 'package:achpp/repositories/auth_repository.dart';
+import 'package:achpp/repositories/news_repository.dart';
+import 'package:achpp/repositories/video_repository.dart';
+import 'package:achpp/repositories/meeting_repository.dart';
 
 /// Сервис для предварительной загрузки данных главной страницы
 class PreloadService {

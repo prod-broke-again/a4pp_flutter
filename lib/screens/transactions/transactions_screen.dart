@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:mobile/models/transaction.dart';
+import 'package:achpp/models/transaction.dart';
 
 enum _Period { all, today, week, month }
 

@@ -6,7 +6,7 @@ workflows:
       xcode: latest
     scripts:
       - flutter packages pub get
-      - flutter build ios --debug --no-codesign
+      - flutter build ios --debug --no-codesign --dart-define=FLUTTER_BUILD_MODE=debug
     artifacts:
       - build/ios/iphoneos/*.app
       - build/ios/iphoneos/Runner.app
@@ -22,6 +22,7 @@ workflows:
         XCODE_PROJECT: "ios/Runner.xcodeproj"
         XCODE_SCHEME: "Runner"
         BUNDLE_ID: "lol.satoru.mobile"
+        DEVELOPMENT_TEAM: "YOUR_TEAM_ID"
         APP_STORE_APP_ID: "YOUR_APP_STORE_ID"
         CERTIFICATE_PRIVATE_KEY: Encrypted(...)  # Нужно зашифровать
         CERTIFICATE_PASSWORD: Encrypted(...)     # Нужно зашифровать

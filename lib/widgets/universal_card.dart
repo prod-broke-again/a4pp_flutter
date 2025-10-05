@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/course.dart';
-import 'package:mobile/models/club.dart';
-import 'package:mobile/widgets/donation_dialog.dart';
+import 'package:achpp/models/course.dart';
+import 'package:achpp/models/club.dart';
+import 'package:achpp/widgets/donation_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UniversalCard extends StatelessWidget {

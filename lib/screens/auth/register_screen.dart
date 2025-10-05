@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile/blocs/auth/auth_bloc.dart';
-import 'package:mobile/repositories/auth_repository.dart';
+import 'package:achpp/blocs/auth/auth_bloc.dart';
+import 'package:achpp/repositories/auth_repository.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});

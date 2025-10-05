@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mobile/models/course.dart';
-import 'package:mobile/models/user.dart';
-import 'package:mobile/models/subscription.dart';
-import 'package:mobile/models/product.dart';
-import 'package:mobile/models/profile_response.dart';
-import 'package:mobile/services/auth_service.dart';
-import 'package:mobile/widgets/universal_card.dart';
+import 'package:achpp/models/course.dart';
+import 'package:achpp/models/user.dart';
+import 'package:achpp/models/subscription.dart';
+import 'package:achpp/models/product.dart';
+import 'package:achpp/models/profile_response.dart';
+import 'package:achpp/services/auth_service.dart';
+import 'package:achpp/widgets/universal_card.dart';
 import '../../widgets/app_drawer.dart';
 import 'course_details_screen.dart';
 

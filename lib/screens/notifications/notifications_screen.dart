@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/user.dart';
-import 'package:mobile/models/product.dart';
-import 'package:mobile/models/profile_response.dart';
-import 'package:mobile/models/notification.dart' as notification_model;
-import 'package:mobile/services/notification_service.dart';
+import 'package:achpp/models/user.dart';
+import 'package:achpp/models/product.dart';
+import 'package:achpp/models/profile_response.dart';
+import 'package:achpp/models/notification.dart' as notification_model;
+import 'package:achpp/services/notification_service.dart';
 import '../../widgets/app_drawer.dart';
 
 class NotificationsScreen extends StatefulWidget {

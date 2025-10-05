@@ -1,5 +1,5 @@
-import 'package:mobile/models/comment.dart';
-import 'package:mobile/repositories/comment_repository.dart';
+import 'package:achpp/models/comment.dart';
+import 'package:achpp/repositories/comment_repository.dart';
 
 class CommentService {
   final CommentRepository _repository;

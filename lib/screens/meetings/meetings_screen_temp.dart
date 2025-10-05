@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/meeting.dart';
-import 'package:mobile/models/user.dart';
-import 'package:mobile/models/subscription.dart';
-import 'package:mobile/models/product.dart';
-import 'package:mobile/models/profile_response.dart';
-import 'package:mobile/services/meeting_service.dart';
-import 'package:mobile/screens/meetings/meeting_create_screen.dart';
+import 'package:achpp/models/meeting.dart';
+import 'package:achpp/models/user.dart';
+import 'package:achpp/models/subscription.dart';
+import 'package:achpp/models/product.dart';
+import 'package:achpp/models/profile_response.dart';
+import 'package:achpp/services/meeting_service.dart';
+import 'package:achpp/screens/meetings/meeting_create_screen.dart';
 import '../../widgets/app_drawer.dart';
 
 class MeetingsScreen extends StatefulWidget {

@@ -1,5 +1,5 @@
-import 'package:mobile/models/user.dart';
-import 'package:mobile/models/club_meeting.dart';
+import 'package:achpp/models/user.dart';
+import 'package:achpp/models/club_meeting.dart';
 
 class Club {
   final int id;

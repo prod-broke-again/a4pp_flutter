@@ -1,7 +1,7 @@
-import 'package:mobile/models/navigation_video.dart';
-import 'package:mobile/models/video.dart';
-import 'package:mobile/models/video_folder.dart';
-import 'package:mobile/repositories/video_repository.dart';
+import 'package:achpp/models/navigation_video.dart';
+import 'package:achpp/models/video.dart';
+import 'package:achpp/models/video_folder.dart';
+import 'package:achpp/repositories/video_repository.dart';
 
 class VideoService {
   final VideoRepository _videoRepository;

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:achpp/services/auth_service.dart';
 
 class BalanceScreen extends StatefulWidget {
   const BalanceScreen({super.key});
@@ -10,7 +12,54 @@ class BalanceScreen extends StatefulWidget {
 class _BalanceScreenState extends State<BalanceScreen> {
   String _selectedAmount = '1000';
   String _selectedPaymentMethod = 'card';
+  final TextEditingController _customAmountController = TextEditingController();
+  bool _isLoading = false;
   final List<String> _amounts = ['500', '1000', '2000', '5000', '10000', 'custom'];
+
+  @override
+  void dispose() {
+    _customAmountController.dispose();
+    super.dispose();
+  }
+
+  double _getAmount() {
+    if (_selectedAmount == 'custom') {
+      final customAmount = double.tryParse(_customAmountController.text) ?? 0;
+      return customAmount;
+    }
+    return double.tryParse(_selectedAmount) ?? 0;
+  }
+
+  Future<void> _handleTopupBalance() async {
+    final amount = _getAmount();
+    if (amount <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Введите корректную сумму')),
+      );
+      return;
+    }
+
+    setState(() => _isLoading = true);
+
+    try {
+      final uri = await AuthService().topupBalance(amount: amount);
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Не удалось открыть страницу оплаты')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Ошибка: ${e.toString()}')),
+      );
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -202,6 +251,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                       ),
                       const SizedBox(height: 12),
                       TextField(
+                        controller: _customAmountController,
                         style: const TextStyle(color: Colors.white, fontSize: 18),
                         decoration: InputDecoration(
                           hintText: '₽ 0',
@@ -295,7 +345,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                           style: TextStyle(color: Colors.grey[400]),
                         ),
                         Text(
-                          '₽ ${_selectedAmount == 'custom' ? '0' : _selectedAmount}',
+                          '₽ ${_getAmount().toStringAsFixed(0)}',
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
@@ -333,7 +383,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                           ),
                         ),
                         Text(
-                          '₽ ${_selectedAmount == 'custom' ? '0' : _selectedAmount}',
+                          '₽ ${_getAmount().toStringAsFixed(0)}',
                           style: const TextStyle(
                             color: Color(0xFF6B46C1),
                             fontSize: 20,
@@ -352,11 +402,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: _selectedAmount != 'custom' || _selectedAmount.isNotEmpty
-                      ? () {
-                          // Логика пополнения баланса
-                        }
-                      : null,
+                  onPressed: (_isLoading || _getAmount() <= 0) ? null : _handleTopupBalance,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF6B46C1),
                     foregroundColor: Colors.white,
@@ -366,13 +412,22 @@ class _BalanceScreenState extends State<BalanceScreen> {
                     ),
                     elevation: 0,
                   ),
-                  child: const Text(
-                    'Пополнить баланс',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: _isLoading
+                      ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                          ),
+                        )
+                      : const Text(
+                          'Пополнить баланс',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                 ),
               ),
               

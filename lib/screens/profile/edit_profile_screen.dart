@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/user.dart';
-import 'package:mobile/models/subscription.dart';
-import 'package:mobile/models/product.dart';
-import 'package:mobile/models/profile_response.dart';
-import 'package:mobile/services/api_client.dart';
+import 'package:achpp/models/user.dart';
+import 'package:achpp/models/subscription.dart';
+import 'package:achpp/models/product.dart';
+import 'package:achpp/models/profile_response.dart';
+import 'package:achpp/services/api_client.dart';
+import 'package:achpp/repositories/auth_repository.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import '../../widgets/app_drawer.dart';
@@ -12,8 +13,9 @@ class EditProfileScreen extends StatefulWidget {
   final User user;
   final SubscriptionStatus? subscriptionStatus;
   final List<Product> products;
+  final Function(User)? onUserUpdated;
 
-  const EditProfileScreen({super.key, required this.user, this.subscriptionStatus, this.products = const []});
+  const EditProfileScreen({super.key, required this.user, this.subscriptionStatus, this.products = const [], this.onUserUpdated});
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -21,6 +23,7 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final AuthRepository _authRepository = AuthRepository();
   final ApiClient _apiClient = ApiClient();
   final ImagePicker _imagePicker = ImagePicker();
   late TextEditingController _firstname;
@@ -211,12 +214,40 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   Future<void> _save() async {
-    setState(() => _saving = true);
-    await Future.delayed(const Duration(milliseconds: 600)); // заглушка сохранения
-    if (!mounted) return;
-    setState(() => _saving = false);
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Профиль обновлен (демо)')));
-    Navigator.of(context).pop();
+    try {
+      setState(() => _saving = true);
+
+      final payload = {
+        if (_firstname.text.trim().isNotEmpty) 'firstname': _firstname.text.trim(),
+        if (_lastname.text.trim().isNotEmpty) 'lastname': _lastname.text.trim(),
+        'bio': _bio.text.trim().isEmpty ? null : _bio.text.trim(),
+      };
+
+      final updatedUser = await _authRepository.updateProfile(payload);
+
+      // Вызываем callback для обновления пользователя в родительском виджете
+      widget.onUserUpdated?.call(updatedUser);
+
+      if (!mounted) return;
+
+      setState(() => _saving = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Профиль обновлен'),
+          backgroundColor: Color(0xFF10B981),
+        ),
+      );
+      Navigator.of(context).pop();
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _saving = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Ошибка при сохранении: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   void _showAvatarOptions() {

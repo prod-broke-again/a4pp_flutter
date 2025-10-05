@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/user.dart';
-import 'package:mobile/models/subscription.dart';
-import 'package:mobile/models/product.dart';
-import 'package:mobile/models/profile_response.dart';
+import 'package:achpp/models/user.dart';
+import 'package:achpp/models/subscription.dart';
+import 'package:achpp/models/product.dart';
+import 'package:achpp/models/profile_response.dart';
 import '../../widgets/app_drawer.dart';
-import 'package:mobile/services/auth_service.dart';
+import 'package:achpp/services/auth_service.dart';
 import '../courses/courses_screen.dart';
 import '../clubs/clubs_screen.dart';
 import '../meetings/meetings_screen.dart';

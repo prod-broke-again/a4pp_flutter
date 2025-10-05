@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:mobile/services/api_client.dart';
+import 'package:achpp/services/api_client.dart';
 
 class BlogRepository {
   final ApiClient _apiClient;

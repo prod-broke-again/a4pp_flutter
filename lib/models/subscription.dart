@@ -1,5 +1,5 @@
-import 'package:mobile/models/product.dart';
-import 'package:mobile/models/user.dart';
+import 'package:achpp/models/product.dart';
+import 'package:achpp/models/user.dart';
 
 class Subscription {
   final int id;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/video.dart';
-import 'package:mobile/models/video_folder.dart';
+import 'package:achpp/models/video.dart';
+import 'package:achpp/models/video_folder.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:mobile/services/video_service.dart';
-import 'package:mobile/screens/video_player/video_player_screen.dart';
-import 'package:mobile/widgets/app_drawer.dart';
+import 'package:achpp/services/video_service.dart';
+import 'package:achpp/screens/video_player/video_player_screen.dart';
+import 'package:achpp/widgets/app_drawer.dart';
 
 class VideoLibraryScreen extends StatefulWidget {
   final List<VideoFolder> rootFolders;

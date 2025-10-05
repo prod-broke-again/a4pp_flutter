@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/club.dart';
-import 'package:mobile/models/club_meeting.dart';
-import 'package:mobile/services/auth_service.dart';
-import 'package:mobile/widgets/donation_dialog.dart';
-import 'package:mobile/utils/intl_utils.dart';
+import 'package:achpp/models/club.dart';
+import 'package:achpp/models/club_meeting.dart';
+import 'package:achpp/services/auth_service.dart';
+import 'package:achpp/widgets/donation_dialog.dart';
+import 'package:achpp/utils/intl_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_html/flutter_html.dart';
 

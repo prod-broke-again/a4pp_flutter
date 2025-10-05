@@ -1,6 +1,6 @@
-import 'package:mobile/models/category.dart';
-import 'package:mobile/models/course.dart';
-import 'package:mobile/models/video_folder.dart';
+import 'package:achpp/models/category.dart';
+import 'package:achpp/models/course.dart';
+import 'package:achpp/models/video_folder.dart';
 
 class Video {
   final int id;

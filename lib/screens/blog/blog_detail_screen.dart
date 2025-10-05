@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/blog.dart';
-import 'package:mobile/models/user.dart';
-import 'package:mobile/services/blog_service.dart';
+import 'package:achpp/models/blog.dart';
+import 'package:achpp/models/user.dart';
+import 'package:achpp/services/blog_service.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_html/flutter_html.dart';
 import '../../widgets/app_drawer.dart';

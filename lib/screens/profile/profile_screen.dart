@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/user.dart';
-import 'package:mobile/models/subscription.dart';
-import 'package:mobile/models/product.dart';
-import 'package:mobile/models/profile_response.dart';
-import 'package:mobile/services/auth_service.dart';
-import 'package:mobile/models/transaction.dart';
+import 'package:achpp/models/user.dart';
+import 'package:achpp/models/subscription.dart';
+import 'package:achpp/models/product.dart';
+import 'package:achpp/models/profile_response.dart';
+import 'package:achpp/services/auth_service.dart';
+import 'package:achpp/models/transaction.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../widgets/app_drawer.dart';
 import '../settings/settings_screen.dart';
@@ -16,12 +16,14 @@ class ProfileScreen extends StatefulWidget {
   final User user;
   final SubscriptionStatus? subscriptionStatus;
   final List<Product> products;
+  final Function(User)? onUserUpdated;
 
   const ProfileScreen({
     super.key,
     required this.user,
     this.subscriptionStatus,
     this.products = const [],
+    this.onUserUpdated,
   });
 
   @override
@@ -38,6 +40,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     super.initState();
     _currentUser = widget.user;
+  }
+
+  void _updateUser(User updatedUser) {
+    setState(() {
+      _currentUser = updatedUser;
+    });
+    widget.onUserUpdated?.call(updatedUser);
   }
 
   Future<void> _loadProfile() async {
@@ -196,6 +205,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         user: _currentUser,
                         subscriptionStatus: widget.subscriptionStatus,
                         products: widget.products,
+                        onUserUpdated: _updateUser,
                       ),
                     ),
                   );

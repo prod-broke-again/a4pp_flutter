@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mobile/models/meeting.dart';
-import 'package:mobile/services/meeting_service.dart';
+import 'package:achpp/models/meeting.dart';
+import 'package:achpp/services/meeting_service.dart';
 
 class MeetingCreateScreen extends StatefulWidget {
   const MeetingCreateScreen({super.key});

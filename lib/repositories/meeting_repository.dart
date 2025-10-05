@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'dart:io';
-import 'package:mobile/services/api_client.dart';
+import 'package:achpp/services/api_client.dart';
 
 class MeetingRepository {
   final ApiClient _apiClient;

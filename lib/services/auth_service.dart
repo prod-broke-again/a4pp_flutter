@@ -1,6 +1,6 @@
-import 'package:mobile/repositories/auth_repository.dart';
-import 'package:mobile/models/user.dart';
-import 'package:mobile/models/profile_response.dart';
+import 'package:achpp/repositories/auth_repository.dart';
+import 'package:achpp/models/user.dart';
+import 'package:achpp/models/profile_response.dart';
 
 class AuthService {
   final AuthRepository _authRepository;
@@ -61,5 +61,40 @@ class AuthService {
 
   Future<Map<String, dynamic>> toggleFavorite({required int favorableId, required String favorableType}) async =>
       _authRepository.toggleFavorite(favorableId: favorableId, favorableType: favorableType);
+
+  // Balance methods
+  Future<Map<String, dynamic>> getCurrentBalance() async => _authRepository.getCurrentBalance();
+
+  Future<Map<String, dynamic>> generatePaymentLink({required double amount}) async =>
+      _authRepository.generatePaymentLink(amount: amount);
+
+  Future<Map<String, dynamic>> getTransactionStatus({required int transactionId}) async =>
+      _authRepository.getTransactionStatus(transactionId: transactionId);
+
+  // Subscription methods
+  Future<Map<String, dynamic>> getCurrentSubscription() async => _authRepository.getCurrentSubscription();
+
+  Future<List<Map<String, dynamic>>> getSubscriptionProducts() async => _authRepository.getSubscriptionProducts();
+
+  Future<Map<String, dynamic>> getSubscriptionPricing({required int productId}) async =>
+      _authRepository.getSubscriptionPricing(productId: productId);
+
+  Future<Map<String, dynamic>> purchaseSubscription({required int productId, required int durationMonths}) async =>
+      _authRepository.purchaseSubscription(productId: productId, durationMonths: durationMonths);
+
+  Future<Map<String, dynamic>> changeTariff({required int productId, required int durationMonths}) async =>
+      _authRepository.changeTariff(productId: productId, durationMonths: durationMonths);
+
+  Future<Map<String, dynamic>> getSubscriptionHistory({int page = 1, int perPage = 15}) async =>
+      _authRepository.getSubscriptionHistory(page: page, perPage: perPage);
+
+  Future<Map<String, dynamic>> extendSubscription({required int subscriptionId, required int months}) async =>
+      _authRepository.extendSubscription(subscriptionId: subscriptionId, months: months);
+
+  Future<Map<String, dynamic>> cancelSubscription({required int subscriptionId}) async =>
+      _authRepository.cancelSubscription(subscriptionId: subscriptionId);
+
+  Future<Map<String, dynamic>> activateTrial({required int productId}) async =>
+      _authRepository.activateTrial(productId: productId);
 
 }

@@ -1,7 +1,7 @@
-import 'package:mobile/models/blog.dart';
-import 'package:mobile/models/comment.dart';
-import 'package:mobile/repositories/blog_repository.dart';
-import 'package:mobile/services/comment_service.dart';
+import 'package:achpp/models/blog.dart';
+import 'package:achpp/models/comment.dart';
+import 'package:achpp/repositories/blog_repository.dart';
+import 'package:achpp/services/comment_service.dart';
 
 class BlogService {
   final BlogRepository _repository;

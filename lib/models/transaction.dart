@@ -1,4 +1,4 @@
-import 'package:mobile/models/user.dart';
+import 'package:achpp/models/user.dart';
 
 class Transaction {
   final int id;

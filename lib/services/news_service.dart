@@ -1,7 +1,7 @@
-import 'package:mobile/models/news.dart';
-import 'package:mobile/models/comment.dart';
-import 'package:mobile/repositories/news_repository.dart';
-import 'package:mobile/services/comment_service.dart';
+import 'package:achpp/models/news.dart';
+import 'package:achpp/models/comment.dart';
+import 'package:achpp/repositories/news_repository.dart';
+import 'package:achpp/services/comment_service.dart';
 
 class NewsService {
   final NewsRepository _repository;

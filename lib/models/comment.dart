@@ -1,4 +1,4 @@
-import 'package:mobile/models/user.dart';
+import 'package:achpp/models/user.dart';
 
 class Comment {
   final int id;

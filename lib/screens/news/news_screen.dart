@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/news.dart';
-import 'package:mobile/models/user.dart';
-import 'package:mobile/models/product.dart';
-import 'package:mobile/models/profile_response.dart';
-import 'package:mobile/services/news_service.dart';
+import 'package:achpp/models/news.dart';
+import 'package:achpp/models/user.dart';
+import 'package:achpp/models/product.dart';
+import 'package:achpp/models/profile_response.dart';
+import 'package:achpp/services/news_service.dart';
 import 'package:intl/intl.dart';
 import '../../widgets/app_drawer.dart';
 import 'news_detail_screen.dart';

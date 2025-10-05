@@ -1,5 +1,5 @@
-import 'package:mobile/models/category.dart';
-import 'package:mobile/models/user.dart';
+import 'package:achpp/models/category.dart';
+import 'package:achpp/models/user.dart';
 
 class Blog {
   final int id;

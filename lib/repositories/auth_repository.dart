@@ -1,6 +1,6 @@
-import 'package:mobile/models/user.dart';
-import 'package:mobile/models/profile_response.dart';
-import 'package:mobile/services/api_client.dart';
+import 'package:achpp/models/user.dart';
+import 'package:achpp/models/profile_response.dart';
+import 'package:achpp/services/api_client.dart';
 import 'package:dio/dio.dart';
 
 class AuthRepository {
@@ -99,6 +99,22 @@ class AuthRepository {
     }
   }
 
+  Future<User> updateProfile(Map<String, dynamic> data) async {
+    try {
+      final response = await _apiClient.dio.put('/profile', data: data);
+      if (response.statusCode == 200 && response.data['success'] == true) {
+        return User.fromJson(response.data['data']['user']);
+      }
+      throw Exception(response.data['message'] ?? 'Не удалось обновить профиль');
+    } on DioException catch (e) {
+      final normalized = e.error; // _NormalizedApiError
+      if (normalized is Object) {
+        return Future.error(normalized.toString());
+      }
+      return Future.error('Ошибка сети. Повторите попытку.');
+    }
+  }
+
   Future<Map<String, dynamic>> getTransactions({int page = 1, int perPage = 15}) async {
     try {
       final response = await _apiClient.dio.get('/profile/transactions', queryParameters: {
@@ -109,6 +125,50 @@ class AuthRepository {
         return Map<String, dynamic>.from(response.data['data']);
       }
       throw Exception(response.data['message'] ?? 'Не удалось загрузить транзакции');
+    } on DioException catch (e) {
+      final normalized = e.error;
+      if (normalized is Object) return Future.error(normalized.toString());
+      return Future.error('Ошибка сети. Повторите попытку.');
+    }
+  }
+
+  Future<Map<String, dynamic>> getCurrentBalance() async {
+    try {
+      final response = await _apiClient.dio.get('/balance/current');
+      if (response.statusCode == 200 && response.data['success'] == true) {
+        return Map<String, dynamic>.from(response.data['data']);
+      }
+      throw Exception(response.data['message'] ?? 'Не удалось загрузить баланс');
+    } on DioException catch (e) {
+      final normalized = e.error;
+      if (normalized is Object) return Future.error(normalized.toString());
+      return Future.error('Ошибка сети. Повторите попытку.');
+    }
+  }
+
+  Future<Map<String, dynamic>> generatePaymentLink({required double amount}) async {
+    try {
+      final response = await _apiClient.dio.post('/balance/generate-payment-link', data: {
+        'amount': amount,
+      });
+      if (response.statusCode == 200 && response.data['success'] == true) {
+        return Map<String, dynamic>.from(response.data['data']);
+      }
+      throw Exception(response.data['message'] ?? 'Не удалось сгенерировать ссылку оплаты');
+    } on DioException catch (e) {
+      final normalized = e.error;
+      if (normalized is Object) return Future.error(normalized.toString());
+      return Future.error('Ошибка сети. Повторите попытку.');
+    }
+  }
+
+  Future<Map<String, dynamic>> getTransactionStatus({required int transactionId}) async {
+    try {
+      final response = await _apiClient.dio.get('/balance/transaction/$transactionId/status');
+      if (response.statusCode == 200 && response.data['success'] == true) {
+        return Map<String, dynamic>.from(response.data['data']);
+      }
+      throw Exception(response.data['message'] ?? 'Не удалось получить статус транзакции');
     } on DioException catch (e) {
       final normalized = e.error;
       if (normalized is Object) return Future.error(normalized.toString());
@@ -300,6 +360,135 @@ class AuthRepository {
         return Map<String, dynamic>.from(response.data['data']);
       }
       throw Exception(response.data['message'] ?? 'Не удалось загрузить текущую подписку');
+    } on DioException catch (e) {
+      final normalized = e.error;
+      if (normalized is Object) return Future.error(normalized.toString());
+      return Future.error('Ошибка сети. Повторите попытку.');
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getSubscriptionProducts() async {
+    try {
+      final response = await _apiClient.dio.get('/subscriptions/products');
+      if (response.statusCode == 200 && response.data['success'] == true) {
+        final data = response.data['data'];
+        if (data is List) {
+          return data.map((item) => Map<String, dynamic>.from(item)).toList();
+        }
+        return [];
+      }
+      throw Exception(response.data['message'] ?? 'Не удалось загрузить тарифы');
+    } on DioException catch (e) {
+      final normalized = e.error;
+      if (normalized is Object) return Future.error(normalized.toString());
+      return Future.error('Ошибка сети. Повторите попытку.');
+    }
+  }
+
+  Future<Map<String, dynamic>> getSubscriptionPricing({required int productId}) async {
+    try {
+      final response = await _apiClient.dio.get('/subscriptions/pricing/$productId');
+      if (response.statusCode == 200 && response.data['success'] == true) {
+        return Map<String, dynamic>.from(response.data['data']);
+      }
+      throw Exception(response.data['message'] ?? 'Не удалось загрузить цены');
+    } on DioException catch (e) {
+      final normalized = e.error;
+      if (normalized is Object) return Future.error(normalized.toString());
+      return Future.error('Ошибка сети. Повторите попытку.');
+    }
+  }
+
+  Future<Map<String, dynamic>> purchaseSubscription({required int productId, required int durationMonths}) async {
+    try {
+      final response = await _apiClient.dio.post('/subscriptions/purchase', data: {
+        'product_id': productId,
+        'duration_months': durationMonths,
+      });
+      if (response.statusCode == 200 && response.data['success'] == true) {
+        return Map<String, dynamic>.from(response.data['data']);
+      }
+      throw Exception(response.data['message'] ?? 'Не удалось купить подписку');
+    } on DioException catch (e) {
+      final normalized = e.error;
+      if (normalized is Object) return Future.error(normalized.toString());
+      return Future.error('Ошибка сети. Повторите попытку.');
+    }
+  }
+
+  Future<Map<String, dynamic>> changeTariff({required int productId, required int durationMonths}) async {
+    try {
+      final response = await _apiClient.dio.post('/subscriptions/change-tariff', data: {
+        'product_id': productId,
+        'duration_months': durationMonths,
+      });
+      if (response.statusCode == 200 && response.data['success'] == true) {
+        return Map<String, dynamic>.from(response.data['data']);
+      }
+      throw Exception(response.data['message'] ?? 'Не удалось сменить тариф');
+    } on DioException catch (e) {
+      final normalized = e.error;
+      if (normalized is Object) return Future.error(normalized.toString());
+      return Future.error('Ошибка сети. Повторите попытку.');
+    }
+  }
+
+  Future<Map<String, dynamic>> getSubscriptionHistory({int page = 1, int perPage = 15}) async {
+    try {
+      final response = await _apiClient.dio.get('/subscriptions/history', queryParameters: {
+        'page': page,
+        'per_page': perPage,
+      });
+      if (response.statusCode == 200 && response.data['success'] == true) {
+        return Map<String, dynamic>.from(response.data['data']);
+      }
+      throw Exception(response.data['message'] ?? 'Не удалось загрузить историю подписок');
+    } on DioException catch (e) {
+      final normalized = e.error;
+      if (normalized is Object) return Future.error(normalized.toString());
+      return Future.error('Ошибка сети. Повторите попытку.');
+    }
+  }
+
+  Future<Map<String, dynamic>> extendSubscription({required int subscriptionId, required int months}) async {
+    try {
+      final response = await _apiClient.dio.post('/subscriptions/$subscriptionId/extend', data: {
+        'months': months,
+      });
+      if (response.statusCode == 200 && response.data['success'] == true) {
+        return Map<String, dynamic>.from(response.data['data']);
+      }
+      throw Exception(response.data['message'] ?? 'Не удалось продлить подписку');
+    } on DioException catch (e) {
+      final normalized = e.error;
+      if (normalized is Object) return Future.error(normalized.toString());
+      return Future.error('Ошибка сети. Повторите попытку.');
+    }
+  }
+
+  Future<Map<String, dynamic>> cancelSubscription({required int subscriptionId}) async {
+    try {
+      final response = await _apiClient.dio.post('/subscriptions/$subscriptionId/cancel');
+      if (response.statusCode == 200 && response.data['success'] == true) {
+        return Map<String, dynamic>.from(response.data['data']);
+      }
+      throw Exception(response.data['message'] ?? 'Не удалось отменить подписку');
+    } on DioException catch (e) {
+      final normalized = e.error;
+      if (normalized is Object) return Future.error(normalized.toString());
+      return Future.error('Ошибка сети. Повторите попытку.');
+    }
+  }
+
+  Future<Map<String, dynamic>> activateTrial({required int productId}) async {
+    try {
+      final response = await _apiClient.dio.post('/subscriptions/activate-trial', data: {
+        'product_id': productId,
+      });
+      if (response.statusCode == 200 && response.data['success'] == true) {
+        return Map<String, dynamic>.from(response.data['data']);
+      }
+      throw Exception(response.data['message'] ?? 'Не удалось активировать пробную подписку');
     } on DioException catch (e) {
       final normalized = e.error;
       if (normalized is Object) return Future.error(normalized.toString());

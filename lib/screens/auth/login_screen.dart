@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:io' show Platform;
-import 'package:mobile/blocs/auth/auth_bloc.dart';
-import 'package:mobile/repositories/auth_repository.dart';
+import 'package:achpp/blocs/auth/auth_bloc.dart';
+import 'package:achpp/repositories/auth_repository.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

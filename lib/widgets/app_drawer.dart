@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/user.dart';
-import 'package:mobile/models/subscription.dart';
-import 'package:mobile/models/product.dart';
-import 'package:mobile/models/profile_response.dart';
-import 'package:mobile/services/auth_service.dart';
+import 'package:achpp/models/user.dart';
+import 'package:achpp/models/subscription.dart';
+import 'package:achpp/models/product.dart';
+import 'package:achpp/models/profile_response.dart';
+import 'package:achpp/services/auth_service.dart';
 import '../screens/courses/courses_screen.dart';
 import '../screens/clubs/clubs_screen.dart';
 import '../screens/meetings/meetings_screen.dart';
@@ -26,6 +26,7 @@ class AppDrawer extends StatefulWidget {
   final int currentIndex;
   final Function(int) onIndexChanged;
   final Function(int)? onUnreadCountChanged;
+  final Function(User)? onUserUpdated;
 
   const AppDrawer({
     super.key,
@@ -37,6 +38,7 @@ class AppDrawer extends StatefulWidget {
     required this.currentIndex,
     required this.onIndexChanged,
     this.onUnreadCountChanged,
+    this.onUserUpdated,
   });
 
   @override
@@ -44,6 +46,10 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
+  void _updateUser(User updatedUser) {
+    widget.onUserUpdated?.call(updatedUser);
+  }
+
   @override
   Widget build(BuildContext context) {
     print('🔍 AppDrawer.build: user = ${widget.user?.email ?? 'null'}');
@@ -192,6 +198,7 @@ class _AppDrawerState extends State<AppDrawer> {
                                 user: widget.user!,
                                 subscriptionStatus: widget.subscriptionStatus,
                                 products: widget.products,
+                                onUserUpdated: _updateUser,
                               ),
                             ),
                           );

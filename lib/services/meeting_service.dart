@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:mobile/models/meeting.dart';
-import 'package:mobile/repositories/meeting_repository.dart';
+import 'package:achpp/models/meeting.dart';
+import 'package:achpp/repositories/meeting_repository.dart';
 
 class MeetingService {
   final MeetingRepository _repository;

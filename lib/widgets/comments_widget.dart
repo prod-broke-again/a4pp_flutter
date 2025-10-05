@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/comment.dart';
-import 'package:mobile/models/user.dart';
-import 'package:mobile/services/comment_service.dart';
+import 'package:achpp/models/comment.dart';
+import 'package:achpp/models/user.dart';
+import 'package:achpp/services/comment_service.dart';
 import 'package:intl/intl.dart';
 
 // TODO: Добавить переключатель темной темы в настройки приложения
