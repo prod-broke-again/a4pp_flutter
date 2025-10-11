@@ -333,7 +333,7 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Theme.of(context).colorScheme.outline),
+        border: Border.all(color: Theme.of(context).colorScheme.outline.withOpacity(0.5)),
       ),
       child: InkWell(
         onTap: () => _navigateToFolder(folder),
@@ -360,7 +360,7 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
                       overflow: TextOverflow.visible,
                     ),
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(left: 8.0, top: 2.0),
                     child: Icon(
                       Icons.chevron_right,
@@ -445,8 +445,9 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
     return Container(
       margin: EdgeInsets.zero,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainer,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Theme.of(context).colorScheme.outline.withOpacity(0.5)),
       ),
       child: InkWell(
         onTap: () {
@@ -550,12 +551,12 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
                     child: Container(
                       padding: const EdgeInsets.all(6),
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.7),
+                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.lock,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.surface,
                         size: 16,
                       ),
                     ),
