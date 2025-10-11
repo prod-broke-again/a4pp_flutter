@@ -235,7 +235,7 @@ class _NewsScreenState extends State<NewsScreen> {
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.menu, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
+          icon: Icon(Icons.menu, color: Theme.of(context).colorScheme.onPrimary),
           onPressed: () => _scaffoldKey.currentState?.openDrawer(),
         ),
         title: Text(
@@ -272,11 +272,11 @@ class _NewsScreenState extends State<NewsScreen> {
                 style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                 decoration: InputDecoration(
                   hintText: 'Поиск новостей...',
-                  hintStyle: const TextStyle(color: Colors.grey),
-                  prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                  hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  prefixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.onSurfaceVariant),
                   suffixIcon: _searchQuery.isNotEmpty
                       ? IconButton(
-                          icon: const Icon(Icons.clear, color: Colors.grey),
+                          icon: Icon(Icons.clear, color: Theme.of(context).colorScheme.onSurfaceVariant),
                           onPressed: () {
                             _searchController.clear();
                             _performSearch('');
@@ -551,14 +551,14 @@ class _NewsScreenState extends State<NewsScreen> {
                               children: [
                                 Icon(
                                   newsItem.isLiked ? Icons.thumb_up : Icons.thumb_up_outlined,
-                                  color: newsItem.isLiked ? Colors.blue : Colors.grey,
+                                  color: newsItem.isLiked ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurfaceVariant,
                                   size: 16,
                                 ),
                                 const SizedBox(width: 2),
                                 Text(
                                   newsItem.likesCount.toString(),
                                   style: TextStyle(
-                                    color: newsItem.isLiked ? Colors.blue : Colors.grey,
+                                    color: newsItem.isLiked ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurfaceVariant,
                                     fontSize: 12,
                                   ),
                                 ),
@@ -573,14 +573,14 @@ class _NewsScreenState extends State<NewsScreen> {
                               children: [
                                 Icon(
                                   newsItem.isDisliked ? Icons.thumb_down : Icons.thumb_down_outlined,
-                                  color: newsItem.isDisliked ? Colors.red : Colors.grey,
+                                  color: newsItem.isDisliked ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.onSurfaceVariant,
                                   size: 16,
                                 ),
                                 const SizedBox(width: 2),
                                 Text(
                                   newsItem.dislikesCount.toString(),
                                   style: TextStyle(
-                                    color: newsItem.isDisliked ? Colors.red : Colors.grey,
+                                    color: newsItem.isDisliked ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.onSurfaceVariant,
                                     fontSize: 12,
                                   ),
                                 ),
@@ -591,23 +591,23 @@ class _NewsScreenState extends State<NewsScreen> {
                         ],
                       ),
                       // Просмотры
-                      const Icon(Icons.visibility, color: Colors.grey, size: 16),
+                      Icon(Icons.visibility, color: Theme.of(context).colorScheme.onSurfaceVariant, size: 16),
                       const SizedBox(width: 4),
                       Text(
                         newsItem.viewsCount.toString(),
-                        style: const TextStyle(
-                          color: Colors.grey,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                           fontSize: 12,
                         ),
                       ),
                       const SizedBox(width: 12),
                       // Комментарии
-                      const Icon(Icons.chat_bubble_outline, color: Colors.grey, size: 16),
+                      Icon(Icons.chat_bubble_outline, color: Theme.of(context).colorScheme.onSurfaceVariant, size: 16),
                       const SizedBox(width: 4),
                       Text(
                         newsItem.commentsCount.toString(),
-                        style: const TextStyle(
-                          color: Colors.grey,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                           fontSize: 12,
                         ),
                       ),

@@ -155,7 +155,6 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
       key: _scaffoldKey,
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
           icon: Icon(

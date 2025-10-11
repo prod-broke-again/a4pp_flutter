@@ -151,13 +151,16 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.menu, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
+          icon: Icon(Icons.menu, color: Theme.of(context).colorScheme.onPrimary),
           onPressed: () => _scaffoldKey.currentState?.openDrawer(),
         ),
-        title: const Text('Новость'),
+        title: Text(
+          'Новость',
+          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+        ),
         actions: [
           IconButton(
-            icon: Icon(Icons.arrow_back, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
+            icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onPrimary),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ],
@@ -276,9 +279,9 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                         color: Theme.of(context).colorScheme.surfaceContainer,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.image_not_supported,
-                        color: Colors.grey,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                         size: 48,
                       ),
                     ),
@@ -292,7 +295,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                 data: news.content,
                 style: {
                   'body': Style(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: FontSize(16),
                     lineHeight: LineHeight.number(1.6),
                   ),
@@ -300,19 +303,19 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                     margin: Margins.only(bottom: 12),
                   ),
                   'h1': Style(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: FontSize(24),
                     fontWeight: FontWeight.bold,
                     margin: Margins.only(bottom: 12, top: 20),
                   ),
                   'h2': Style(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: FontSize(20),
                     fontWeight: FontWeight.bold,
                     margin: Margins.only(bottom: 12, top: 16),
                   ),
                   'h3': Style(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: FontSize(18),
                     fontWeight: FontWeight.w600,
                     margin: Margins.only(bottom: 8, top: 12),
@@ -321,7 +324,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                     margin: Margins.only(bottom: 12),
                   ),
                   'li': Style(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onSurface,
                     margin: Margins.only(bottom: 4),
                   ),
                   'a': Style(
@@ -377,14 +380,14 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                               children: [
                                 Icon(
                                   news.isLiked ? Icons.thumb_up : Icons.thumb_up_outlined,
-                                  color: news.isLiked ? Colors.blue : Colors.grey,
+                                  color: news.isLiked ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurfaceVariant,
                                   size: 20,
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
                                   news.likesCount.toString(),
                                   style: TextStyle(
-                                    color: news.isLiked ? Colors.blue : Colors.grey,
+                                    color: news.isLiked ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurfaceVariant,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -410,14 +413,14 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                               children: [
                                 Icon(
                                   news.isDisliked ? Icons.thumb_down : Icons.thumb_down_outlined,
-                                  color: news.isDisliked ? Colors.red : Colors.grey,
+                                  color: news.isDisliked ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.onSurfaceVariant,
                                   size: 20,
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
                                   news.dislikesCount.toString(),
                                   style: TextStyle(
-                                    color: news.isDisliked ? Colors.red : Colors.grey,
+                                    color: news.isDisliked ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.onSurfaceVariant,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
                                   ),

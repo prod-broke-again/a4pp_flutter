@@ -4,8 +4,7 @@ import 'package:achpp/models/user.dart';
 import 'package:achpp/services/comment_service.dart';
 import 'package:intl/intl.dart';
 
-// TODO: Добавить переключатель темной темы в настройки приложения
-// Нужно создать ThemeProvider и интегрировать его во все компоненты
+// Комментарии теперь полностью поддерживают светлую и темную темы
 
 enum CommentSort { newest, oldest, popular }
 
@@ -316,26 +315,26 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
     final sortedComments = _getSortedComments();
 
     return Container(
-      color: const Color(0xFF1A1A1A),
+      color: Theme.of(context).colorScheme.background,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Заголовок с количеством комментариев и сортировкой
           Container(
             padding: const EdgeInsets.all(16),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               border: Border(
-                bottom: BorderSide(color: Color(0xFF374151), width: 1),
+                bottom: BorderSide(color: Theme.of(context).colorScheme.outline, width: 1),
               ),
             ),
             child: Row(
               children: [
-                const Icon(Icons.comment, color: Colors.grey),
+                Icon(Icons.comment, color: Theme.of(context).colorScheme.onSurfaceVariant),
                 const SizedBox(width: 8),
                 Text(
                   '${widget.commentsCount} ${_getCommentsText(widget.commentsCount)}',
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                   ),
@@ -346,17 +345,17 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                     onPressed: () {
                       showModalBottomSheet(
                         context: context,
-                        backgroundColor: const Color(0xFF2D2D2D),
+                        backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
                         builder: (context) {
                           return Container(
                             padding: const EdgeInsets.all(16),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const Text(
+                                Text(
                                   'Сортировка комментариев',
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: Theme.of(context).colorScheme.onSurface,
                                     fontSize: 18,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -365,11 +364,11 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                                 ListTile(
                                   leading: Icon(
                                     _sortBy == CommentSort.newest ? Icons.check : null,
-                                    color: Colors.white,
+                                    color: Theme.of(context).colorScheme.onSurface,
                                   ),
-                                  title: const Text(
+                                  title: Text(
                                     'Сначала новые',
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                                   ),
                                   onTap: () {
                                     setState(() {
@@ -381,11 +380,11 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                                 ListTile(
                                   leading: Icon(
                                     _sortBy == CommentSort.oldest ? Icons.check : null,
-                                    color: Colors.white,
+                                    color: Theme.of(context).colorScheme.onSurface,
                                   ),
-                                  title: const Text(
+                                  title: Text(
                                     'Сначала старые',
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                                   ),
                                   onTap: () {
                                     setState(() {
@@ -397,11 +396,11 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                                 ListTile(
                                   leading: Icon(
                                     _sortBy == CommentSort.popular ? Icons.check : null,
-                                    color: Colors.white,
+                                    color: Theme.of(context).colorScheme.onSurface,
                                   ),
-                                  title: const Text(
+                                  title: Text(
                                     'По популярности',
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                                   ),
                                   onTap: () {
                                     setState(() {
@@ -416,9 +415,9 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                         },
                       );
                     },
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.sort,
-                      color: Colors.grey,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                       size: 24,
                     ),
                     tooltip: 'Сортировка',
@@ -447,15 +446,15 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                   children: [
                     Text(
                       'Ошибка загрузки комментариев: $_error',
-                      style: const TextStyle(color: Colors.red),
+                      style: TextStyle(color: Theme.of(context).colorScheme.error),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 12),
                     ElevatedButton(
                       onPressed: () => _loadComments(reset: true),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF8B5CF6),
-                        foregroundColor: Colors.white,
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        foregroundColor: Theme.of(context).colorScheme.onPrimary,
                       ),
                       child: const Text('Повторить'),
                     ),
@@ -560,7 +559,7 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
             margin: const EdgeInsets.only(right: 12),
             child: CircleAvatar(
               radius: 20,
-              backgroundColor: const Color(0xFF8B5CF6),
+              backgroundColor: Theme.of(context).colorScheme.primary,
               backgroundImage: _currentUser?.avatar != null
                   ? NetworkImage(_currentUser!.avatar!)
                   : null,
@@ -569,8 +568,8 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                       _currentUser?.fullName.isNotEmpty == true
                           ? _currentUser!.fullName[0].toUpperCase()
                           : '?',
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
@@ -587,30 +586,30 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                   controller: _commentController,
                   focusNode: _commentFocusNode,
                   maxLines: _commentFocusNode.hasFocus ? 4 : 1,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 14,
                   ),
                   decoration: InputDecoration(
                     hintText: 'Поделитесь своими мыслями...',
                     hintStyle: TextStyle(
-                      color: Colors.grey[400],
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                       fontSize: 14,
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
-                      borderSide: const BorderSide(color: Color(0xFF374151)),
+                      borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
-                      borderSide: const BorderSide(color: Color(0xFF374151)),
+                      borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
-                      borderSide: const BorderSide(color: Color(0xFF8B5CF6)),
+                      borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
                     ),
                     filled: true,
-                    fillColor: const Color(0xFF2D2D2D),
+                    fillColor: Theme.of(context).colorScheme.surfaceContainer,
                     contentPadding: const EdgeInsets.all(12),
                   ),
                   onChanged: (value) {
@@ -629,14 +628,14 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                           margin: const EdgeInsets.only(top: 8),
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF374151),
+                            color: Theme.of(context).colorScheme.surfaceContainerHighest,
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Row(
                             children: [
                               Icon(
                                 Icons.info_outline,
-                                color: Colors.grey[300],
+                                color: Theme.of(context).colorScheme.onSurfaceVariant,
                                 size: 16,
                               ),
                               const SizedBox(width: 8),
@@ -644,7 +643,7 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                                 child: Text(
                                   'Комментарий будет опубликован после проверки модератором',
                                   style: TextStyle(
-                                    color: Colors.grey[300],
+                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                                     fontSize: 12,
                                   ),
                                 ),
@@ -653,8 +652,8 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                                 '${_commentController.text.length}/2000',
                                 style: TextStyle(
                                   color: _commentController.text.length > 2000
-                                      ? Colors.red
-                                      : Colors.grey[400],
+                                      ? Theme.of(context).colorScheme.error
+                                      : Theme.of(context).colorScheme.onSurfaceVariant,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -685,36 +684,42 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                                     setState(() {});
                                   },
                                   style: TextButton.styleFrom(
-                                    foregroundColor: Colors.grey,
+                                    foregroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
+                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                                    minimumSize: Size.zero,
+                                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                   ),
-                                  child: const Text('Очистить'),
+                                  child: const Text('Очистить', style: TextStyle(fontSize: 14)),
                                 ),
-                              const SizedBox(width: 8),
-                              ElevatedButton.icon(
+                              const SizedBox(width: 4),
+                              ElevatedButton(
                                 onPressed: _isSubmitting ||
                                     _commentController.text.trim().isEmpty ||
                                     _commentController.text.length > 2000
                                     ? null
                                     : _submitComment,
-                                icon: _isSubmitting
-                                    ? SizedBox(
-                                        width: 16,
-                                        height: 16,
-                                        child: const CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                                        ),
-                                      )
-                                    : const Icon(Icons.send, size: 16),
-                                label: Text(_isSubmitting ? 'Отправка...' : 'Комментировать'),
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF8B5CF6),
-                                  foregroundColor: Colors.white,
-                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                  backgroundColor: Theme.of(context).colorScheme.primary,
+                                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                  minimumSize: Size.zero,
+                                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(6),
                                   ),
                                 ),
+                                child: _isSubmitting
+                                    ? SizedBox(
+                                        width: 16,
+                                        height: 16,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                          valueColor: AlwaysStoppedAnimation<Color>(
+                                            Theme.of(context).colorScheme.onPrimary,
+                                          ),
+                                        ),
+                                      )
+                                    : Text('Отправить', style: TextStyle(fontSize: 14)),
                               ),
                             ],
                           ),
@@ -740,20 +745,20 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
               width: 64,
               height: 64,
               decoration: BoxDecoration(
-                color: const Color(0xFF374151),
+                color: Theme.of(context).colorScheme.surfaceContainer,
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.forum_outlined,
-                color: Colors.grey,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
                 size: 32,
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'Пока нет комментариев',
               style: TextStyle(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.onSurface,
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
               ),
@@ -762,7 +767,7 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
             Text(
               'Станьте первым, кто оставит комментарий!',
               style: TextStyle(
-                color: Colors.grey[400],
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
                 fontSize: 14,
               ),
               textAlign: TextAlign.center,
@@ -776,9 +781,9 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
   Widget _buildCommentItem(Comment comment) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: Color(0xFF374151), width: 1),
+          bottom: BorderSide(color: Theme.of(context).colorScheme.outline, width: 1),
         ),
       ),
       child: Padding(
@@ -792,7 +797,7 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                 // Аватар
                 CircleAvatar(
                   radius: 20,
-                  backgroundColor: const Color(0xFF8B5CF6),
+                  backgroundColor: Theme.of(context).colorScheme.primary,
                   backgroundImage: comment.user?.avatar != null
                       ? NetworkImage(comment.user!.avatar!)
                       : null,
@@ -801,8 +806,8 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                           comment.user?.fullName.isNotEmpty == true
                               ? comment.user!.fullName[0].toUpperCase()
                               : '?',
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onPrimary,
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
@@ -818,8 +823,8 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                     children: [
                       Text(
                         comment.user?.fullName ?? 'Пользователь',
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
                         ),
@@ -827,7 +832,7 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                       Text(
                         _formatDate(comment.createdAt),
                         style: TextStyle(
-                          color: Colors.grey[400],
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                           fontSize: 12,
                         ),
                       ),
@@ -845,8 +850,8 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                     ),
                     child: Text(
                       _getStatusText(comment.status),
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
                         fontSize: 10,
                         fontWeight: FontWeight.w500,
                       ),
@@ -861,8 +866,8 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
             // Текст комментария
             Text(
               comment.content,
-              style: const TextStyle(
-                color: Colors.white,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface,
                 fontSize: 14,
                 height: 1.5,
               ),
@@ -880,14 +885,14 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                     children: [
                       Icon(
                         comment.isLiked ? Icons.favorite : Icons.favorite_border,
-                        color: comment.isLiked ? Colors.red : Colors.grey,
+                        color: comment.isLiked ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.onSurfaceVariant,
                         size: 18,
                       ),
                       const SizedBox(width: 4),
                       Text(
                         comment.likesCount.toString(),
                         style: TextStyle(
-                          color: comment.isLiked ? Colors.red : Colors.grey,
+                          color: comment.isLiked ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.onSurfaceVariant,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
@@ -915,10 +920,10 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                       }
                     });
                   },
-                  child: Text(
+                  child:                   Text(
                     'Ответить',
                     style: TextStyle(
-                      color: _replyingToComment == comment ? const Color(0xFF8B5CF6) : Colors.grey[400],
+                      color: _replyingToComment == comment ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurfaceVariant,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
@@ -933,8 +938,8 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2D2D2D),
-                  border: Border.all(color: const Color(0xFF374151)),
+                  color: Theme.of(context).colorScheme.surfaceContainer,
+                  border: Border.all(color: Theme.of(context).colorScheme.outline),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Column(
@@ -945,7 +950,7 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                         // Аватар текущего пользователя
                         CircleAvatar(
                           radius: 16,
-                          backgroundColor: const Color(0xFF8B5CF6),
+                          backgroundColor: Theme.of(context).colorScheme.primary,
                           backgroundImage: _currentUser?.avatar != null
                               ? NetworkImage(_currentUser!.avatar!)
                               : null,
@@ -954,8 +959,8 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                                   _currentUser?.fullName.isNotEmpty == true
                                       ? _currentUser!.fullName[0].toUpperCase()
                                       : '?',
-                                  style: const TextStyle(
-                                    color: Colors.white,
+                                  style: TextStyle(
+                                    color: Theme.of(context).colorScheme.onPrimary,
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -968,26 +973,26 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                             controller: _replyController,
                             focusNode: _replyFocusNode,
                             maxLines: 3,
-                            style: const TextStyle(
-                              color: Colors.white,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
                               fontSize: 14,
                             ),
                             decoration: InputDecoration(
                               hintText: 'Напишите ответ...',
                               hintStyle: TextStyle(
-                                color: Colors.grey[400],
+                                color: Theme.of(context).colorScheme.onSurfaceVariant,
                                 fontSize: 14,
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(6),
-                                borderSide: const BorderSide(color: Color(0xFF374151)),
+                                borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(6),
-                                borderSide: const BorderSide(color: Color(0xFF8B5CF6)),
+                                borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
                               ),
                               filled: true,
-                              fillColor: const Color(0xFF1A1A1A),
+                              fillColor: Theme.of(context).colorScheme.surfaceContainerLowest,
                               contentPadding: const EdgeInsets.all(12),
                             ),
                             onChanged: (_) => setState(() {}),
@@ -1006,6 +1011,9 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                               _replyController.clear();
                             });
                           },
+                          style: TextButton.styleFrom(
+                            foregroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
                           child: const Text('Отмена'),
                         ),
                         const SizedBox(width: 8),
@@ -1014,20 +1022,22 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                               ? null
                               : () => _submitReply(comment.id),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF8B5CF6),
-                            foregroundColor: Colors.white,
+                            backgroundColor: Theme.of(context).colorScheme.primary,
+                            foregroundColor: Theme.of(context).colorScheme.onPrimary,
                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6),
                             ),
                           ),
                           child: _isReplying
-                              ? const SizedBox(
+                              ? SizedBox(
                                   width: 16,
                                   height: 16,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2,
-                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      Theme.of(context).colorScheme.onPrimary,
+                                    ),
                                   ),
                                 )
                               : const Text('Ответить'),
@@ -1060,12 +1070,12 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
         margin: const EdgeInsets.only(top: 12, left: 32),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: const Color(0xFF2D2D2D),
+          color: Theme.of(context).colorScheme.surfaceContainer,
           border: Border(
-            top: BorderSide(color: const Color(0xFF374151), width: 1),
-            right: BorderSide(color: const Color(0xFF374151), width: 1),
-            bottom: BorderSide(color: const Color(0xFF374151), width: 1),
-            left: BorderSide(color: const Color(0xFF8B5CF6), width: 3),
+            top: BorderSide(color: Theme.of(context).colorScheme.outline, width: 1),
+            right: BorderSide(color: Theme.of(context).colorScheme.outline, width: 1),
+            bottom: BorderSide(color: Theme.of(context).colorScheme.outline, width: 1),
+            left: BorderSide(color: Theme.of(context).colorScheme.primary, width: 3),
           ),
         ),
         child: Column(
@@ -1076,7 +1086,7 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
               children: [
                 CircleAvatar(
                   radius: 14,
-                  backgroundColor: const Color(0xFF8B5CF6),
+                  backgroundColor: Theme.of(context).colorScheme.primary,
                   backgroundImage: reply.user?.avatar != null
                       ? NetworkImage(reply.user!.avatar!)
                       : null,
@@ -1085,8 +1095,8 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                           reply.user?.fullName.isNotEmpty == true
                               ? reply.user!.fullName[0].toUpperCase()
                               : '?',
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onPrimary,
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
                           ),
@@ -1100,8 +1110,8 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                     children: [
                       Text(
                         reply.user?.fullName ?? 'Пользователь',
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                         ),
@@ -1109,7 +1119,7 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                       Text(
                         _formatDate(reply.createdAt),
                         style: TextStyle(
-                          color: Colors.grey[400],
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                           fontSize: 10,
                         ),
                       ),
@@ -1127,8 +1137,8 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                     ),
                     child: Text(
                       _getStatusText(reply.status),
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
                         fontSize: 8,
                         fontWeight: FontWeight.w500,
                       ),
@@ -1143,8 +1153,8 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
             // Содержимое ответа
             Text(
               reply.content,
-              style: const TextStyle(
-                color: Colors.white,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface,
                 fontSize: 13,
                 height: 1.4,
               ),
@@ -1159,14 +1169,14 @@ class _CommentsWidgetState extends State<CommentsWidget> with TickerProviderStat
                 children: [
                   Icon(
                     reply.isLiked ? Icons.favorite : Icons.favorite_border,
-                    color: reply.isLiked ? Colors.red : Colors.grey,
+                    color: reply.isLiked ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.onSurfaceVariant,
                     size: 14,
                   ),
                   const SizedBox(width: 4),
                   Text(
                     reply.likesCount.toString(),
                     style: TextStyle(
-                      color: reply.isLiked ? Colors.red : Colors.grey,
+                      color: reply.isLiked ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.onSurfaceVariant,
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                     ),
