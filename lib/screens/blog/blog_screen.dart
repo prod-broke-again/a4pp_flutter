@@ -120,7 +120,7 @@ class _BlogScreenState extends State<BlogScreen> {
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.menu, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
+          icon: Icon(Icons.menu, color: Theme.of(context).colorScheme.onPrimary),
           onPressed: () => _scaffoldKey.currentState?.openDrawer(),
         ),
         title: Text(
@@ -222,10 +222,10 @@ class _BlogScreenState extends State<BlogScreen> {
                                     ),
                                   ),
                                   const SizedBox(height: 24),
-                                  const Text(
+                                  Text(
                                     '📚 Блог',
                                     style: TextStyle(
-                                      color: Colors.white,
+                                      color: Theme.of(context).colorScheme.onSurface,
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -422,22 +422,22 @@ class _BlogScreenState extends State<BlogScreen> {
                   const Spacer(),
                   Row(
                     children: [
-                      const Icon(Icons.visibility, color: Colors.grey, size: 16),
+                      Icon(Icons.visibility, color: Theme.of(context).colorScheme.onSurfaceVariant, size: 16),
                       const SizedBox(width: 4),
                       Text(
                         post.viewsCount.toString(),
-                        style: const TextStyle(
-                          color: Colors.grey,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                           fontSize: 12,
                         ),
                       ),
                       const SizedBox(width: 16),
-                      const Icon(Icons.thumb_up, color: Colors.grey, size: 16),
+                      Icon(Icons.thumb_up, color: Theme.of(context).colorScheme.onSurfaceVariant, size: 16),
                       const SizedBox(width: 4),
                       Text(
                         post.likesCount.toString(),
-                        style: const TextStyle(
-                          color: Colors.grey,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                           fontSize: 12,
                         ),
                       ),

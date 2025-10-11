@@ -142,13 +142,16 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.menu, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
+          icon: Icon(Icons.menu, color: Theme.of(context).colorScheme.onPrimary),
           onPressed: () => _scaffoldKey.currentState?.openDrawer(),
         ),
-        title: const Text('Блог'),
+        title: Text(
+          'Блог',
+          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+        ),
         actions: [
           IconButton(
-            icon: Icon(Icons.arrow_back, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
+            icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onPrimary),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ],
@@ -169,8 +172,8 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
               // Заголовок
               Text(
                 blog.title,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   height: 1.2,
@@ -187,13 +190,13 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF6B46C1).withAlpha(51),
+                        color: Theme.of(context).colorScheme.primary.withAlpha(51),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Text(
                         blog.category!.name,
-                        style: const TextStyle(
-                          color: Color(0xFF8B5CF6),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
                         ),
@@ -206,7 +209,7 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                   Text(
                     blog.publishedAt != null ? _formatDate(blog.publishedAt!) : _formatDate(blog.createdAt),
                     style: TextStyle(
-                      color: Colors.grey[400],
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                       fontSize: 14,
                     ),
                   ),
@@ -221,7 +224,7 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                   children: [
                     CircleAvatar(
                       radius: 16,
-                      backgroundColor: const Color(0xFF6B46C1),
+                      backgroundColor: Theme.of(context).colorScheme.primary,
                       backgroundImage: blog.author!.avatar != null
                           ? NetworkImage(blog.author!.avatar!)
                           : null,
@@ -242,7 +245,7 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                     Text(
                       blog.author!.fullName,
                       style: TextStyle(
-                        color: Colors.grey[300],
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
@@ -265,12 +268,12 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                       width: double.infinity,
                       height: 200,
                       decoration: BoxDecoration(
-                        color: const Color(0xFF2D2D2D),
+                        color: Theme.of(context).colorScheme.surfaceContainerHighest,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.image_not_supported,
-                        color: Colors.grey,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                         size: 48,
                       ),
                     ),
@@ -284,7 +287,7 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                 data: blog.content,
                 style: {
                   'body': Style(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: FontSize(16),
                     lineHeight: LineHeight.number(1.6),
                   ),
@@ -292,19 +295,19 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                     margin: Margins.only(bottom: 12),
                   ),
                   'h1': Style(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: FontSize(24),
                     fontWeight: FontWeight.bold,
                     margin: Margins.only(bottom: 12, top: 20),
                   ),
                   'h2': Style(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: FontSize(20),
                     fontWeight: FontWeight.bold,
                     margin: Margins.only(bottom: 12, top: 16),
                   ),
                   'h3': Style(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: FontSize(18),
                     fontWeight: FontWeight.w600,
                     margin: Margins.only(bottom: 8, top: 12),
@@ -313,18 +316,18 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                     margin: Margins.only(bottom: 12),
                   ),
                   'li': Style(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onSurface,
                     margin: Margins.only(bottom: 4),
                   ),
                   'a': Style(
-                    color: const Color(0xFF8B5CF6),
+                    color: Theme.of(context).colorScheme.primary,
                     textDecoration: TextDecoration.none,
                   ),
                   'blockquote': Style(
-                    backgroundColor: const Color(0xFF2D2D2D),
+                    backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                     padding: HtmlPaddings.all(16),
                     margin: Margins.only(bottom: 12),
-                    border: Border(left: BorderSide(color: const Color(0xFF8B5CF6), width: 4)),
+                    border: Border(left: BorderSide(color: Theme.of(context).colorScheme.primary, width: 4)),
                   ),
                 },
               ),
@@ -335,7 +338,7 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2D2D2D),
+                  color: Theme.of(context).colorScheme.surfaceContainer,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -343,12 +346,12 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                     // Просмотры
                     Row(
                       children: [
-                        const Icon(Icons.visibility, color: Colors.grey, size: 20),
+                        Icon(Icons.visibility, color: Theme.of(context).colorScheme.onSurfaceVariant, size: 20),
                         const SizedBox(width: 8),
                         Text(
                           '${blog.viewsCount} просмотров',
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
                             fontSize: 14,
                           ),
                         ),
@@ -369,14 +372,14 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                               children: [
                                 Icon(
                                   blog.isLiked ? Icons.thumb_up : Icons.thumb_up_outlined,
-                                  color: blog.isLiked ? Colors.blue : Colors.grey,
+                                  color: blog.isLiked ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurfaceVariant,
                                   size: 20,
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
                                   blog.likesCount.toString(),
                                   style: TextStyle(
-                                    color: blog.isLiked ? Colors.blue : Colors.grey,
+                                    color: blog.isLiked ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurfaceVariant,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -390,7 +393,7 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                         Container(
                           width: 1,
                           height: 30,
-                          color: Colors.grey[600],
+                          color: Theme.of(context).colorScheme.outline,
                         ),
 
                         // Дизлайк
@@ -402,14 +405,14 @@ class _BlogDetailScreenState extends State<BlogDetailScreen> {
                               children: [
                                 Icon(
                                   blog.isDisliked ? Icons.thumb_down : Icons.thumb_down_outlined,
-                                  color: blog.isDisliked ? Colors.red : Colors.grey,
+                                  color: blog.isDisliked ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.onSurfaceVariant,
                                   size: 20,
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
                                   blog.dislikesCount.toString(),
                                   style: TextStyle(
-                                    color: blog.isDisliked ? Colors.red : Colors.grey,
+                                    color: blog.isDisliked ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.onSurfaceVariant,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
                                   ),

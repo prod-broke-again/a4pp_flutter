@@ -63,7 +63,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Тариф успешно изменен на "${plan.name}"'),
-            backgroundColor: Colors.green,
+            backgroundColor: Theme.of(context).colorScheme.secondary,
           ),
         );
         // Можно добавить обновление состояния или навигацию
@@ -74,7 +74,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Ошибка: ${e.toString()}'),
-          backgroundColor: Colors.red,
+          backgroundColor: Theme.of(context).colorScheme.error,
         ),
       );
     } finally {
@@ -131,7 +131,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Закрыть', style: TextStyle(color: Colors.grey)),
+            child: Text('Закрыть', style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant)),
           ),
           ElevatedButton(
             onPressed: () {
@@ -160,7 +160,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
         leading: IconButton(
           icon: Icon(
             Icons.menu,
-            color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white,
+            color: Theme.of(context).colorScheme.onPrimary,
           ),
           onPressed: () {
             _scaffoldKey.currentState?.openDrawer();
@@ -449,7 +449,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                             'body': Style(
                               margin: Margins.zero,
                               padding: HtmlPaddings.zero,
-                              color: Colors.grey[300],
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
                               fontSize: FontSize(14),
                             ),
                             'p': Style(margin: Margins.zero),
@@ -462,7 +462,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFF59E0B),
+                      color: Theme.of(context).colorScheme.tertiary,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
@@ -478,7 +478,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF10B981),
+                      color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
@@ -501,8 +501,8 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
               children: [
                 Text(
                   '₽ ${plan.price.toStringAsFixed(0)}',
-                  style: const TextStyle(
-                    color: Color(0xFF6B46C1),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
                   ),
@@ -511,7 +511,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                 Text(
                   plan.durationDays > 31 ? 'в год' : 'в месяц',
                   style: TextStyle(
-                    color: Colors.grey[400],
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                     fontSize: 16,
                   ),
                 ),
@@ -527,7 +527,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                 children: [
                   Icon(
                     Icons.check_circle,
-                    color: const Color(0xFF10B981),
+                    color: Theme.of(context).colorScheme.secondary,
                     size: 20,
                   ),
                   const SizedBox(width: 12),
@@ -553,9 +553,11 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                 onPressed: _isLoading ? null : () => _handlePlanSelection(plan),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: isCurrent
-                      ? Colors.grey[700]
-                      : const Color(0xFF6B46C1),
-                  foregroundColor: Colors.white,
+                      ? Theme.of(context).colorScheme.surfaceContainerHighest
+                      : Theme.of(context).colorScheme.primary,
+                  foregroundColor: isCurrent
+                      ? Theme.of(context).colorScheme.onSurfaceVariant
+                      : Theme.of(context).colorScheme.onPrimary,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -563,12 +565,16 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                   elevation: 0,
                 ),
                 child: _isLoading
-                    ? const SizedBox(
+                    ? SizedBox(
                         height: 16,
                         width: 16,
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
-                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            isCurrent
+                                ? Theme.of(context).colorScheme.onSurfaceVariant
+                                : Theme.of(context).colorScheme.onPrimary,
+                          ),
                         ),
                       )
                     : Text(
@@ -594,7 +600,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
       child: Text(
         text,
         style: TextStyle(
-          color: Colors.grey[400],
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
           fontSize: 14,
         ),
       ),
