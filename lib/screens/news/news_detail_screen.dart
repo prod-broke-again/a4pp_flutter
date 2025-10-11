@@ -147,25 +147,17 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
 
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1A1A1A),
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.white),
+          icon: Icon(Icons.menu, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
           onPressed: () => _scaffoldKey.currentState?.openDrawer(),
         ),
-        title: const Text(
-          'Новость',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        ),
+        title: const Text('Новость'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            icon: Icon(Icons.arrow_back, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ],
@@ -186,8 +178,8 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
               // Заголовок
               Text(
                 news.title,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   height: 1.2,
@@ -203,13 +195,13 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF6B46C1).withAlpha(51),
+                      color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Text(
                       news.typeLabel,
-                      style: const TextStyle(
-                        color: Color(0xFF8B5CF6),
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                       ),
@@ -222,7 +214,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                   Text(
                     _formatDate(news.publishedAt ?? news.createdAt),
                     style: TextStyle(
-                      color: Colors.grey[400],
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                       fontSize: 14,
                     ),
                   ),
@@ -237,7 +229,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                   children: [
                     CircleAvatar(
                       radius: 16,
-                      backgroundColor: const Color(0xFF6B46C1),
+                      backgroundColor: Theme.of(context).colorScheme.primary,
                       backgroundImage: news.author!.avatar != null
                           ? NetworkImage(news.author!.avatar!)
                           : null,
@@ -246,8 +238,8 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                               news.author!.fullName.isNotEmpty
                                   ? news.author!.fullName[0].toUpperCase()
                                   : '?',
-                              style: const TextStyle(
-                                color: Colors.white,
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onPrimary,
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -258,7 +250,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                     Text(
                       news.author!.fullName,
                       style: TextStyle(
-                        color: Colors.grey[300],
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
@@ -281,7 +273,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                       width: double.infinity,
                       height: 200,
                       decoration: BoxDecoration(
-                        color: const Color(0xFF2D2D2D),
+                        color: Theme.of(context).colorScheme.surfaceContainer,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: const Icon(
@@ -333,14 +325,14 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                     margin: Margins.only(bottom: 4),
                   ),
                   'a': Style(
-                    color: const Color(0xFF8B5CF6),
+                    color: Theme.of(context).colorScheme.secondary,
                     textDecoration: TextDecoration.none,
                   ),
                   'blockquote': Style(
-                    backgroundColor: const Color(0xFF2D2D2D),
+                    backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
                     padding: HtmlPaddings.all(16),
                     margin: Margins.only(bottom: 12),
-                    border: Border(left: BorderSide(color: const Color(0xFF8B5CF6), width: 4)),
+                    border: Border(left: BorderSide(color: Theme.of(context).colorScheme.secondary, width: 4)),
                   ),
                 },
               ),
@@ -351,7 +343,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2D2D2D),
+                  color: Theme.of(context).colorScheme.surfaceContainer,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -359,12 +351,12 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                     // Просмотры
                     Row(
                       children: [
-                        const Icon(Icons.visibility, color: Colors.grey, size: 20),
+                        Icon(Icons.visibility, color: Theme.of(context).colorScheme.onSurfaceVariant, size: 20),
                         const SizedBox(width: 8),
                         Text(
                           '${news.viewsCount} просмотров',
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
                             fontSize: 14,
                           ),
                         ),
@@ -406,7 +398,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                         Container(
                           width: 1,
                           height: 30,
-                          color: Colors.grey[600],
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
 
                         // Дизлайк

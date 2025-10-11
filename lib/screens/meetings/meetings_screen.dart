@@ -80,14 +80,12 @@ class _MeetingsScreenState extends State<MeetingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         title: const Text('Встречи'),
-        backgroundColor: const Color(0xFF1A1A1A),
-        foregroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.white),
+          icon: Icon(Icons.menu, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
           onPressed: () {
             _scaffoldKey.currentState?.openDrawer();
           },
@@ -140,10 +138,10 @@ class _MeetingsScreenState extends State<MeetingsScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 24),
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: const Color(0xFF2D2D2D),
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: Colors.grey[800]!,
+                  color: Theme.of(context).colorScheme.outline,
                   width: 1,
                 ),
               ),
@@ -162,10 +160,10 @@ class _MeetingsScreenState extends State<MeetingsScreen> {
                           onSubmitted: (_) => _loadMeetings(reset: true),
                           decoration: InputDecoration(
                             hintText: 'Поиск встреч...',
-                            hintStyle: const TextStyle(color: Colors.grey),
-                            prefixIcon: const Icon(Icons.search, color: Colors.grey, size: 18),
+                            hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                            prefixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.onSurfaceVariant, size: 18),
                             filled: true,
-                            fillColor: const Color(0xFF1F1F1F),
+                            fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                             contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 12),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -217,22 +215,22 @@ class _MeetingsScreenState extends State<MeetingsScreen> {
                             child: Container(
                               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                               decoration: BoxDecoration(
-                                color: const Color(0xFF6B46C1).withAlpha(51),
+                                color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: const Row(
+                              child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Icon(
                                     Icons.calendar_month,
-                                    color: Color(0xFF6B46C1),
+                                    color: Theme.of(context).colorScheme.primary,
                                     size: 16,
                                   ),
                                   SizedBox(width: 4),
                                   Text(
                                     'Полный',
                                     style: TextStyle(
-                                      color: Color(0xFF6B46C1),
+                                      color: Theme.of(context).colorScheme.primary,
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
                                     ),

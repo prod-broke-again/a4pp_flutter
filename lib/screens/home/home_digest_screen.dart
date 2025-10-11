@@ -821,9 +821,9 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return const Center(
+      return Center(
         child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF8B5CF6)),
+          valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).colorScheme.secondary),
         ),
       );
     }
@@ -864,29 +864,29 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF2D2D2D),
+        color: Theme.of(context).colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFF8B5CF6), width: 1),
+        border: Border.all(color: Theme.of(context).colorScheme.secondary, width: 1),
       ),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: const Color(0xFF8B5CF6),
+              color: Theme.of(context).colorScheme.secondary,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Icon(Icons.notifications, color: Colors.white, size: 20),
+            child: Icon(Icons.notifications, color: Theme.of(context).colorScheme.onSecondary, size: 20),
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Новое уведомление',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                   ),
@@ -945,12 +945,12 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.all(16.0),
           child: Text(
             'Мои избранные',
             style: TextStyle(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.onSurface,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -990,7 +990,7 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
     String title = '';
     String subtitle = '';
     IconData icon = Icons.favorite;
-    Color cardColor = const Color(0xFF2D2D2D);
+    Color cardColor = Theme.of(context).colorScheme.surface;
 
     String? description;
     String? zoomLink;
@@ -1081,10 +1081,10 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF6B46C1).withAlpha(51),
+                      color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Icon(icon, color: const Color(0xFF6B46C1), size: 20),
+                    child: Icon(icon, color: Theme.of(context).colorScheme.primary, size: 20),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -1093,8 +1093,8 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
                       children: [
                         Text(
                           title,
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                           ),
@@ -1139,21 +1139,21 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF6B46C1).withAlpha(25),
+                    color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: const Color(0xFF6B46C1).withAlpha(77)),
+                    border: Border.all(color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.schedule, size: 16, color: Color(0xFF6B46C1)),
+                          Icon(Icons.schedule, size: 16, color: Theme.of(context).colorScheme.primary),
                           const SizedBox(width: 6),
                           Text(
                             'Следующее событие',
                             style: TextStyle(
-                              color: const Color(0xFF6B46C1),
+                              color: Theme.of(context).colorScheme.primary,
                               fontWeight: FontWeight.w600,
                               fontSize: 12,
                             ),
@@ -1163,8 +1163,8 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
                       const SizedBox(height: 6),
                       Text(
                         nextTitle,
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
                           fontWeight: FontWeight.w500,
                           fontSize: 14,
                         ),
@@ -1220,7 +1220,7 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
                         ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF2D8CFF), // Синий цвет для Zoom
-                          foregroundColor: Colors.white,
+                          foregroundColor: Theme.of(context).colorScheme.onPrimary,
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
                           minimumSize: const Size(0, 28),
                           shape: RoundedRectangleBorder(
@@ -1252,12 +1252,12 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.all(16.0),
           child: Text(
             'Ближайшие встречи',
             style: TextStyle(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.onSurface,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -1276,10 +1276,10 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color(0xFF2D2D2D),
+                color: Theme.of(context).colorScheme.surfaceContainer,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: isSoon ? const Color(0xFF10B981) : const Color(0xFF374151),
+                  color: Theme.of(context).colorScheme.outline,
                   width: 1,
                 ),
               ),
@@ -1291,8 +1291,8 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
                       Expanded(
                         child: Text(
                           meeting.name,
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                           ),
@@ -1302,13 +1302,13 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF10B981),
+                            color: Theme.of(context).colorScheme.tertiary,
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: const Text(
+                          child: Text(
                             'Скоро',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.onTertiary,
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
                             ),
@@ -1359,8 +1359,8 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
                         child: ElevatedButton(
                           onPressed: _isPremium ? () => _joinMeeting(meeting) : _showUpgradeDialog,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF8B5CF6),
-                            foregroundColor: Colors.white,
+                            backgroundColor: Theme.of(context).colorScheme.primary,
+                            foregroundColor: Theme.of(context).colorScheme.onPrimary,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
@@ -1374,9 +1374,9 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
                       const SizedBox(width: 8),
                       TextButton(
                         onPressed: () => _openMeeting(meeting),
-                        child: const Text(
+                        child: Text(
                           'Подробнее',
-                          style: TextStyle(color: Color(0xFF8B5CF6)),
+                          style: TextStyle(color: Theme.of(context).colorScheme.primary),
                         ),
                       ),
                     ],
@@ -1394,12 +1394,12 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.all(16.0),
           child: Text(
             'Продолжить просмотр',
             style: TextStyle(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.onSurface,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -1417,7 +1417,7 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
                 width: 200,
                 margin: const EdgeInsets.only(right: 12),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2D2D2D),
+                  color: Theme.of(context).colorScheme.surfaceContainer,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Material(
@@ -1432,12 +1432,12 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
                         children: [
                           Row(
                             children: [
-                              const Icon(Icons.play_circle_filled, color: Color(0xFF8B5CF6), size: 20),
+                              Icon(Icons.play_circle_filled, color: Theme.of(context).colorScheme.primary, size: 20),
                               const Spacer(),
                               Text(
                                 _getVideoProgressText(video.id),
                                 style: TextStyle(
-                                  color: Colors.grey[400],
+                                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                                   fontSize: 12,
                                 ),
                               ),
@@ -1446,8 +1446,8 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
                           const SizedBox(height: 8),
                           Text(
                             video.title,
-                            style: const TextStyle(
-                              color: Colors.white,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
                             ),
@@ -1479,12 +1479,12 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.all(16.0),
           child: Text(
             'Свежая новость',
             style: TextStyle(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.onSurface,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -1494,7 +1494,7 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
           margin: const EdgeInsets.symmetric(horizontal: 16),
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: const Color(0xFF2D2D2D),
+            color: Theme.of(context).colorScheme.surfaceContainer,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
@@ -1502,8 +1502,8 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
             children: [
               Text(
                 _latestNews.title,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
@@ -1537,9 +1537,9 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
                   const Spacer(),
                   TextButton(
                     onPressed: () => _openNews(_latestNews),
-                    child: const Text(
+                    child: Text(
                       'Читать',
-                      style: TextStyle(color: Color(0xFF8B5CF6)),
+                      style: TextStyle(color: Theme.of(context).colorScheme.primary),
                     ),
                   ),
                 ],
@@ -1555,12 +1555,12 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.all(16.0),
           child: Text(
             'Новости',
             style: TextStyle(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.onSurface,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -1576,7 +1576,7 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color(0xFF2D2D2D),
+                color: Theme.of(context).colorScheme.surfaceContainer,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
@@ -1584,8 +1584,8 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
                 children: [
                   Text(
                     news.title,
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ),
@@ -1611,9 +1611,9 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
                       const Spacer(),
                       TextButton(
                         onPressed: () => _openNews(news),
-                        child: const Text(
+                        child: Text(
                           'Читать',
-                          style: TextStyle(color: Color(0xFF8B5CF6), fontSize: 12),
+                          style: TextStyle(color: Theme.of(context).colorScheme.primary, fontSize: 12),
                         ),
                       ),
                     ],
@@ -1665,21 +1665,21 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: const Color(0xFF2D2D2D),
-        title: const Text(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: Text(
           'Выбрать тариф',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
         ),
-        content: const Text(
+        content: Text(
           'Для доступа к этому контенту необходимо выбрать подходящий тариф.',
-          style: TextStyle(color: Colors.grey),
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text(
+            child: Text(
               'Отмена',
-              style: TextStyle(color: Colors.grey),
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
           ),
           ElevatedButton(
@@ -1689,8 +1689,8 @@ class _HomeDigestScreenState extends State<HomeDigestScreen> {
               print('Navigate to subscription screen');
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF8B5CF6),
-              foregroundColor: Colors.white,
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              foregroundColor: Theme.of(context).colorScheme.onPrimary,
             ),
             child: const Text('Выбрать тариф'),
           ),

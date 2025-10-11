@@ -42,11 +42,11 @@ class _DonationDialogState extends State<DonationDialog> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = true; // экран пока всегда темный
+    final isDark = theme.brightness == Brightness.dark;
 
     return Dialog(
       insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-      backgroundColor: isDark ? const Color(0xFF111214) : Colors.white,
+      backgroundColor: theme.colorScheme.surface,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 520),
@@ -87,9 +87,9 @@ class _DonationDialogState extends State<DonationDialog> {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: isDark ? const Color(0xFF1B1C1F) : const Color(0xFFF9FAFB),
+                  color: theme.colorScheme.surfaceContainer,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: isDark ? const Color(0xFF2A2B2F) : const Color(0xFFE5E7EB)),
+                  border: Border.all(color: theme.colorScheme.outline),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +97,7 @@ class _DonationDialogState extends State<DonationDialog> {
                     Text(
                       widget.modelName,
                       style: TextStyle(
-                        color: isDark ? Colors.white : const Color(0xFF111827),
+                        color: theme.colorScheme.onSurface,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -106,7 +106,7 @@ class _DonationDialogState extends State<DonationDialog> {
                     Text(
                       'Выберите сумму поддержки',
                       style: TextStyle(
-                        color: isDark ? Colors.white70 : const Color(0xFF6B7280),
+                        color: theme.colorScheme.onSurfaceVariant,
                         fontSize: 14,
                       ),
                     ),
@@ -197,7 +197,7 @@ class _DonationDialogState extends State<DonationDialog> {
                       borderSide: const BorderSide(color: Color(0xFF7C3AED), width: 2),
                     ),
                     filled: true,
-                    fillColor: isDark ? const Color(0xFF1B1C1F) : const Color(0xFFF3F4F6),
+                    fillColor: theme.colorScheme.surfaceContainerHighest,
                   ),
                 ),
                 const SizedBox(height: 4),

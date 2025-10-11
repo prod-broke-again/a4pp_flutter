@@ -233,33 +233,25 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1A1A1A),
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.white),
+          icon: Icon(Icons.menu, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
           onPressed: () {
             _scaffoldKey.currentState?.openDrawer();
           },
         ),
-        title: const Text(
-          'Уведомления',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        ),
+        title: const Text('Уведомления'),
         actions: [
           if (_notifications.any((n) => !n.isRead))
             IconButton(
-              icon: const Icon(Icons.done_all, color: Colors.white),
+              icon: Icon(Icons.done_all, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
               onPressed: _markAllAsRead,
               tooltip: 'Отметить все как прочитанные',
             ),
           IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            icon: Icon(Icons.arrow_back, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ],
@@ -280,9 +272,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text(
+                        Text(
                           'Ошибка загрузки уведомлений.\n\nПроверьте подключение к интернету и попробуйте снова.',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 12),
@@ -305,20 +297,20 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                               width: 80,
                               height: 80,
                               decoration: BoxDecoration(
-                                color: const Color(0xFF8B5CF6).withAlpha(51),
+                                color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
                                 borderRadius: BorderRadius.circular(20),
                               ),
-                              child: const Icon(
+                              child: Icon(
                                 Icons.notifications_none,
-                                color: Color(0xFF8B5CF6),
+                                color: Theme.of(context).colorScheme.secondary,
                                 size: 40,
                               ),
                             ),
                             const SizedBox(height: 24),
-                            const Text(
+                            Text(
                               '📱 Уведомления',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Theme.of(context).colorScheme.onSurface,
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -327,7 +319,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                             Text(
                               'У вас пока нет уведомлений.\nНовые уведомления будут появляться здесь.',
                               style: TextStyle(
-                                color: Colors.grey[400],
+                                color: Theme.of(context).colorScheme.onSurfaceVariant,
                                 fontSize: 16,
                                 height: 1.5,
                               ),
@@ -348,15 +340,15 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                 child: Container(
                                   padding: const EdgeInsets.all(12),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFF2D2D2D),
+                                    color: Theme.of(context).colorScheme.surface,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Column(
                                     children: [
                                       Text(
                                         '${_notifications.where((n) => !n.isRead).length}',
-                                        style: const TextStyle(
-                                          color: Color(0xFF8B5CF6),
+                                        style: TextStyle(
+                                          color: Theme.of(context).colorScheme.primary,
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -364,7 +356,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                       Text(
                                         'Непрочитанных',
                                         style: TextStyle(
-                                          color: Colors.grey[400],
+                                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                                           fontSize: 12,
                                         ),
                                       ),
@@ -377,15 +369,15 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                 child: Container(
                                   padding: const EdgeInsets.all(12),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFF2D2D2D),
+                                    color: Theme.of(context).colorScheme.surface,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Column(
                                     children: [
                                       Text(
                                         '${_notifications.length}',
-                                        style: const TextStyle(
-                                          color: Colors.white,
+                                        style: TextStyle(
+                                          color: Theme.of(context).colorScheme.onSurface,
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -393,7 +385,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                       Text(
                                         'Всего',
                                         style: TextStyle(
-                                          color: Colors.grey[400],
+                                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                                           fontSize: 12,
                                         ),
                                       ),
@@ -417,10 +409,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                               return Container(
                                 margin: const EdgeInsets.only(bottom: 12),
                                 decoration: BoxDecoration(
-                                  color: isRead ? const Color(0xFF2D2D2D) : const Color(0xFF3D3D3D),
+                                  color: isRead ? Theme.of(context).colorScheme.surface : Theme.of(context).colorScheme.surfaceContainerHighest,
                                   borderRadius: BorderRadius.circular(12),
                                   border: isRead ? null : Border.all(
-                                    color: const Color(0xFF8B5CF6).withAlpha(51),
+                                    color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
                                     width: 1,
                                   ),
                                 ),
@@ -441,7 +433,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                   title: Text(
                                     notification.title,
                                     style: TextStyle(
-                                      color: Colors.white,
+                                      color: Theme.of(context).colorScheme.onSurface,
                                       fontSize: 16,
                                       fontWeight: isRead ? FontWeight.normal : FontWeight.w600,
                                     ),
@@ -453,7 +445,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                         Text(
                                           notification.message,
                                           style: TextStyle(
-                                            color: Colors.grey[400],
+                                            color: Theme.of(context).colorScheme.onSurfaceVariant,
                                             fontSize: 14,
                                           ),
                                         ),
@@ -462,7 +454,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                         Text(
                                           'От: ${notification.userName}',
                                           style: TextStyle(
-                                            color: Colors.grey[400],
+                                            color: Theme.of(context).colorScheme.onSurfaceVariant,
                                             fontSize: 14,
                                           ),
                                         ),
@@ -470,7 +462,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                       Text(
                                         _formatDateTime(notification.createdAt),
                                         style: TextStyle(
-                                          color: Colors.grey[500],
+                                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                                           fontSize: 12,
                                         ),
                                       ),

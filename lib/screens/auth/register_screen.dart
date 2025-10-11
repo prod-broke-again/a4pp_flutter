@@ -46,7 +46,7 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
@@ -84,13 +84,13 @@ class _RegisterViewState extends State<RegisterView> {
                       child: Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: const Color(0xFF2D2D2D),
+                          color: Theme.of(context).colorScheme.surface,
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.grey[800]!),
+                          border: Border.all(color: Theme.of(context).colorScheme.outline),
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.arrow_back_ios_new,
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.onSurface,
                           size: 20,
                         ),
                       ),
@@ -103,12 +103,12 @@ class _RegisterViewState extends State<RegisterView> {
                           child: Image.asset('logo.png', width: 40, height: 40, fit: BoxFit.cover),
                         ),
                         const SizedBox(width: 12),
-                        const Text(
+                        Text(
                           'Создать аккаунт',
                           style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.onBackground,
                           ),
                         ),
                       ],
@@ -118,41 +118,41 @@ class _RegisterViewState extends State<RegisterView> {
                       'Присоединяйтесь к нашему сообществу! Создайте аккаунт, чтобы получить доступ к курсам, встречам и персонализированным рекомендациям.',
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.grey[400],
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                     ),
                     const SizedBox(height: 32),
                     Container(
                       padding: const EdgeInsets.all(24),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF2D2D2D),
+                        color: Theme.of(context).colorScheme.surface,
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.grey[800]!),
+                        border: Border.all(color: Theme.of(context).colorScheme.outline),
                       ),
                       child: Form(
                     key: _formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                      const Text('Данные аккаунта', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+                      Text('Данные аккаунта', style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w600)),
                       const SizedBox(height: 12),
                             TextFormField(
                               controller: _nameController,
-                              style: const TextStyle(color: Colors.white),
+                              style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                               decoration: InputDecoration(
                                 labelText: 'Имя',
                                 hintText: 'Введите ваше имя',
-                                labelStyle: TextStyle(color: Colors.grey[400]),
-                                hintStyle: TextStyle(color: Colors.grey[600]),
+                                labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                                hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.6)),
                                 filled: true,
-                                fillColor: const Color(0xFF1F1F1F),
+                                fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
                                   borderSide: BorderSide.none,
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
-                                  borderSide: const BorderSide(color: Color(0xFF6B46C1), width: 2),
+                                  borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 2),
                                 ),
                               ),
                               validator: (value) {
@@ -165,21 +165,21 @@ class _RegisterViewState extends State<RegisterView> {
                             const SizedBox(height: 16),
                             TextFormField(
                               controller: _lastnameController,
-                              style: const TextStyle(color: Colors.white),
+                              style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                               decoration: InputDecoration(
                                 labelText: 'Фамилия',
                                 hintText: 'Введите вашу фамилию',
-                                labelStyle: TextStyle(color: Colors.grey[400]),
-                                hintStyle: TextStyle(color: Colors.grey[600]),
+                                labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                                hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.6)),
                                 filled: true,
-                                fillColor: const Color(0xFF1F1F1F),
+                                fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
                                   borderSide: BorderSide.none,
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
-                                  borderSide: const BorderSide(color: Color(0xFF6B46C1), width: 2),
+                                  borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 2),
                                 ),
                               ),
                               validator: (value) {
@@ -192,21 +192,21 @@ class _RegisterViewState extends State<RegisterView> {
                             const SizedBox(height: 16),
                             TextFormField(
                               controller: _emailController,
-                              style: const TextStyle(color: Colors.white),
+                              style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                               decoration: InputDecoration(
                                 labelText: 'Email',
                                 hintText: 'example@email.com',
-                                labelStyle: TextStyle(color: Colors.grey[400]),
-                                hintStyle: TextStyle(color: Colors.grey[600]),
+                                labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                                hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.6)),
                                 filled: true,
-                                fillColor: const Color(0xFF1F1F1F),
+                                fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
                                   borderSide: BorderSide.none,
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
-                                  borderSide: const BorderSide(color: Color(0xFF6B46C1), width: 2),
+                                  borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 2),
                                 ),
                               ),
                               validator: (value) {
@@ -221,21 +221,21 @@ class _RegisterViewState extends State<RegisterView> {
                             const SizedBox(height: 16),
                             TextFormField(
                               controller: _phoneController,
-                              style: const TextStyle(color: Colors.white),
+                              style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                               decoration: InputDecoration(
                                 labelText: 'Телефон (опционально)',
                                 hintText: '+7 (999) 123-45-67',
-                                labelStyle: TextStyle(color: Colors.grey[400]),
-                                hintStyle: TextStyle(color: Colors.grey[600]),
+                                labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                                hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.6)),
                                 filled: true,
-                                fillColor: const Color(0xFF1F1F1F),
+                                fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
                                   borderSide: BorderSide.none,
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
-                                  borderSide: const BorderSide(color: Color(0xFF6B46C1), width: 2),
+                                  borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 2),
                                 ),
                               ),
                               validator: (value) {
@@ -247,21 +247,21 @@ class _RegisterViewState extends State<RegisterView> {
                             TextFormField(
                               controller: _passwordController,
                               obscureText: true,
-                              style: const TextStyle(color: Colors.white),
+                              style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                               decoration: InputDecoration(
                                 labelText: 'Пароль',
                                 hintText: 'Придумайте надежный пароль',
-                                labelStyle: TextStyle(color: Colors.grey[400]),
-                                hintStyle: TextStyle(color: Colors.grey[600]),
+                                labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                                hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.6)),
                                 filled: true,
-                                fillColor: const Color(0xFF1F1F1F),
+                                fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
                                   borderSide: BorderSide.none,
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
-                                  borderSide: const BorderSide(color: Color(0xFF6B46C1), width: 2),
+                                  borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 2),
                                 ),
                               ),
                               validator: (value) {
@@ -273,18 +273,18 @@ class _RegisterViewState extends State<RegisterView> {
                             ),
                             const SizedBox(height: 8),
                             Row(
-                              children: const [
-                                Icon(Icons.info_outline, color: Colors.grey, size: 16),
-                                SizedBox(width: 6),
-                                Expanded(child: Text('Пароль должен содержать минимум 8 символов. Для безопасности используйте комбинацию букв, цифр и специальных символов.', style: TextStyle(color: Colors.grey, fontSize: 12))),
+                              children: [
+                                Icon(Icons.info_outline, color: Theme.of(context).colorScheme.onSurfaceVariant, size: 16),
+                                const SizedBox(width: 6),
+                                Expanded(child: Text('Пароль должен содержать минимум 8 символов. Для безопасности используйте комбинацию букв, цифр и специальных символов.', style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 12))),
                               ],
                             ),
                             const SizedBox(height: 8),
                             Row(
-                              children: const [
-                                Icon(Icons.phone_android, color: Colors.grey, size: 16),
-                                SizedBox(width: 6),
-                                Expanded(child: Text('Телефон используется для восстановления доступа и важных уведомлений. Можно добавить позже в настройках.', style: TextStyle(color: Colors.grey, fontSize: 12))),
+                              children: [
+                                Icon(Icons.phone_android, color: Theme.of(context).colorScheme.onSurfaceVariant, size: 16),
+                                const SizedBox(width: 6),
+                                Expanded(child: Text('Телефон используется для восстановления доступа и важных уведомлений. Можно добавить позже в настройках.', style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 12))),
                               ],
                             ),
                             const SizedBox(height: 24),
@@ -315,7 +315,7 @@ class _RegisterViewState extends State<RegisterView> {
                             Center(
                               child: Text(
                                 'Нажимая "Создать аккаунт", вы соглашаетесь с условиями использования и политикой конфиденциальности.',
-                                style: TextStyle(color: Colors.grey[500], fontSize: 12),
+                                style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.7), fontSize: 12),
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -364,15 +364,15 @@ class _SocialButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         decoration: BoxDecoration(
-          color: const Color(0xFF2D2D2D),
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.grey[800]!),
+          border: Border.all(color: Theme.of(context).colorScheme.outline),
         ),
         child: Row(
           children: [
-            Icon(icon, color: Colors.white, size: 18),
+            Icon(icon, color: Theme.of(context).colorScheme.onSurface, size: 18),
             const SizedBox(width: 6),
-            Text(label, style: const TextStyle(color: Colors.white, fontSize: 14)),
+            Text(label, style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 14)),
           ],
         ),
       ),

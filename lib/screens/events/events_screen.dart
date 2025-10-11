@@ -8,15 +8,13 @@ class EventsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: const Text('Мероприятия'),
-        backgroundColor: const Color(0xFF1A1A1A),
-        foregroundColor: Colors.white,
         elevation: 0,
       ),
       body: SafeArea(
@@ -25,10 +23,10 @@ class EventsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Выберите раздел',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
@@ -37,7 +35,7 @@ class EventsScreen extends StatelessWidget {
               Text(
                 'Профессиональные занятия и сообщества для развития навыков',
                 style: TextStyle(
-                  color: Colors.grey[400],
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                   fontSize: 16,
                 ),
               ),
@@ -49,7 +47,7 @@ class EventsScreen extends StatelessWidget {
                 icon: Icons.school,
                 title: 'Курсы',
                 description: 'Профессиональные занятия и мастер-классы',
-                color: const Color(0xFF6B46C1),
+                color: Theme.of(context).colorScheme.primary,
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(builder: (_) => const CoursesScreen()),
@@ -64,7 +62,7 @@ class EventsScreen extends StatelessWidget {
                 icon: Icons.group,
                 title: 'Клубы',
                 description: 'Сообщества и регулярные встречи',
-                color: const Color(0xFF059669),
+                color: Theme.of(context).colorScheme.secondary,
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(builder: (_) => const ClubsScreen()),

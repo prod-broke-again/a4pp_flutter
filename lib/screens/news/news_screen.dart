@@ -231,25 +231,24 @@ class _NewsScreenState extends State<NewsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1A1A1A),
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.white),
+          icon: Icon(Icons.menu, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
           onPressed: () => _scaffoldKey.currentState?.openDrawer(),
         ),
-        title: const Text(
+        title: Text(
           'Новости',
           style: TextStyle(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.onPrimary,
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onPrimary),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ],
@@ -270,7 +269,7 @@ class _NewsScreenState extends State<NewsScreen> {
               child: TextField(
                 controller: _searchController,
                 onChanged: _performSearch,
-                style: const TextStyle(color: Colors.white),
+                style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                 decoration: InputDecoration(
                   hintText: 'Поиск новостей...',
                   hintStyle: const TextStyle(color: Colors.grey),
@@ -285,7 +284,7 @@ class _NewsScreenState extends State<NewsScreen> {
                         )
                       : null,
                   filled: true,
-                  fillColor: const Color(0xFF2D2D2D),
+                  fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none,
@@ -307,7 +306,7 @@ class _NewsScreenState extends State<NewsScreen> {
                               children: [
                                 Text(
                                   'Ошибка загрузки новостей: $_error',
-                                  style: const TextStyle(color: Colors.white),
+                                  style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                                   textAlign: TextAlign.center,
                                 ),
                                 const SizedBox(height: 12),
@@ -328,20 +327,20 @@ class _NewsScreenState extends State<NewsScreen> {
                   width: 80,
                   height: 80,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF8B5CF6).withAlpha(51),
+                    color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.article,
-                    color: Color(0xFF8B5CF6),
+                    color: Theme.of(context).colorScheme.secondary,
                     size: 40,
                   ),
                 ),
                 const SizedBox(height: 24),
-                const Text(
+                Text(
                   '📰 Новости',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
@@ -352,7 +351,7 @@ class _NewsScreenState extends State<NewsScreen> {
                                         ? 'Ничего не найдено по запросу "$_searchQuery"'
                                         : 'Здесь будут публиковаться важные новости,\nобновления приложения и анонсы мероприятий',
                   style: TextStyle(
-                    color: Colors.grey[400],
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                     fontSize: 16,
                     height: 1.5,
                   ),
@@ -364,16 +363,16 @@ class _NewsScreenState extends State<NewsScreen> {
                   padding: const EdgeInsets.all(16),
                                       margin: const EdgeInsets.symmetric(horizontal: 24),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF8B5CF6).withAlpha(51),
+                    color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: const Color(0xFF8B5CF6).withAlpha(128),
+                      color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.5),
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     '📢 Следите за обновлениями!\nНовые материалы появляются регулярно.',
                     style: TextStyle(
-                      color: Color(0xFF8B5CF6),
+                      color: Theme.of(context).colorScheme.secondary,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
@@ -421,9 +420,9 @@ class _NewsScreenState extends State<NewsScreen> {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: const Color(0xFF2D2D2D),
+        color: Theme.of(context).colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey[800]!),
+        border: Border.all(color: Theme.of(context).colorScheme.outline),
       ),
       child: InkWell(
         onTap: () {
@@ -446,8 +445,8 @@ class _NewsScreenState extends State<NewsScreen> {
               // Заголовок
               Text(
                 newsItem.title,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                   height: 1.3,
@@ -464,13 +463,13 @@ class _NewsScreenState extends State<NewsScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF6B46C1).withAlpha(51),
+                      color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
                       newsItem.typeLabel,
-                      style: const TextStyle(
-                        color: Color(0xFF8B5CF6),
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                       ),
@@ -480,7 +479,7 @@ class _NewsScreenState extends State<NewsScreen> {
                   Text(
                     _formatDate(newsItem.publishedAt ?? newsItem.createdAt),
                     style: TextStyle(
-                      color: Colors.grey[400],
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                       fontSize: 12,
                     ),
                   ),
@@ -493,7 +492,7 @@ class _NewsScreenState extends State<NewsScreen> {
               Text(
                 newsItem.excerpt,
                 style: TextStyle(
-                  color: Colors.grey[300],
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                   fontSize: 14,
                   height: 1.4,
                 ),
@@ -510,7 +509,7 @@ class _NewsScreenState extends State<NewsScreen> {
                   if (newsItem.author != null && !newsItem.isOrganizationAuthor) ...[
                     CircleAvatar(
                       radius: 12,
-                      backgroundColor: const Color(0xFF6B46C1),
+                      backgroundColor: Theme.of(context).colorScheme.primary,
                       backgroundImage: newsItem.author!.avatar != null
                           ? NetworkImage(newsItem.author!.avatar!)
                           : null,
@@ -519,8 +518,8 @@ class _NewsScreenState extends State<NewsScreen> {
                               newsItem.author!.fullName.isNotEmpty
                                   ? newsItem.author!.fullName[0].toUpperCase()
                                   : '?',
-                              style: const TextStyle(
-                                color: Colors.white,
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onPrimary,
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -532,7 +531,7 @@ class _NewsScreenState extends State<NewsScreen> {
                       child: Text(
                         newsItem.author!.fullName,
                         style: TextStyle(
-                          color: Colors.grey[400],
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                           fontSize: 12,
                         ),
                         overflow: TextOverflow.ellipsis,

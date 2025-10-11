@@ -88,24 +88,24 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: const Color(0xFF2D2D2D),
-        title: const Text(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: Text(
           'Подтверждение смены тарифа',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
         ),
         content: Text(
           'Вы действительно хотите сменить тариф на "${plan.name}"?\n\nСтоимость: ₽ ${plan.price.toStringAsFixed(0)}',
-          style: const TextStyle(color: Colors.white70),
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Отмена', style: TextStyle(color: Colors.grey)),
+            child: Text('Отмена', style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant)),
           ),
           ElevatedButton(
             onPressed: () => Navigator.of(context).pop(true),
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF6B46C1),
+              backgroundColor: Theme.of(context).colorScheme.primary,
             ),
             child: const Text('Подтвердить'),
           ),
@@ -119,14 +119,14 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: const Color(0xFF2D2D2D),
-        title: const Text(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: Text(
           'Недостаточно средств',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
         ),
         content: Text(
           'Для смены тарифа на "${plan.name}" требуется ₽ ${plan.price.toStringAsFixed(0)}, но на вашем балансе ₽ ${(widget.user?.balance ?? 0).toStringAsFixed(0)}.',
-          style: const TextStyle(color: Colors.white70),
+          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.7)),
         ),
         actions: [
           TextButton(
@@ -140,7 +140,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
               // Navigator.of(context).push(...);
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF6B46C1),
+              backgroundColor: Theme.of(context).colorScheme.primary,
             ),
             child: const Text('Пополнить баланс'),
           ),
@@ -153,32 +153,32 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.menu,
-            color: Colors.white,
+            color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white,
           ),
           onPressed: () {
             _scaffoldKey.currentState?.openDrawer();
           },
         ),
-        title: const Text(
+        title: Text(
           'Подписка',
           style: TextStyle(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.onPrimary,
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
         ),
         actions: [
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.arrow_back_ios,
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
             onPressed: () => Navigator.of(context).pop(),
           ),
@@ -204,8 +204,8 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      const Color(0xFF6B46C1),
-                      const Color(0xFF8B5CF6),
+                      Theme.of(context).colorScheme.primary,
+                      Theme.of(context).colorScheme.secondary,
                     ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -220,12 +220,12 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                         Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: Colors.white24,
+                            color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.15),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: const Icon(
+                          child: Icon(
                             Icons.star,
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.onPrimary,
                             size: 24,
                           ),
                         ),
@@ -236,8 +236,8 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                             children: [
                               Text(
                                 widget.currentSubscription.product?.name ?? 'Нет подписки',
-                                style: const TextStyle(
-                                  color: Colors.white,
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.onPrimary,
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -258,7 +258,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                                     'body': Style(
                                       margin: Margins.zero,
                                       padding: HtmlPaddings.zero,
-                                      color: Colors.white,
+                                      color: Theme.of(context).colorScheme.onPrimary,
                                       fontSize: FontSize(14),
                                     ),
                                     'p': Style(margin: Margins.zero),
@@ -268,16 +268,16 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                               if (widget.currentSubscription.expiresAt != null)
                                 Text(
                                   'Активна до ${DateFormat('d MMMM yyyy').format(widget.currentSubscription.expiresAt)}',
-                                  style: const TextStyle(
-                                    color: Colors.white,
+                                  style: TextStyle(
+                                    color: Theme.of(context).colorScheme.onPrimary,
                                     fontSize: 16,
                                   ),
                                 )
                               else
-                                const Text(
+                                Text(
                                   'Подписка не активна',
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: Theme.of(context).colorScheme.onPrimary,
                                     fontSize: 16,
                                   ),
                                 ),
@@ -287,10 +287,10 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                       ],
                     ),
                     const SizedBox(height: 20),
-                    const Text(
+                    Text(
                       'Ваши преимущества:',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onPrimary,
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
@@ -307,10 +307,10 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
               const SizedBox(height: 32),
               
               // Доступные планы
-              const Text(
+              Text(
                 'Доступные планы',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.onPrimary,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
@@ -334,10 +334,10 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2D2D2D),
+                  color: Theme.of(context).colorScheme.surfaceContainer,
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: Colors.grey[800]!,
+                    color: Theme.of(context).colorScheme.outline,
                     width: 1,
                   ),
                 ),
@@ -348,14 +348,14 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                       children: [
                         Icon(
                           Icons.info_outline,
-                          color: const Color(0xFF6B46C1),
+                          color: Theme.of(context).colorScheme.primary,
                           size: 24,
                         ),
                         const SizedBox(width: 12),
-                        const Text(
+                        Text(
                           'Важная информация',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.onPrimary,
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
@@ -382,8 +382,8 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
       padding: const EdgeInsets.only(bottom: 8),
       child: Text(
         text,
-        style: const TextStyle(
-          color: Colors.white,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onPrimary,
           fontSize: 16,
         ),
       ),
@@ -399,14 +399,14 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
 
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF2D2D2D),
+        color: Theme.of(context).colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: isCurrent 
-              ? const Color(0xFF6B46C1)
+          color: isCurrent
+              ? Theme.of(context).colorScheme.primary
               : isRecommended
-                  ? const Color(0xFFF59E0B)
-                  : Colors.grey[800]!,
+                  ? Theme.of(context).colorScheme.tertiary
+                  : Theme.of(context).colorScheme.outline,
           width: isCurrent || isRecommended ? 2 : 1,
         ),
         boxShadow: isCurrent || isRecommended
@@ -436,8 +436,8 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                     children: [
                       Text(
                         plan.name,
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
@@ -465,10 +465,10 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                       color: const Color(0xFFF59E0B),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: const Text(
+                    child: Text(
                       'Рекомендуем',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onPrimary,
                         fontWeight: FontWeight.w600,
                         fontSize: 12,
                       ),
@@ -481,10 +481,10 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                       color: const Color(0xFF10B981),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: const Text(
+                    child: Text(
                       'Текущий',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onPrimary,
                         fontWeight: FontWeight.w600,
                         fontSize: 12,
                       ),
@@ -534,8 +534,8 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                   Expanded(
                     child: Text(
                       feature,
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
                         fontSize: 14,
                       ),
                     ),

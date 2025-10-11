@@ -220,11 +220,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         title: Text(_video?.title ?? 'Видео'),
-        backgroundColor: const Color(0xFF1A1A1A),
-        foregroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -232,9 +230,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         ),
       ),
       body: _isLoading
-          ? const Center(
+          ? Center(
               child: CircularProgressIndicator(
-                color: Color(0xFF6B46C1),
+                color: Theme.of(context).colorScheme.primary,
               ),
             )
           : _error != null
@@ -258,10 +256,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               size: 64,
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'Произошла ошибка',
               style: TextStyle(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.onSurface,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -276,8 +274,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             ElevatedButton(
               onPressed: _loadVideo,
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF6B46C1),
-                foregroundColor: Colors.white,
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                foregroundColor: Theme.of(context).colorScheme.onPrimary,
               ),
               child: const Text('Повторить'),
             ),
@@ -298,8 +296,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             width: double.infinity,
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Color(0xFFFEF3C7), Color(0xFFF59E0B)],
+              gradient: LinearGradient(
+                colors: [Theme.of(context).colorScheme.tertiaryContainer, Theme.of(context).colorScheme.tertiary],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -307,25 +305,25 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             ),
             child: Column(
               children: [
-                const Icon(
+                Icon(
                   Icons.lock,
-                  color: Color(0xFFF59E0B),
+                  color: Theme.of(context).colorScheme.onTertiaryContainer,
                   size: 48,
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Доступ ограничен',
                   style: TextStyle(
-                    color: Color(0xFF92400E),
+                    color: Theme.of(context).colorScheme.onTertiaryContainer,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   'Для просмотра этого видео требуется активная подписка',
                   style: TextStyle(
-                    color: Color(0xFF92400E),
+                    color: Theme.of(context).colorScheme.onTertiaryContainer,
                     fontSize: 16,
                   ),
                   textAlign: TextAlign.center,
@@ -342,7 +340,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               width: double.infinity,
               height: 200,
               decoration: BoxDecoration(
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(12),
                 image: DecorationImage(
                   image: NetworkImage(_video!.thumbnailUrl!),
@@ -354,16 +352,16 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                   borderRadius: BorderRadius.circular(12),
                   gradient: LinearGradient(
                     colors: [
-                      Colors.black.withOpacity(0.3),
-                      Colors.black.withOpacity(0.1),
+                      Theme.of(context).colorScheme.surface.withOpacity(0.3),
+                      Theme.of(context).colorScheme.surface.withOpacity(0.1),
                     ],
                     begin: Alignment.center,
                   ),
                 ),
-                child: const Center(
+                child: Center(
                   child: Icon(
                     Icons.play_circle_outline,
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onPrimary,
                     size: 48,
                   ),
                 ),
@@ -376,7 +374,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: const Color(0xFF2D2D2D),
+              color: Theme.of(context).colorScheme.surfaceContainer,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
@@ -384,8 +382,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               children: [
                 Text(
                   _video?.title ?? 'Без названия',
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -427,7 +425,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                     data: _video!.description!,
                     style: {
                       'body': Style(
-                        color: Colors.grey[300],
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                         fontSize: FontSize(14),
                         lineHeight: LineHeight.number(1.5),
                       ),
@@ -455,24 +453,24 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: const Color(0xFF1E3A8A),
+              color: Theme.of(context).colorScheme.primary,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
               children: [
-                const Text(
+                Text(
                   'Получите доступ к видеотеке',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onPrimary,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   'Выберите подходящий тариф и получите доступ ко всем материалам',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onPrimary,
                     fontSize: 14,
                   ),
                   textAlign: TextAlign.center,
@@ -486,8 +484,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: const Color(0xFF1E3A8A),
+                    backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                    foregroundColor: Theme.of(context).colorScheme.primary,
                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   ),
                   child: const Text('Выбрать тариф'),
@@ -508,8 +506,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                     icon: const Icon(Icons.chevron_left),
                     label: const Text('Предыдущее'),
                     style: OutlinedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      side: const BorderSide(color: Colors.white),
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                      side: BorderSide(color: Theme.of(context).colorScheme.onPrimary),
                     ),
                   ),
                 ),
@@ -522,8 +520,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                     icon: const Text('Следующее'),
                     label: const Icon(Icons.chevron_right),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF6B46C1),
-                      foregroundColor: Colors.white,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
                     ),
                   ),
                 ),
@@ -543,7 +541,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           AspectRatio(
             aspectRatio: 16 / 9,
             child: Container(
-              color: Colors.black,
+              color: Theme.of(context).colorScheme.surface,
               child: Stack(
                 children: [
                   // Thumbnail или плеер
@@ -560,9 +558,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                       child: Center(
                         child: IconButton(
                           onPressed: _loadPlayer,
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.play_circle_fill,
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.onPrimary,
                             size: 64,
                           ),
                         ),
@@ -584,26 +582,26 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                         ? WebViewWidget(
                             controller: WebViewController()
                               ..setJavaScriptMode(JavaScriptMode.unrestricted)
-                              ..setBackgroundColor(Colors.black)
+                              ..setBackgroundColor(Theme.of(context).colorScheme.surface)
                               ..loadRequest(Uri.parse(_video!.videoUrl!)),
                           )
                         : Container(
                             width: double.infinity,
                             height: double.infinity,
-                            color: Colors.black,
+                            color: Theme.of(context).colorScheme.surface,
                             child: Center(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     Icons.play_circle_outline,
-                                    color: Colors.white,
+                                    color: Theme.of(context).colorScheme.onPrimary,
                                     size: 64,
                                   ),
                                   const SizedBox(height: 16),
-                                  const Text(
+                                  Text(
                                     'Видео недоступно на этой платформе',
-                                    style: TextStyle(color: Colors.white, fontSize: 18),
+                                    style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 18),
                                   ),
                                   const SizedBox(height: 8),
                                   ElevatedButton.icon(
@@ -653,30 +651,30 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                     Container(
                       width: double.infinity,
                       height: double.infinity,
-                      color: Colors.black,
-                      child: const Center(
+                      color: Theme.of(context).colorScheme.surface,
+                      child: Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
                               Icons.lock,
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.onPrimary,
                               size: 48,
                             ),
                             SizedBox(height: 16),
                             Text(
                               'Требуется подписка',
-                              style: TextStyle(color: Colors.white, fontSize: 18),
+                              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 18),
                             ),
                           ],
                         ),
                       ),
                     )
                   else
-                    const Center(
+                    Center(
                       child: Text(
                         'Видео недоступно',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
                       ),
                     ),
 
@@ -689,13 +687,13 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                       child: Center(
                         child: IconButton(
                           onPressed: () => _navigateToVideo(_previousVideo!.slug, isNext: false),
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.chevron_left,
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.onPrimary,
                             size: 32,
                           ),
                           style: IconButton.styleFrom(
-                            backgroundColor: Colors.black.withOpacity(0.5),
+                            backgroundColor: Theme.of(context).colorScheme.surface.withOpacity(0.5),
                           ),
                         ),
                       ),
@@ -709,13 +707,13 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                       child: Center(
                         child: IconButton(
                           onPressed: () => _navigateToVideo(_nextVideo!.slug),
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.chevron_right,
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.onPrimary,
                             size: 32,
                           ),
                           style: IconButton.styleFrom(
-                            backgroundColor: Colors.black.withOpacity(0.5),
+                            backgroundColor: Theme.of(context).colorScheme.surface.withOpacity(0.5),
                           ),
                         ),
                       ),
@@ -734,8 +732,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                 // Заголовок
                 Text(
                   _video?.title ?? 'Без названия',
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
@@ -777,7 +775,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                     data: _video!.description!,
                     style: {
                       'body': Style(
-                        color: Colors.grey[300],
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                         fontSize: FontSize(16),
                         lineHeight: LineHeight.number(1.6),
                       ),
@@ -807,12 +805,12 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                         onPressed: _toggleLike,
                         icon: Icon(
                           _video?.isLikedByUser == true ? Icons.favorite : Icons.favorite_border,
-                          color: _video?.isLikedByUser == true ? Colors.red : Colors.white,
+                          color: _video?.isLikedByUser == true ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.onSurface,
                         ),
                         label: Text('${_video?.likesCount ?? 0}'),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF2D2D2D),
-                          foregroundColor: Colors.white,
+                          backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+                          foregroundColor: Theme.of(context).colorScheme.onSurface,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -828,12 +826,12 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                         onPressed: _toggleDislike,
                         icon: Icon(
                           _video?.isDislikedByUser == true ? Icons.thumb_down : Icons.thumb_down_outlined,
-                          color: _video?.isDislikedByUser == true ? Colors.blue : Colors.white,
+                          color: _video?.isDislikedByUser == true ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurface,
                         ),
                         label: Text('${_video?.dislikesCount ?? 0}'),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF2D2D2D),
-                          foregroundColor: Colors.white,
+                          backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+                          foregroundColor: Theme.of(context).colorScheme.onSurface,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),

@@ -54,24 +54,24 @@ class _AppDrawerState extends State<AppDrawer> {
   Widget build(BuildContext context) {
     print('🔍 AppDrawer.build: user = ${widget.user?.email ?? 'null'}');
     return Drawer(
-      backgroundColor: const Color(0xFF2D2D2D),
+      backgroundColor: Theme.of(context).colorScheme.surface,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           // Header с информацией о пользователе
           Container(
             padding: const EdgeInsets.all(16),
-            decoration: const BoxDecoration(
-              color: Color(0xFF1A1A1A),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surfaceContainerHighest,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Название приложения
-                const Text(
+                Text(
                   'АЧПП',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
@@ -94,10 +94,10 @@ class _AppDrawerState extends State<AppDrawer> {
                                 widget.user!.fullName.isNotEmpty
                                     ? widget.user!.fullName[0].toUpperCase()
                                     : widget.user!.email[0].toUpperCase(),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                                  color: Theme.of(context).colorScheme.onPrimary,
                                 ),
                               )
                             : null,
@@ -112,8 +112,8 @@ class _AppDrawerState extends State<AppDrawer> {
                             // Имя и фамилия
                             Text(
                               widget.user!.fullName.isNotEmpty ? widget.user!.fullName : 'Пользователь',
-                              style: const TextStyle(
-                                color: Colors.white,
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -124,7 +124,7 @@ class _AppDrawerState extends State<AppDrawer> {
                             Text(
                               widget.user!.email,
                               style: TextStyle(
-                                color: Colors.grey[400],
+                                color: Theme.of(context).colorScheme.onSurfaceVariant,
                                 fontSize: 12,
                               ),
                               overflow: TextOverflow.ellipsis,
@@ -133,8 +133,8 @@ class _AppDrawerState extends State<AppDrawer> {
                             // Баланс
                             Text(
                               widget.user!.formattedBalance ?? '₽ ${widget.user!.balance.toStringAsFixed(0)}',
-                              style: const TextStyle(
-                                color: Color(0xFF8B5CF6),
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.secondary,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -148,7 +148,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         children: [
                           // Кнопка настроек
                           IconButton(
-                            icon: const Icon(Icons.settings, color: Colors.grey),
+                            icon: Icon(Icons.settings, color: Theme.of(context).colorScheme.onSurfaceVariant),
                             iconSize: 20,
                             onPressed: () {
                               Navigator.pop(context);
@@ -169,7 +169,7 @@ class _AppDrawerState extends State<AppDrawer> {
 
                           // Кнопка смены темы (пока заглушка)
                           IconButton(
-                            icon: const Icon(Icons.brightness_6, color: Colors.grey),
+                            icon: Icon(Icons.brightness_6, color: Theme.of(context).colorScheme.onSurfaceVariant),
                             iconSize: 20,
                             onPressed: () {
                               Navigator.pop(context);
@@ -211,10 +211,10 @@ class _AppDrawerState extends State<AppDrawer> {
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 8),
                       ),
-                      child: const Text(
+                      child: Text(
                         'Перейти в профиль',
                         style: TextStyle(
-                          color: Color(0xFF8B5CF6),
+                          color: Theme.of(context).colorScheme.secondary,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
@@ -425,7 +425,7 @@ class _AppDrawerState extends State<AppDrawer> {
                  ),
 
           // Разделитель
-          const Divider(color: Colors.grey, height: 1),
+          Divider(color: Theme.of(context).colorScheme.outline, height: 1),
 
           // Кнопка выхода
           _buildDrawerItem(
@@ -447,16 +447,16 @@ class _AppDrawerState extends State<AppDrawer> {
     int? badgeCount,
   }) {
     return ListTile(
-      leading: Icon(icon, color: Colors.white),
+      leading: Icon(icon, color: Theme.of(context).colorScheme.onSurface),
       title: Text(
         title,
-        style: const TextStyle(color: Colors.white),
+        style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
       ),
       trailing: badgeCount != null && badgeCount > 0
           ? Container(
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
-                color: const Color(0xFF8B5CF6),
+                color: Theme.of(context).colorScheme.secondary,
                 borderRadius: BorderRadius.circular(10),
               ),
               constraints: const BoxConstraints(
@@ -465,8 +465,8 @@ class _AppDrawerState extends State<AppDrawer> {
               ),
               child: Text(
                 badgeCount > 99 ? '99+' : badgeCount.toString(),
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSecondary,
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
                 ),
@@ -483,21 +483,21 @@ class _AppDrawerState extends State<AppDrawer> {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          backgroundColor: const Color(0xFF2D2D2D),
-          title: const Text(
+          backgroundColor: Theme.of(dialogContext).colorScheme.surface,
+          title: Text(
             'Выход из аккаунта',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Theme.of(dialogContext).colorScheme.onSurface),
           ),
-          content: const Text(
+          content: Text(
             'Вы действительно хотите выйти из аккаунта?',
-            style: TextStyle(color: Colors.white70),
+            style: TextStyle(color: Theme.of(dialogContext).colorScheme.onSurfaceVariant),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(),
               child: Text(
                 'Отмена',
-                style: TextStyle(color: Colors.grey[400]),
+                style: TextStyle(color: Theme.of(dialogContext).colorScheme.onSurfaceVariant),
               ),
             ),
             TextButton(
@@ -515,9 +515,9 @@ class _AppDrawerState extends State<AppDrawer> {
                   );
                 }
               },
-              child: const Text(
+              child: Text(
                 'Выйти',
-                style: TextStyle(color: Colors.red),
+                style: TextStyle(color: Theme.of(dialogContext).colorScheme.error),
               ),
             ),
           ],

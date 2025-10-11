@@ -207,12 +207,10 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: widget.showAppBar
           ? AppBar(
               title: _navigationStack.isNotEmpty ? Text(_currentFolder!.name) : Text(widget.title),
-              backgroundColor: const Color(0xFF1A1A1A),
-              foregroundColor: Colors.white,
               elevation: 0,
               leading: _navigationStack.isNotEmpty
                   ? IconButton(
@@ -254,13 +252,13 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
                         )
                       : null,
                   filled: true,
-                  fillColor: const Color(0xFF2D2D2D),
+                  fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none,
                   ),
                 ),
-                style: const TextStyle(color: Colors.white),
+                style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
               ),
             ),
 
@@ -269,9 +267,9 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
             // Контент
             Expanded(
               child: (_navigationStack.isEmpty && _isLoadingRoot) || _isLoadingFolder
-                  ? const Center(
+                  ? Center(
                       child: CircularProgressIndicator(
-                        color: Color(0xFF6B46C1),
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                     )
                   : _filteredItems.isEmpty
@@ -283,7 +281,7 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
                               const SizedBox(height: 16),
                               Text(
                                 _isSearchMode ? 'Ничего не найдено' : 'Папка пуста',
-                                style: const TextStyle(color: Colors.white, fontSize: 18),
+                                style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 18),
                               ),
                               const SizedBox(height: 8),
                               Text(
@@ -325,9 +323,9 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
     return Container(
       margin: EdgeInsets.zero,
       decoration: BoxDecoration(
-        color: const Color(0xFF2D2D2D),
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey[800]!),
+        border: Border.all(color: Theme.of(context).colorScheme.outline),
       ),
       child: InkWell(
         onTap: () => _navigateToFolder(folder),
@@ -344,8 +342,8 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
                   Expanded(
                     child: Text(
                       folder.name,
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
@@ -377,7 +375,7 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
                           data: folder.description!,
                           style: {
                             'body': Style(
-                              color: Colors.grey[400],
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
                               fontSize: FontSize(14),
                               lineHeight: LineHeight.number(1.4),
                             ),
@@ -400,12 +398,12 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF6B46C1).withOpacity(0.15),
+                      color: Theme.of(context).colorScheme.primary.withOpacity(0.15),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.folder,
-                      color: Color(0xFF6B46C1),
+                      color: Theme.of(context).colorScheme.primary,
                       size: 20,
                     ),
                   ),
@@ -439,7 +437,7 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
     return Container(
       margin: EdgeInsets.zero,
       decoration: BoxDecoration(
-        color: const Color(0xFF2D2D2D),
+        color: Theme.of(context).colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(12),
       ),
       child: InkWell(
@@ -461,7 +459,7 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
                   height: 180,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF6B46C1),
+                    color: Theme.of(context).colorScheme.primary,
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(12),
                       topRight: Radius.circular(12),
@@ -476,16 +474,16 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
                           child: Image.network(
                             video.thumbnailUrl!,
                             fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) => const Icon(
+                            errorBuilder: (context, error, stackTrace) => Icon(
                               Icons.play_circle_outline,
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.onPrimary,
                               size: 48,
                             ),
                           ),
                         )
-                      : const Icon(
+                      : Icon(
                           Icons.play_circle_outline,
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.onPrimary,
                           size: 48,
                         ),
                 ),
@@ -497,13 +495,13 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.8),
+                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
                       video.formattedDuration,
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                       ),
@@ -524,12 +522,12 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
                         width: 48,
                         height: 48,
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.7),
+                          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.play_arrow,
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.onPrimary,
                           size: 28,
                         ),
                       ),
@@ -566,8 +564,8 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
                   // Название видео
                   Text(
                     video.title,
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       height: 1.3,
@@ -632,13 +630,13 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
                       margin: const EdgeInsets.only(top: 8),
                       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFF59E0B).withOpacity(0.15),
+                        color: Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: const Text(
+                      child: Text(
                         'Премиум',
                         style: TextStyle(
-                          color: Color(0xFFF59E0B),
+                          color: Theme.of(context).colorScheme.tertiary,
                           fontSize: 10,
                           fontWeight: FontWeight.w600,
                         ),
@@ -677,11 +675,11 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, color: const Color(0xFF6B46C1), size: 14),
+        Icon(icon, color: Theme.of(context).colorScheme.primary, size: 14),
         const SizedBox(width: 4),
         Text(
           text,
-          style: const TextStyle(color: Colors.grey, fontSize: 12),
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 12),
         ),
       ],
     );

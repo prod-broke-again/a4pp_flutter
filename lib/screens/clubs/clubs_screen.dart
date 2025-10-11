@@ -87,12 +87,12 @@ class _ClubsScreenState extends State<ClubsScreen> {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                color: const Color(0xFF6B46C1).withOpacity(0.1),
+                color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.favorite,
-                color: Color(0xFF6B46C1),
+                color: Theme.of(context).colorScheme.primary,
                 size: 20,
               ),
             ),
@@ -117,13 +117,13 @@ class _ClubsScreenState extends State<ClubsScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: const Color(0xFF6B46C1).withOpacity(0.1),
+                color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: const Color(0xFF6B46C1).withOpacity(0.3)),
+                border: Border.all(color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3)),
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.attach_money, color: Color(0xFF6B46C1), size: 16),
+                  Icon(Icons.attach_money, color: Theme.of(context).colorScheme.primary, size: 16),
                   const SizedBox(width: 8),
                   Text(
                     'Клуб активен',
@@ -165,7 +165,7 @@ class _ClubsScreenState extends State<ClubsScreen> {
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF6B46C1),
-              foregroundColor: Colors.white,
+              foregroundColor: Theme.of(context).colorScheme.onPrimary,
             ),
             child: const Text('Отправить'),
           ),
@@ -196,14 +196,12 @@ class _ClubsScreenState extends State<ClubsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: const Color(0xFF0F0F0F),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         title: const Text('Клубы'),
-        backgroundColor: const Color(0xFF1A1A1A),
-        foregroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.white),
+          icon: Icon(Icons.menu, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
           onPressed: () {
             _scaffoldKey.currentState?.openDrawer();
           },
@@ -266,13 +264,13 @@ class _ClubsScreenState extends State<ClubsScreen> {
                         )
                       : null,
                   filled: true,
-                  fillColor: const Color(0xFF2D2D2D),
+                  fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none,
                   ),
                 ),
-                style: const TextStyle(color: Colors.white),
+                style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
               ),
             ),
 
@@ -289,7 +287,7 @@ class _ClubsScreenState extends State<ClubsScreen> {
                               const SizedBox(height: 16),
                               Text(
                                 'Ошибка загрузки',
-                                style: const TextStyle(color: Colors.white, fontSize: 18),
+                                style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 18),
                               ),
                               const SizedBox(height: 8),
                               Text(
@@ -310,16 +308,16 @@ class _ClubsScreenState extends State<ClubsScreen> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Icon(Icons.group, color: Colors.grey, size: 64),
+                                  Icon(Icons.group, color: Theme.of(context).colorScheme.onSurfaceVariant, size: 64),
                                   const SizedBox(height: 16),
-                                  const Text(
+                                  Text(
                                     'Клубы не найдены',
-                                    style: TextStyle(color: Colors.white, fontSize: 18),
+                                    style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 18),
                                   ),
                                   const SizedBox(height: 8),
-                                  const Text(
+                                  Text(
                                     'Попробуйте изменить поисковый запрос',
-                                    style: TextStyle(color: Colors.grey),
+                                    style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                                   ),
                                 ],
                               ),
@@ -332,7 +330,6 @@ class _ClubsScreenState extends State<ClubsScreen> {
                                   padding: const EdgeInsets.only(bottom: 16),
                                   child: UniversalCard(
                                     item: _clubs[index],
-                                    isDark: true,
                                     onTap: () => _navigateToClubDetails(_clubs[index]),
                                     onToggleFavorite: () => _toggleFavorite(_clubs[index]),
                                   ),
@@ -351,9 +348,9 @@ class _ClubsScreenState extends State<ClubsScreen> {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        color: const Color(0xFF2D2D2D),
+        color: Theme.of(context).colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey[800]!),
+        border: Border.all(color: Theme.of(context).colorScheme.outline),
       ),
       child: InkWell(
         onTap: () => _navigateToClubDetails(club),
@@ -380,8 +377,8 @@ class _ClubsScreenState extends State<ClubsScreen> {
                       )
                     : Container(
                         height: 160,
-                        color: const Color(0xFF6B46C1),
-                        child: const Icon(Icons.group, color: Colors.white, size: 48),
+                        color: Theme.of(context).colorScheme.primary,
+                        child: Icon(Icons.group, color: Theme.of(context).colorScheme.onPrimary, size: 48),
                       ),
               ),
               // Статус
@@ -391,15 +388,15 @@ class _ClubsScreenState extends State<ClubsScreen> {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                    color: club.status == 'active' 
-                        ? const Color(0xFF10B981).withAlpha(230)
-                        : const Color(0xFF6B7280).withAlpha(230),
+                    color: club.status == 'active'
+                        ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.9)
+                        : Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.9),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
                     club.status == 'active' ? 'Активен' : 'Неактивен',
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
                       fontSize: 10,
                       fontWeight: FontWeight.w600,
                     ),
@@ -413,15 +410,15 @@ class _ClubsScreenState extends State<ClubsScreen> {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                    color: club.productLevel > 1 
-                        ? const Color(0xFFF59E0B).withAlpha(230)
-                        : const Color(0xFF10B981).withAlpha(230),
+                    color: club.productLevel > 1
+                        ? Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.9)
+                        : Theme.of(context).colorScheme.primary.withValues(alpha: 0.9),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
                     club.productLevel > 1 ? 'Премиум' : 'Базовый',
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
                       fontSize: 10,
                       fontWeight: FontWeight.w600,
                     ),
@@ -437,12 +434,12 @@ class _ClubsScreenState extends State<ClubsScreen> {
                   child: Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Colors.black38,
+                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(
                       club.isFavoritedByUser ? Icons.favorite : Icons.favorite_border,
-                      color: club.isFavoritedByUser ? Colors.red : Colors.white,
+                      color: club.isFavoritedByUser ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.onPrimary,
                       size: 20,
                     ),
                   ),
@@ -460,8 +457,8 @@ class _ClubsScreenState extends State<ClubsScreen> {
                 // Название
                 Text(
                   club.name,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -473,7 +470,7 @@ class _ClubsScreenState extends State<ClubsScreen> {
                 Text(
                   club.description,
                   style: TextStyle(
-                    color: Colors.grey[400],
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                     fontSize: 14,
                     height: 1.4,
                   ),
@@ -499,8 +496,8 @@ class _ClubsScreenState extends State<ClubsScreen> {
                       child: OutlinedButton(
                         onPressed: () => _navigateToClubDetails(club),
                         style: OutlinedButton.styleFrom(
-                          foregroundColor: const Color(0xFF6B46C1),
-                          side: const BorderSide(color: Color(0xFF6B46C1)),
+                          foregroundColor: Theme.of(context).colorScheme.primary,
+                          side: BorderSide(color: Theme.of(context).colorScheme.primary),
                           padding: const EdgeInsets.symmetric(vertical: 12),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -519,8 +516,8 @@ class _ClubsScreenState extends State<ClubsScreen> {
                         icon: const Icon(Icons.favorite, size: 16),
                         label: const Text('Донат'),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF6B46C1),
-                          foregroundColor: Colors.white,
+                          backgroundColor: Theme.of(context).colorScheme.primary,
+                          foregroundColor: Theme.of(context).colorScheme.onPrimary,
                         ),
                       ),
                     ),
@@ -539,11 +536,11 @@ class _ClubsScreenState extends State<ClubsScreen> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, color: const Color(0xFF6B46C1), size: 16),
+        Icon(icon, color: Theme.of(context).colorScheme.primary, size: 16),
         const SizedBox(width: 4),
         Text(
           text,
-          style: const TextStyle(color: Colors.grey, fontSize: 12),
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 12),
         ),
       ],
     );

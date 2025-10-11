@@ -9,7 +9,6 @@ class UniversalCard extends StatelessWidget {
   final VoidCallback? onTap;
   final VoidCallback? onToggleFavorite;
   final VoidCallback? onDonate;
-  final bool isDark;
 
   const UniversalCard({
     super.key,
@@ -17,7 +16,6 @@ class UniversalCard extends StatelessWidget {
     this.onTap,
     this.onToggleFavorite,
     this.onDonate,
-    this.isDark = true,
   });
 
   @override
@@ -27,17 +25,17 @@ class UniversalCard extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF1A1A1A) : Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: isDark ? Colors.black.withOpacity(0.3) : Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+            color: Theme.of(context).colorScheme.shadow.withOpacity(0.15),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
           ),
         ],
         border: Border.all(
-          color: isDark ? Colors.grey[800]! : Colors.white.withOpacity(0.2),
+          color: Theme.of(context).colorScheme.outline.withOpacity(0.3),
           width: 1,
         ),
       ),
@@ -61,15 +59,15 @@ class UniversalCard extends StatelessWidget {
                           fit: BoxFit.cover,
                         )
                       : null,
-                  color: _getImage() == null 
-                      ? (isDark ? const Color(0xFF2A2A2A) : const Color(0xFFF3F4F6)) 
+                  color: _getImage() == null
+                      ? Theme.of(context).colorScheme.surfaceContainerHighest
                       : null,
                 ),
                 child: _getImage() == null
                     ? Center(
                         child: Icon(
                           isCourse ? Icons.school_outlined : Icons.group_outlined,
-                          color: isDark ? Colors.grey[600] : const Color(0xFF9CA3AF),
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                           size: 48,
                         ),
                       )
@@ -87,11 +85,11 @@ class UniversalCard extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: isDark ? Colors.black.withOpacity(0.7) : Colors.white.withOpacity(0.9),
+                      color: Theme.of(context).colorScheme.surface.withOpacity(0.9),
                       borderRadius: BorderRadius.circular(12),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
+                          color: Theme.of(context).colorScheme.shadow.withOpacity(0.1),
                           blurRadius: 4,
                           offset: const Offset(0, 2),
                         ),
@@ -99,7 +97,7 @@ class UniversalCard extends StatelessWidget {
                     ),
                     child: Icon(
                       _isFavorited() ? Icons.favorite : Icons.favorite_border,
-                      color: _isFavorited() ? const Color(0xFFEF4444) : (isDark ? Colors.grey[400] : const Color(0xFF6B7280)),
+                      color: _isFavorited() ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.onSurfaceVariant,
                       size: 20,
                     ),
                   ),
@@ -120,7 +118,7 @@ class UniversalCard extends StatelessWidget {
                   child: Text(
                     _getTitle(),
                     style: TextStyle(
-                      color: isDark ? Colors.white : const Color(0xFF1F2937),
+                      color: Theme.of(context).colorScheme.onSurface,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       height: 1.3,
@@ -129,14 +127,14 @@ class UniversalCard extends StatelessWidget {
                     maxLines: 2,
                   ),
                 ),
-                
+
                 const SizedBox(height: 8),
-                
+
                 // Описание
                 Text(
                   _getDescription(),
                   style: TextStyle(
-                    color: isDark ? Colors.grey[400] : const Color(0xFF6B7280),
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                     fontSize: 14,
                     height: 1.4,
                   ),
@@ -151,10 +149,10 @@ class UniversalCard extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: isDark ? const Color(0xFF1E3A8A) : const Color(0xFFEFF6FF),
+                      color: Theme.of(context).colorScheme.secondaryContainer,
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
-                        color: isDark ? const Color(0xFF3B82F6) : const Color(0xFFDBEAFE),
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                     ),
                     child: Column(
@@ -164,14 +162,14 @@ class UniversalCard extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.schedule,
-                              color: isDark ? const Color(0xFF60A5FA) : const Color(0xFF3B82F6),
+                              color: Theme.of(context).colorScheme.onSecondaryContainer,
                               size: 16,
                             ),
                             const SizedBox(width: 4),
                             Text(
                               isCourse ? 'Ближайшее занятие' : 'Ближайшая встреча',
                               style: TextStyle(
-                                color: isDark ? const Color(0xFF60A5FA) : const Color(0xFF1E40AF),
+                                color: Theme.of(context).colorScheme.onSecondaryContainer,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -182,7 +180,7 @@ class UniversalCard extends StatelessWidget {
                         Text(
                           _formatDate(_getNextEventDate()),
                           style: TextStyle(
-                            color: isDark ? const Color(0xFF93C5FD) : const Color(0xFF1E40AF),
+                            color: Theme.of(context).colorScheme.onSecondaryContainer.withOpacity(0.8),
                             fontSize: 12,
                           ),
                         ),
@@ -190,7 +188,7 @@ class UniversalCard extends StatelessWidget {
                           Text(
                             _getNextEventTitle()!,
                             style: TextStyle(
-                              color: isDark ? const Color(0xFF93C5FD) : const Color(0xFF1E40AF),
+                              color: Theme.of(context).colorScheme.onSecondaryContainer.withOpacity(0.8),
                               fontSize: 11,
                             ),
                             overflow: TextOverflow.ellipsis,
@@ -201,14 +199,14 @@ class UniversalCard extends StatelessWidget {
                             children: [
                               Icon(
                                 isCourse ? Icons.school : Icons.event,
-                                color: isDark ? const Color(0xFF93C5FD) : const Color(0xFF1E40AF),
+                                color: Theme.of(context).colorScheme.onSecondaryContainer.withOpacity(0.8),
                                 size: 12,
                               ),
                               const SizedBox(width: 4),
                               Text(
                                 '${_getContentCount()} ${isCourse ? 'занятий' : 'встреч'} всего',
                                 style: TextStyle(
-                                  color: isDark ? const Color(0xFF93C5FD) : const Color(0xFF1E40AF),
+                                  color: Theme.of(context).colorScheme.onSecondaryContainer.withOpacity(0.8),
                                   fontSize: 11,
                                 ),
                               ),
@@ -226,8 +224,8 @@ class UniversalCard extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: onTap,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF8B5CF6),
-                      foregroundColor: Colors.white,
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                      foregroundColor: Theme.of(context).colorScheme.onSecondary,
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -256,8 +254,8 @@ class UniversalCard extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () => _openZoomLink(context, _getZoomLink()!),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF3B82F6),
-                            foregroundColor: Colors.white,
+                            backgroundColor: Theme.of(context).colorScheme.primary,
+                            foregroundColor: Theme.of(context).colorScheme.onPrimary,
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
@@ -282,8 +280,8 @@ class UniversalCard extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () => _showDonationDialog(context),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF10B981),
-                          foregroundColor: Colors.white,
+                          backgroundColor: Theme.of(context).colorScheme.primary,
+                          foregroundColor: Theme.of(context).colorScheme.onPrimary,
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -425,9 +423,9 @@ class UniversalCard extends StatelessWidget {
         await launchUrl(uri, mode: LaunchMode.externalApplication);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Не удалось открыть ссылку'),
-            backgroundColor: Color(0xFFEF4444),
+          SnackBar(
+            content: const Text('Не удалось открыть ссылку'),
+            backgroundColor: Theme.of(context).colorScheme.error,
           ),
         );
       }
@@ -460,7 +458,7 @@ class UniversalCard extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('Донат на сумму $amount₽ отправлен'),
-                backgroundColor: const Color(0xFF10B981),
+                backgroundColor: Theme.of(context).colorScheme.primary,
               ),
             );
           },

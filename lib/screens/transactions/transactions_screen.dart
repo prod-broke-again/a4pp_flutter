@@ -59,14 +59,14 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
         .fold(0.0, (sum, item) => sum + item);
 
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.white,
+            color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white,
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
@@ -143,8 +143,8 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    const Color(0xFF6B46C1),
-                    const Color(0xFF8B5CF6),
+                    Theme.of(context).colorScheme.primary,
+                    Theme.of(context).colorScheme.secondary,
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -177,7 +177,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                           icon: Icons.trending_up,
                           value: '+₽ ${totalIncomes.toStringAsFixed(0)}',
                           label: 'Пополнения',
-                          color: const Color(0xFF10B981),
+                          color: Theme.of(context).colorScheme.tertiary,
                         ),
                       ),
                       Container(
@@ -190,7 +190,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                           icon: Icons.trending_down,
                           value: '-₽ ${totalExpenses.toStringAsFixed(0)}',
                           label: 'Расходы',
-                          color: const Color(0xFFEF4444),
+                          color: Theme.of(context).colorScheme.error,
                         ),
                       ),
                     ],
@@ -436,7 +436,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                 icon,
                 color: isPositive 
                     ? const Color(0xFF10B981)
-                    : const Color(0xFFEF4444),
+                    : Theme.of(context).colorScheme.error,
                 size: 28,
               ),
             ),
@@ -465,7 +465,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                         style: TextStyle(
                           color: isPositive 
                               ? const Color(0xFF10B981)
-                              : const Color(0xFFEF4444),
+                              : Theme.of(context).colorScheme.error,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),

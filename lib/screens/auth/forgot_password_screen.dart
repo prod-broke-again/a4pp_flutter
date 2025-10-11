@@ -43,7 +43,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Stack(
         children: [
           // Градиент в стиле логина
@@ -89,20 +89,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                 child: const Icon(Icons.lock_reset, color: Color(0xFF9F7AEA)),
                               ),
                               const SizedBox(width: 12),
-                              const Expanded(
+                              Expanded(
                                 child: Text(
                                   'Восстановление пароля',
-                                  style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w700),
+                                  style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 22, fontWeight: FontWeight.w700),
                                 ),
                               ),
                             ],
                           ),
                           const SizedBox(height: 8),
-                          Text('Введите ваш email для сброса пароля', style: TextStyle(color: Colors.grey[400])),
+                          Text('Введите ваш email для сброса пароля', style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant)),
                           const SizedBox(height: 20),
                           TextFormField(
                             controller: _emailController,
-                            style: const TextStyle(color: Colors.white),
+                            style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                             decoration: _buildInputDecoration(
                               hintText: 'Email',
                               prefixIcon: Icons.email_outlined,
@@ -142,9 +142,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                 context.goNamed('login');
                               }
                             },
-                            child: const Text(
+                            child: Text(
                               'Вернуться ко входу',
-                              style: TextStyle(color: Colors.white, fontSize: 14),
+                              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 14),
                             ),
                           ),
                         ],
@@ -166,13 +166,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   }) {
     return InputDecoration(
       hintText: hintText,
-      hintStyle: TextStyle(color: Colors.grey[400]),
+      hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
       prefixIcon: Icon(
         prefixIcon,
         color: const Color(0xFF6B46C1),
       ),
       filled: true,
-      fillColor: Colors.black38,
+      fillColor: Theme.of(context).colorScheme.surfaceContainer,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
         borderSide: BorderSide.none,

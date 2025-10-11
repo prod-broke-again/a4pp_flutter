@@ -71,27 +71,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1A1A1A),
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.white),
+          icon: Icon(Icons.menu, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
           onPressed: () {
             _scaffoldKey.currentState?.openDrawer();
           },
         ),
-        title: const Text(
+        title: Text(
           'Профиль',
           style: TextStyle(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.onPrimary,
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onPrimary),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ],
@@ -114,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   CircleAvatar(
                     radius: 40,
-                    backgroundColor: const Color(0xFF6B46C1),
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                     backgroundImage: _currentUser.avatar != null && _currentUser.avatar!.isNotEmpty
                         ? NetworkImage(_currentUser.avatar!)
                         : null,
@@ -125,10 +124,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 : _currentUser.fullName.isNotEmpty 
                                     ? _currentUser.fullName[0].toUpperCase()
                                     : 'U',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 32,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.onPrimary,
                             ),
                           )
                         : null,
@@ -151,20 +150,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           _currentUser.email,
                           style: TextStyle(
                             fontSize: 16,
-                            color: Colors.grey[400],
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
                           ),
                         ),
                         const SizedBox(height: 8),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF8B5CF6).withAlpha(51),
+                            color: Theme.of(context).colorScheme.primaryContainer,
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Text(
                             _currentUser.formattedBalance ?? '₽ ${_currentUser.balance.toStringAsFixed(0)}',
-                            style: const TextStyle(
-                              color: Color(0xFF8B5CF6),
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onPrimaryContainer,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -183,9 +182,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   width: double.infinity,
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF2D2D2D),
+                    color: Theme.of(context).colorScheme.surfaceContainer,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.grey[800]!),
+                    border: Border.all(color: Theme.of(context).colorScheme.outline),
                   ),
                   child: _buildSubscriptionSummary(widget.subscriptionStatus!),
                 ),
@@ -322,19 +321,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: ElevatedButton(
                   onPressed: _isLoading ? null : _loadProfile,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF8B5CF6),
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                   child: _isLoading
-                      ? const SizedBox(
+                      ? SizedBox(
                           height: 20,
                           width: 20,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                            valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).colorScheme.onSecondary),
                           ),
                         )
                       : const Text(
@@ -362,26 +361,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        color: const Color(0xFF2D2D2D),
+        color: Theme.of(context).colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(12),
       ),
       child: ListTile(
         leading: Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: const Color(0xFF8B5CF6).withAlpha(51),
+            color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(
             icon,
-            color: const Color(0xFF8B5CF6),
+            color: Theme.of(context).colorScheme.secondary,
             size: 24,
           ),
         ),
         title: Text(
           title,
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -389,7 +388,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         subtitle: Text(
           subtitle,
           style: TextStyle(
-            color: Colors.grey[400],
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
             fontSize: 14,
           ),
         ),
@@ -431,23 +430,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
       children: [
         Row(
           children: [
-            Icon(Icons.subscriptions, color: const Color(0xFF8B5CF6)),
+            Icon(Icons.subscriptions, color: Theme.of(context).colorScheme.secondary),
             const SizedBox(width: 8),
             Expanded(
               child: Text(
                 productName,
-                style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
-                color: const Color(0xFF8B5CF6).withOpacity(0.15),
+                color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Text(
                 isActive ? 'Активна' : 'Не активна',
-                style: const TextStyle(color: Color(0xFF8B5CF6), fontSize: 12, fontWeight: FontWeight.w600),
+                style: TextStyle(color: Theme.of(context).colorScheme.secondary, fontSize: 12, fontWeight: FontWeight.w600),
               ),
             ),
           ],
@@ -456,22 +455,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
         if (priceText != null)
           Text(
             'Стоимость: $priceText',
-            style: const TextStyle(color: Color(0xFF8B5CF6), fontSize: 14, fontWeight: FontWeight.w600),
+            style: TextStyle(color: Theme.of(context).colorScheme.secondary, fontSize: 14, fontWeight: FontWeight.w600),
           ),
         if (priceText != null) const SizedBox(height: 4),
         if (expires != null)
           Text(
             'Действует до ${_formatDate(expires)}' + (remainingDays != null ? ' • Осталось ~ $remainingDays д.' : ''),
-            style: TextStyle(color: Colors.grey[400], fontSize: 14),
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 14),
           ),
         if (status.auto == true)
           Padding(
             padding: const EdgeInsets.only(top: 6),
             child: Row(
-              children: const [
-                Icon(Icons.autorenew, size: 14, color: Color(0xFF8B5CF6)),
+              children: [
+                Icon(Icons.autorenew, size: 14, color: Theme.of(context).colorScheme.secondary),
                 SizedBox(width: 4),
-                Text('Автопродление включено', style: TextStyle(color: Color(0xFF8B5CF6), fontSize: 12, fontWeight: FontWeight.w600)),
+                Text('Автопродление включено', style: TextStyle(color: Theme.of(context).colorScheme.secondary, fontSize: 12, fontWeight: FontWeight.w600)),
               ],
             ),
           ),

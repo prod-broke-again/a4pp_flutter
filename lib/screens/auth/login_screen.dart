@@ -40,15 +40,15 @@ class _SocialButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         decoration: BoxDecoration(
-          color: const Color(0xFF2D2D2D),
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.grey[800]!),
+          border: Border.all(color: Theme.of(context).colorScheme.outline),
         ),
         child: Row(
           children: [
-            Icon(icon, color: Colors.white, size: 18),
+            Icon(icon, color: Theme.of(context).colorScheme.onSurface, size: 18),
             const SizedBox(width: 6),
-            Text(label, style: const TextStyle(color: Colors.white, fontSize: 14)),
+            Text(label, style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 14)),
           ],
         ),
       ),
@@ -96,14 +96,18 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Stack(
         children: [
           // Фон-градиент
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF0F0F0F), Color(0xFF1A1A1A), Color(0xFF101016)],
+                colors: [
+                  Theme.of(context).colorScheme.background,
+                  Theme.of(context).colorScheme.surface,
+                  Theme.of(context).colorScheme.surfaceContainerHighest,
+                ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -163,11 +167,11 @@ class _LoginViewState extends State<LoginView> {
                         child: Container(
                           padding: const EdgeInsets.all(24),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF2D2D2D),
+                            color: Theme.of(context).colorScheme.surface,
                             borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: Colors.grey[800]!),
+                            border: Border.all(color: Theme.of(context).colorScheme.outline),
                             boxShadow: [
-                              BoxShadow(color: Colors.black.withOpacity(0.35), blurRadius: 30, offset: const Offset(0, 10)),
+                              BoxShadow(color: Theme.of(context).colorScheme.shadow.withOpacity(0.2), blurRadius: 30, offset: const Offset(0, 10)),
                             ],
                           ),
                           child: Column(
@@ -180,22 +184,22 @@ class _LoginViewState extends State<LoginView> {
                                   child: Image.asset('logo.png', width: 48, height: 48, fit: BoxFit.cover),
                                 ),
                                 const SizedBox(width: 12),
-                                const Expanded(
+                                Expanded(
                                   child: Text(
                                     'С возвращением!',
-                                    style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w700),
+                                    style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 22, fontWeight: FontWeight.w700),
                                   ),
                                 ),
                               ],
                             ),
                               const SizedBox(height: 8),
-                              Text('Войдите, чтобы продолжить', style: TextStyle(color: Colors.grey[400])),
+                              Text('Войдите, чтобы продолжить', style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant)),
                               const SizedBox(height: 20),
 
                               // Поле email
                               TextFormField(
                                 controller: _emailController,
-                                style: const TextStyle(color: Colors.white),
+                                style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                                 decoration: _buildInputDecoration(
                                   hintText: 'Email',
                                   prefixIcon: Icons.email_outlined,
@@ -217,7 +221,7 @@ class _LoginViewState extends State<LoginView> {
                               TextFormField(
                                 controller: _passwordController,
                                 obscureText: !_isPasswordVisible,
-                                style: const TextStyle(color: Colors.white),
+                                style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                                 decoration: _buildInputDecoration(
                                   hintText: 'Пароль',
                                   prefixIcon: Icons.lock_outline,
@@ -226,7 +230,7 @@ class _LoginViewState extends State<LoginView> {
                                       _isPasswordVisible
                                           ? Icons.visibility_off
                                           : Icons.visibility,
-                                      color: Colors.grey[400],
+                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                                     ),
                                     onPressed: () {
                                       setState(() {
@@ -255,10 +259,10 @@ class _LoginViewState extends State<LoginView> {
                                   onPressed: () {
                                     context.goNamed('forgot-password');
                                   },
-                                  child: const Text(
+                                  child: Text(
                                     'Забыли пароль?',
                                     style: TextStyle(
-                                      color: Colors.white,
+                                      color: Theme.of(context).colorScheme.onSurface,
                                       fontSize: 14,
                                     ),
                                   ),
@@ -299,20 +303,20 @@ class _LoginViewState extends State<LoginView> {
                                   Expanded(
                                     child: Container(
                                       height: 1,
-                                      color: Colors.grey[700],
+                                      color: Theme.of(context).colorScheme.outline,
                                     ),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 16),
                                     child: Text(
                                       'или',
-                                      style: TextStyle(color: Colors.grey[400]),
+                                      style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                                     ),
                                   ),
                                   Expanded(
                                     child: Container(
                                       height: 1,
-                                      color: Colors.grey[700],
+                                      color: Theme.of(context).colorScheme.outline,
                                     ),
                                   ),
                                 ],
@@ -326,7 +330,7 @@ class _LoginViewState extends State<LoginView> {
                                   context.go('/register');
                                 },
                                 style: OutlinedButton.styleFrom(
-                                  foregroundColor: Colors.white,
+                                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
                                   side: const BorderSide(
                                     color: Color(0xFF6B46C1),
                                     width: 2,
@@ -367,22 +371,22 @@ class _LoginViewState extends State<LoginView> {
   }) {
     return InputDecoration(
       hintText: hintText,
-      hintStyle: TextStyle(color: Colors.grey[400]),
+      hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
       prefixIcon: Icon(
         prefixIcon,
-        color: const Color(0xFF6B46C1),
+        color: Theme.of(context).colorScheme.primary,
       ),
       suffixIcon: suffixIcon,
       filled: true,
-      fillColor: const Color(0xFF1F1F1F),
+      fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
         borderSide: BorderSide.none,
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
-        borderSide: const BorderSide(
-          color: Color(0xFF6B46C1),
+        borderSide: BorderSide(
+          color: Theme.of(context).colorScheme.primary,
           width: 2,
         ),
       ),

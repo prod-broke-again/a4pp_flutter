@@ -64,14 +64,14 @@ class _BalanceScreenState extends State<BalanceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.white,
+            color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white,
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
@@ -96,8 +96,8 @@ class _BalanceScreenState extends State<BalanceScreen> {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      const Color(0xFF6B46C1),
-                      const Color(0xFF8B5CF6),
+                      Theme.of(context).colorScheme.primary,
+                      Theme.of(context).colorScheme.secondary,
                     ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -105,7 +105,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF6B46C1).withAlpha(102),
+                      color: Theme.of(context).colorScheme.primary.withOpacity(0.4),
                       spreadRadius: 4,
                       blurRadius: 15,
                       offset: const Offset(0, 8),
@@ -139,7 +139,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                             icon: Icons.trending_up,
                             value: '+₽ 5,000',
                             label: 'Пополнения',
-                            color: const Color(0xFF10B981),
+                            color: Theme.of(context).colorScheme.tertiary,
                           ),
                         ),
                         Container(
@@ -404,7 +404,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                 child: ElevatedButton(
                   onPressed: (_isLoading || _getAmount() <= 0) ? null : _handleTopupBalance,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF6B46C1),
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     shape: RoundedRectangleBorder(
@@ -543,7 +543,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
               ),
               child: Icon(
                 icon,
-                color: isSelected ? Colors.white : const Color(0xFF6B46C1),
+                color: isSelected ? Colors.white : Theme.of(context).colorScheme.primary,
                 size: 24,
               ),
             ),
@@ -575,7 +575,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                 width: 24,
                 height: 24,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF6B46C1),
+                  color: Theme.of(context).colorScheme.primary,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Icon(

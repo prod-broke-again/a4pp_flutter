@@ -143,7 +143,7 @@ class _MeetingsScreenState extends State<MeetingsScreen> {
                         hintStyle: TextStyle(color: Colors.grey[600]),
                         prefixIcon: Icon(Icons.search, color: Colors.grey[600]),
                         filled: true,
-                        fillColor: const Color(0xFF2D2D2D),
+                        fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide.none,
@@ -168,7 +168,7 @@ class _MeetingsScreenState extends State<MeetingsScreen> {
                         labelText: 'Статус',
                         labelStyle: TextStyle(color: Colors.grey[400]),
                         filled: true,
-                        fillColor: const Color(0xFF2D2D2D),
+                        fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide.none,
@@ -200,7 +200,7 @@ class _MeetingsScreenState extends State<MeetingsScreen> {
                         labelText: 'Формат',
                         labelStyle: TextStyle(color: Colors.grey[400]),
                         filled: true,
-                        fillColor: const Color(0xFF2D2D2D),
+                        fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide.none,

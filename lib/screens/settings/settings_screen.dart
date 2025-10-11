@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:achpp/models/user.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:go_router/go_router.dart';
@@ -8,6 +9,8 @@ import 'package:achpp/models/profile_response.dart';
 import 'package:achpp/models/product.dart';
 import 'package:achpp/services/api_client.dart';
 import 'package:achpp/services/auth_service.dart';
+import 'package:achpp/providers/theme_provider.dart';
+import 'package:achpp/services/theme_service.dart';
 // import 'package:image_picker/image_picker.dart';
 // import 'dart:io';
 import '../../widgets/app_drawer.dart';
@@ -52,12 +55,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1A1A1A),
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.white),
+          icon: Icon(Icons.menu, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
           onPressed: () {
             _scaffoldKey.currentState?.openDrawer();
           },
@@ -136,20 +138,47 @@ class _SettingsScreenState extends State<SettingsScreen> {
             const SizedBox(height: 32),
             
             // Тема
-            _buildSection(
-              title: 'Тема',
-              children: [
-                _buildMenuTile(
-                  icon: Icons.brightness_6,
-                  title: 'Смена темы',
-                  subtitle: 'Светлая / темная (в разработке)',
-                  onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Смена темы в разработке')),
-                    );
-                  },
-                ),
-              ],
+            Consumer<ThemeProvider>(
+              builder: (context, themeProvider, child) {
+                return _buildSection(
+                  title: 'Тема',
+                  children: [
+                    _buildThemeOption(
+                      icon: Icons.brightness_auto,
+                      title: 'Системная',
+                      subtitle: 'Использовать настройки системы',
+                      value: themeProvider.currentThemeMode == AppThemeMode.system,
+                      onChanged: (value) {
+                        if (value) {
+                          themeProvider.setThemeMode(AppThemeMode.system);
+                        }
+                      },
+                    ),
+                    _buildThemeOption(
+                      icon: Icons.brightness_7,
+                      title: 'Светлая',
+                      subtitle: 'Всегда использовать светлую тему',
+                      value: themeProvider.currentThemeMode == AppThemeMode.light,
+                      onChanged: (value) {
+                        if (value) {
+                          themeProvider.setThemeMode(AppThemeMode.light);
+                        }
+                      },
+                    ),
+                    _buildThemeOption(
+                      icon: Icons.brightness_2,
+                      title: 'Темная',
+                      subtitle: 'Всегда использовать темную тему',
+                      value: themeProvider.currentThemeMode == AppThemeMode.dark,
+                      onChanged: (value) {
+                        if (value) {
+                          themeProvider.setThemeMode(AppThemeMode.dark);
+                        }
+                      },
+                    ),
+                  ],
+                );
+              },
             ),
             
             const SizedBox(height: 32),
@@ -305,6 +334,51 @@ class _SettingsScreenState extends State<SettingsScreen> {
         onChanged: onChanged,
         activeColor: const Color(0xFF6B46C1),
         activeTrackColor: const Color(0xFF6B46C1).withAlpha(77),
+      ),
+    );
+  }
+
+  Widget _buildThemeOption({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required bool value,
+    required ValueChanged<bool> onChanged,
+  }) {
+    return ListTile(
+      leading: Container(
+        width: 40,
+        height: 40,
+        decoration: BoxDecoration(
+          color: const Color(0xFF6B46C1).withAlpha(51),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Icon(icon, color: const Color(0xFF6B46C1), size: 20),
+      ),
+      title: Text(
+        title,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      subtitle: Text(
+        subtitle,
+        style: TextStyle(
+          color: Colors.grey[400],
+          fontSize: 14,
+        ),
+      ),
+      trailing: Radio<bool>(
+        value: true,
+        groupValue: value,
+        onChanged: (bool? newValue) {
+          if (newValue == true) {
+            onChanged(true);
+          }
+        },
+        activeColor: const Color(0xFF6B46C1),
       ),
     );
   }

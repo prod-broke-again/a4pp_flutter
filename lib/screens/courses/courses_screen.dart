@@ -95,18 +95,16 @@ class _CoursesScreenState extends State<CoursesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const isDark = true; // Всегда темная тема
+    // Используем системную тему
     
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: isDark ? const Color(0xFF0F0F0F) : const Color(0xFFF8FAFC),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         title: const Text('Курсы'),
-        backgroundColor: const Color(0xFF1A1A1A),
-        foregroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.white),
+          icon: Icon(Icons.menu, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
           onPressed: () {
             _scaffoldKey.currentState?.openDrawer();
           },
@@ -136,7 +134,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
                   'Профессиональные занятия и мастер-классы для развития навыков в области психотерапии',
                   style: TextStyle(
                     fontSize: 16,
-                    color: isDark ? Colors.grey[400] : const Color(0xFF6B7280),
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                     height: 1.5,
                   ),
                 ),
@@ -171,13 +169,13 @@ class _CoursesScreenState extends State<CoursesScreen> {
                           )
                         : null,
                     filled: true,
-                    fillColor: const Color(0xFF2D2D2D),
+                    fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
                   ),
-                  style: const TextStyle(color: Colors.white),
+                  style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                 ),
               ),
               const SizedBox(height: 16),
@@ -188,7 +186,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
                   padding: const EdgeInsets.all(48.0),
                   child: Center(
                     child: CircularProgressIndicator(
-                      color: isDark ? const Color(0xFF8B5CF6) : const Color(0xFF8B5CF6),
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
                 )
@@ -203,12 +201,12 @@ class _CoursesScreenState extends State<CoursesScreen> {
                           width: 96,
                           height: 96,
                           decoration: BoxDecoration(
-                            color: isDark ? const Color(0xFF2D1B1B) : const Color(0xFFFEE2E2),
+                            color: Theme.of(context).colorScheme.errorContainer,
                             borderRadius: BorderRadius.circular(48),
                           ),
                           child: Icon(
                             Icons.error_outline,
-                            color: isDark ? const Color(0xFFEF4444) : const Color(0xFFDC2626),
+                            color: Theme.of(context).colorScheme.error,
                             size: 48,
                           ),
                         ),
@@ -218,14 +216,14 @@ class _CoursesScreenState extends State<CoursesScreen> {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w600,
-                            color: isDark ? Colors.white : const Color(0xFF1F2937),
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
                         const SizedBox(height: 8),
                         Text(
                           _error!,
                           style: TextStyle(
-                            color: isDark ? Colors.grey[400] : const Color(0xFF6B7280),
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -233,8 +231,8 @@ class _CoursesScreenState extends State<CoursesScreen> {
                         ElevatedButton(
                           onPressed: _loadCourses,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF8B5CF6),
-                            foregroundColor: Colors.white,
+                            backgroundColor: Theme.of(context).colorScheme.secondary,
+                            foregroundColor: Theme.of(context).colorScheme.onSecondary,
                             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                           ),
                           child: const Text('Повторить'),
@@ -254,12 +252,12 @@ class _CoursesScreenState extends State<CoursesScreen> {
                           width: 96,
                           height: 96,
                           decoration: BoxDecoration(
-                            color: isDark ? const Color(0xFF2D1B69) : const Color(0xFFF3E8FF),
+                            color: Theme.of(context).colorScheme.secondaryContainer,
                             borderRadius: BorderRadius.circular(48),
                           ),
                           child: Icon(
                             Icons.school_outlined,
-                            color: isDark ? const Color(0xFF8B5CF6) : const Color(0xFF8B5CF6),
+                            color: Theme.of(context).colorScheme.secondary,
                             size: 48,
                           ),
                         ),
@@ -269,14 +267,14 @@ class _CoursesScreenState extends State<CoursesScreen> {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w600,
-                            color: isDark ? Colors.white : const Color(0xFF1F2937),
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
                         const SizedBox(height: 8),
                         Text(
                           'Попробуйте изменить параметры поиска или обратитесь к администратору',
                           style: TextStyle(
-                            color: isDark ? Colors.grey[400] : const Color(0xFF6B7280),
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -312,7 +310,6 @@ class _CoursesScreenState extends State<CoursesScreen> {
                                         ),
                                         child: UniversalCard(
                                           item: _courses[i + j],
-                                          isDark: isDark,
                                           onTap: () => _navigateToCourseDetails(_courses[i + j]),
                                           onToggleFavorite: () => _toggleFavorite(_courses[i + j]),
                                         ),
@@ -393,7 +390,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('Донат на сумму $amount₽ отправлен'),
-        backgroundColor: const Color(0xFF10B981),
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
   }

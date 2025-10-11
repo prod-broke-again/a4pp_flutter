@@ -50,7 +50,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _error != null
@@ -62,7 +62,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                       children: [
                         Text(
                           'Ошибка загрузки курса:\n\n$_error',
-                          style: const TextStyle(color: Colors.white),
+                          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 12),
@@ -75,10 +75,10 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                   ),
                 )
               : _course == null
-                  ? const Center(
+                  ? Center(
                       child: Text(
                         'Курс не найден',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
                       ),
                     )
                   : CustomScrollView(
@@ -86,8 +86,6 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                         SliverAppBar(
                           expandedHeight: 280,
                           pinned: true,
-                          backgroundColor: const Color(0xFF1A1A1A),
-                          foregroundColor: Colors.white,
                           flexibleSpace: FlexibleSpaceBar(
                             background: Stack(
                               fit: StackFit.expand,
@@ -97,17 +95,17 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                                         _course!.image!,
                                         fit: BoxFit.cover,
                                         errorBuilder: (context, error, stackTrace) => Container(
-                                          color: const Color(0xFF6B46C1),
-                                          child: const Icon(Icons.school, color: Colors.white, size: 64),
+                                          color: Theme.of(context).colorScheme.primary,
+                                          child: Icon(Icons.school, color: Theme.of(context).colorScheme.onPrimary, size: 64),
                                         ),
                                       )
                                     : Container(
-                                        color: const Color(0xFF6B46C1),
-                                        child: const Icon(Icons.school, color: Colors.white, size: 64),
+                                        color: Theme.of(context).colorScheme.primary,
+                                        child: Icon(Icons.school, color: Theme.of(context).colorScheme.onPrimary, size: 64),
                                       ),
                                 // Градиент для читаемости
                                 Container(
-                                  decoration: const BoxDecoration(
+                                  decoration: BoxDecoration(
                                     gradient: LinearGradient(
                                       begin: Alignment.bottomCenter,
                                       end: Alignment.topCenter,
@@ -126,8 +124,8 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                                   right: 16,
                                   child: Text(
                                     _course!.title,
-                                    style: const TextStyle(
-                                      color: Colors.white,
+                                    style: TextStyle(
+                                      color: Theme.of(context).colorScheme.onPrimary,
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -242,9 +240,9 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                                 const SizedBox(height: 24),
 
                                 // О курсе (без автора)
-                                const Text(
+                                Text(
                                   'О курсе',
-                                  style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                                  style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 20, fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(height: 12),
                                 Text(
@@ -255,24 +253,24 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                                             ? _course!.shortDescription
                                             : (_course!.image != null ? '' : 'Описание будет добавлено позже')),
                                   ),
-                                  style: TextStyle(color: Colors.grey[300], height: 1.5),
+                                  style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, height: 1.5),
                                 ),
 
                                 const SizedBox(height: 24),
 
                                 // Материалы курса
                                 if (_course!.materialsFolderUrl != null && _course!.materialsFolderUrl!.isNotEmpty) ...[
-                                  const Text(
+                                  Text(
                                     'Материалы',
-                                    style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                                    style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 20, fontWeight: FontWeight.bold),
                                   ),
                                   const SizedBox(height: 12),
                                   Container(
                                     padding: const EdgeInsets.all(12),
                                     decoration: BoxDecoration(
-                                      color: const Color(0xFF2D2D2D),
+                                      color: Theme.of(context).colorScheme.surfaceContainer,
                                       borderRadius: BorderRadius.circular(12),
-                                      border: Border.all(color: Colors.grey[800]!),
+                                      border: Border.all(color: Theme.of(context).colorScheme.outline),
                                     ),
                                     child: Row(
                                       children: [
@@ -289,7 +287,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                                         Expanded(
                                           child: Text(
                                             _canAccess ? 'Материалы доступны' : 'Материалы по подписке',
-                                            style: const TextStyle(color: Colors.white),
+                                            style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                                           ),
                                         ),
                                         if (_canAccess)
@@ -310,9 +308,9 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
 
                                 // Ближайшее занятие
                                 if (_course!.nextContent != null) ...[
-                                  const Text(
+                                  Text(
                                     'Ближайшее занятие',
-                                    style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                                    style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 20, fontWeight: FontWeight.bold),
                                   ),
                                   const SizedBox(height: 12),
                                   _buildNextContentCard(_course!.nextContent!),
@@ -323,24 +321,24 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                                 if ((_course!.contentCount ?? 0) > 0 || _course!.contents.isNotEmpty) ...[
                                   Row(
                                     children: [
-                                      const Text(
+                                      Text(
                                         'Программа курса',
-                                        style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                                        style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 20, fontWeight: FontWeight.bold),
                                       ),
                                       const Spacer(),
                                       Container(
                                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                                         decoration: BoxDecoration(
-                                          color: const Color(0xFF2D2D2D),
+                                          color: Theme.of(context).colorScheme.surfaceContainer,
                                           borderRadius: BorderRadius.circular(20),
-                                          border: Border.all(color: Colors.grey[800]!),
+                                          border: Border.all(color: Theme.of(context).colorScheme.outline),
                                         ),
                                         child: Text(
                                           formatCountRu(
                                             _course!.contentCount ?? _course!.contents.length,
                                             ['занятие','занятия','занятий'],
                                           ),
-                                          style: TextStyle(color: Colors.grey[300], fontSize: 12, fontWeight: FontWeight.w600),
+                                          style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 12, fontWeight: FontWeight.w600),
                                         ),
                                       ),
                                     ],
@@ -362,28 +360,28 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: const Color(0xFF2D2D2D),
+          color: Theme.of(context).colorScheme.surfaceContainer,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.grey[800]!),
+          border: Border.all(color: Theme.of(context).colorScheme.outline),
         ),
         child: Row(
           children: [
             Container(
               width: 36,
               height: 36,
-              decoration: BoxDecoration(
-                color: const Color(0xFF6B46C1).withAlpha(51),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Icon(Icons.calendar_today, color: Color(0xFF6B46C1), size: 18),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary.withAlpha(51),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(Icons.calendar_today, color: Theme.of(context).colorScheme.primary, size: 18),
             ),
             const SizedBox(width: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(label, style: TextStyle(color: Colors.grey[400], fontSize: 12)),
+                Text(label, style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 12)),
                 const SizedBox(height: 2),
-                Text(value, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+                Text(value, style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w600)),
               ],
             )
           ],
@@ -401,33 +399,33 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color(0xFF2D2D2D),
+        color: Theme.of(context).colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey[800]!),
+        border: Border.all(color: Theme.of(context).colorScheme.outline),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: const [
-              Icon(Icons.play_circle_outline, color: Color(0xFF6B46C1), size: 18),
+            children: [
+              Icon(Icons.play_circle_outline, color: Theme.of(context).colorScheme.primary, size: 18),
               SizedBox(width: 6),
-              Text('Следующее занятие', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+              Text('Следующее занятие', style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w600)),
             ],
           ),
           const SizedBox(height: 8),
-          Text(content.title, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600)),
+          Text(content.title, style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 16, fontWeight: FontWeight.w600)),
           if (dateLine.isNotEmpty) ...[
             const SizedBox(height: 4),
-            Text(dateLine, style: TextStyle(color: Colors.grey[400], fontSize: 12)),
+            Text(dateLine, style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 12)),
           ],
           if (content.speakers != null && content.speakers!.isNotEmpty) ...[
             const SizedBox(height: 4),
             Row(
               children: [
-                const Icon(Icons.person, size: 14, color: Colors.grey),
+                Icon(Icons.person, size: 14, color: Theme.of(context).colorScheme.onSurfaceVariant),
                 const SizedBox(width: 4),
-                Expanded(child: Text(content.speakers!, style: TextStyle(color: Colors.grey[400], fontSize: 12))),
+                Expanded(child: Text(content.speakers!, style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 12))),
               ],
             ),
           ],
@@ -519,13 +517,13 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF2D2D2D),
+        color: Theme.of(context).colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey[800]!),
+        border: Border.all(color: Theme.of(context).colorScheme.outline),
       ),
       child: Text(
         'Список занятий будет доступен позже',
-        style: TextStyle(color: Colors.grey[400]),
+        style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
       ),
     );
   }
@@ -541,9 +539,9 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
             margin: EdgeInsets.only(bottom: index < items.length - 1 ? 12 : 0),
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: const Color(0xFF2D2D2D),
+              color: Theme.of(context).colorScheme.surfaceContainer,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.grey[800]!),
+              border: Border.all(color: Theme.of(context).colorScheme.outline),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -558,7 +556,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                   alignment: Alignment.center,
                   child: Text(
                     '${index + 1}',
-                    style: const TextStyle(color: Color(0xFF6B46C1), fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -568,13 +566,13 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                     children: [
                       Text(
                         items[index].title,
-                        style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                        style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                       if ((items[index].description ?? '').isNotEmpty) ...[
                         const SizedBox(height: 4),
                         Text(
                           items[index].description!,
-                          style: TextStyle(color: Colors.grey[400]),
+                          style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                         ),
                       ],
                       const SizedBox(height: 6),
@@ -626,14 +624,14 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
-        color: const Color(0xFF1F1F1F),
+        color: Theme.of(context).colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey[800]!),
+        border: Border.all(color: Theme.of(context).colorScheme.outline),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 14, color: Colors.grey[400]),
+          Icon(icon, size: 14, color: Theme.of(context).colorScheme.onSurfaceVariant),
           const SizedBox(width: 6),
           ConstrainedBox(
             constraints: BoxConstraints(
@@ -641,7 +639,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
             ),
             child: Text(
               text,
-              style: TextStyle(color: Colors.grey[300], fontSize: 12),
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 12),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
               softWrap: false,

@@ -127,27 +127,26 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainerLowest,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1A1A1A),
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.white),
+          icon: Icon(Icons.menu, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
           onPressed: () {
             _scaffoldKey.currentState?.openDrawer();
           },
         ),
-        title: const Text(
+        title: Text(
           'Избранное',
           style: TextStyle(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.onPrimary,
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onPrimary),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ],
@@ -168,9 +167,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text(
+                        Text(
                           'Ошибка загрузки избранного.\\n\\nПроверьте подключение к интернету и попробуйте снова.',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 12),
@@ -192,14 +191,14 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 // Поиск
                 TextField(
                   controller: _searchController,
-                  style: const TextStyle(color: Colors.white),
+                  style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                   decoration: InputDecoration(
                     hintText: 'Поиск в избранном...',
-                    hintStyle: TextStyle(color: Colors.grey[400]),
-                    prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                    hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                    prefixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.onSurfaceVariant),
                     suffixIcon: _searchQuery.isNotEmpty
                         ? IconButton(
-                            icon: const Icon(Icons.clear, color: Colors.grey),
+                            icon: Icon(Icons.clear, color: Theme.of(context).colorScheme.onSurfaceVariant),
                             onPressed: () {
                               _searchController.clear();
                               setState(() => _searchQuery = '');
@@ -207,7 +206,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                           )
                         : null,
                     filled: true,
-                    fillColor: const Color(0xFF2D2D2D),
+                    fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
@@ -233,15 +232,15 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               setState(() => _selectedFilter = filter);
                             }
                           },
-                          selectedColor: const Color(0xFF6B46C1),
-                          checkmarkColor: Colors.white,
+                          selectedColor: Theme.of(context).colorScheme.primary,
+                          checkmarkColor: Theme.of(context).colorScheme.onPrimary,
                           labelStyle: TextStyle(
-                            color: isSelected ? Colors.white : Colors.grey[300],
+                            color: isSelected ? Theme.of(context).colorScheme.onPrimary : Theme.of(context).colorScheme.onSurfaceVariant,
                             fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
                           ),
-                          backgroundColor: const Color(0xFF2D2D2D),
+                          backgroundColor: Theme.of(context).colorScheme.surface,
                           side: BorderSide(
-                            color: isSelected ? const Color(0xFF6B46C1) : Colors.grey[600]!,
+                            color: isSelected ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.outline,
                           ),
                         ),
                       );
@@ -376,8 +375,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       label: Text(label),
       onPressed: onPressed,
       style: OutlinedButton.styleFrom(
-        foregroundColor: const Color(0xFF6B46C1),
-        side: const BorderSide(color: Color(0xFF6B46C1)),
+        foregroundColor: Theme.of(context).colorScheme.primary,
+        side: BorderSide(color: Theme.of(context).colorScheme.primary),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
@@ -394,26 +393,23 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     String title = '';
     String subtitle = '';
     IconData icon = Icons.favorite;
-    Color cardColor = const Color(0xFF2D2D2D);
+    Color cardColor = Theme.of(context).colorScheme.surfaceContainer;
 
     switch (type) {
       case 'App\\Models\\Club':
         title = favorable['name'] ?? favorable['title'] ?? 'Клуб';
         subtitle = 'Клуб';
         icon = Icons.group;
-        cardColor = const Color(0xFF2D2D2D);
         break;
       case 'App\\Models\\Course':
         title = favorable['title'] ?? favorable['name'] ?? 'Курс';
         subtitle = 'Курс';
         icon = Icons.school;
-        cardColor = const Color(0xFF2D2D2D);
         break;
       case 'App\\Models\\Meeting':
         title = favorable['name'] ?? favorable['title'] ?? 'Встреча';
         subtitle = 'Встреча';
         icon = Icons.event;
-        cardColor = const Color(0xFF2D2D2D);
         break;
       default:
         title = favorable['name'] ?? favorable['title'] ?? 'Элемент';
@@ -450,7 +446,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       decoration: BoxDecoration(
         color: cardColor,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey[800]!),
+        border: Border.all(color: Theme.of(context).colorScheme.outline),
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
@@ -459,7 +455,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Переход к $subtitle: $title'),
-              backgroundColor: const Color(0xFF6B46C1),
+              backgroundColor: Theme.of(context).colorScheme.primary,
             ),
           );
         },
@@ -475,10 +471,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF6B46C1).withAlpha(51),
+                      color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Icon(icon, color: const Color(0xFF6B46C1), size: 20),
+                    child: Icon(icon, color: Theme.of(context).colorScheme.primary, size: 20),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -487,8 +483,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       children: [
                         Text(
                           title,
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                           ),
@@ -497,7 +493,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         Text(
                           subtitle,
                           style: TextStyle(
-                            color: Colors.grey[400],
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
                             fontSize: 12,
                           ),
                         ),
@@ -521,7 +517,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: 13,
-                    color: Colors.grey[300],
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                     height: 1.4,
                   ),
                 ),
@@ -533,21 +529,21 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF6B46C1).withAlpha(25),
+                    color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: const Color(0xFF6B46C1).withAlpha(77)),
+                    border: Border.all(color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.schedule, size: 16, color: Color(0xFF6B46C1)),
+                          Icon(Icons.schedule, size: 16, color: Theme.of(context).colorScheme.primary),
                           const SizedBox(width: 6),
                           Text(
                             'Следующее событие',
                             style: TextStyle(
-                              color: const Color(0xFF6B46C1),
+                              color: Theme.of(context).colorScheme.primary,
                               fontWeight: FontWeight.w600,
                               fontSize: 12,
                             ),
@@ -557,8 +553,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       const SizedBox(height: 6),
                       Text(
                         nextTitle,
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
                           fontWeight: FontWeight.w500,
                           fontSize: 14,
                         ),
@@ -568,7 +564,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         Text(
                           nextLine,
                           style: TextStyle(
-                            color: Colors.grey[400],
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
                             fontSize: 12,
                           ),
                         ),
@@ -583,7 +579,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               child: Text(
                                 speakers,
                                 style: TextStyle(
-                                  color: Colors.grey[400],
+                                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                                   fontSize: 12,
                                 ),
                               ),
@@ -630,7 +626,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   Text(
                     'Добавлено ${_formatDate(favorite['created_at'])}',
                     style: TextStyle(
-                      color: Colors.grey[500],
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                       fontSize: 11,
                     ),
                   ),

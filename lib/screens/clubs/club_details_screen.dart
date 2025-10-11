@@ -121,7 +121,7 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _error != null
@@ -133,7 +133,7 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
                       children: [
                         Text(
                           'Ошибка загрузки клуба:\n\n$_error',
-                          style: const TextStyle(color: Colors.white),
+                          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 12),
@@ -146,10 +146,10 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
                   ),
                 )
               : _club == null
-                  ? const Center(
+                  ? Center(
                       child: Text(
                         'Клуб не найден',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                       ),
                     )
                   : CustomScrollView(
@@ -157,8 +157,6 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
                         SliverAppBar(
                           expandedHeight: 280,
                           pinned: true,
-                          backgroundColor: const Color(0xFF1A1A1A),
-                          foregroundColor: Colors.white,
                           flexibleSpace: FlexibleSpaceBar(
                             background: Stack(
                               fit: StackFit.expand,
@@ -168,13 +166,13 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
                                         _club!.image!,
                                         fit: BoxFit.cover,
                                         errorBuilder: (context, error, stackTrace) => Container(
-                                          color: const Color(0xFF6B46C1),
-                                          child: const Icon(Icons.group, color: Colors.white, size: 64),
+                        color: Theme.of(context).colorScheme.primary,
+                        child: Icon(Icons.group, color: Theme.of(context).colorScheme.onPrimary, size: 64),
                                         ),
                                       )
                                     : Container(
-                                        color: const Color(0xFF6B46C1),
-                                        child: const Icon(Icons.group, color: Colors.white, size: 64),
+                        color: Theme.of(context).colorScheme.primary,
+                        child: Icon(Icons.group, color: Theme.of(context).colorScheme.onPrimary, size: 64),
                                       ),
                                 // Градиент для читаемости (как в курсе)
                                 Container(
@@ -196,8 +194,8 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
                                   right: 16,
                                   child: Text(
                                     _club!.name,
-                                    style: const TextStyle(
-                                      color: Colors.white,
+                                    style: TextStyle(
+                                      color: Theme.of(context).colorScheme.onSurface,
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -212,7 +210,7 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
                               padding: const EdgeInsets.only(right: 8),
                               icon: Icon(
                                 _club!.isFavoritedByUser ? Icons.favorite : Icons.favorite_border,
-                                color: _club!.isFavoritedByUser ? Colors.red : Colors.white,
+                                color: _club!.isFavoritedByUser ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.onPrimary,
                               ),
                             ),
                           ],
@@ -241,8 +239,8 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
                                               icon: const Icon(Icons.play_arrow),
                                               label: const Text('Подключиться'),
                                               style: ElevatedButton.styleFrom(
-                                                backgroundColor: const Color(0xFF2563EB),
-                                                foregroundColor: Colors.white,
+                                                backgroundColor: Theme.of(context).colorScheme.primary,
+                                                foregroundColor: Theme.of(context).colorScheme.onPrimary,
                                                 padding: const EdgeInsets.symmetric(vertical: 14),
                                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                                               ),
@@ -255,8 +253,8 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
                                               icon: const Icon(Icons.shopping_bag_outlined),
                                               label: Text(needUpgrade ? 'Улучшить тариф' : 'Выбрать тариф'),
                                               style: ElevatedButton.styleFrom(
-                                                backgroundColor: const Color(0xFFF59E0B),
-                                                foregroundColor: Colors.white,
+                                                backgroundColor: Theme.of(context).colorScheme.secondary,
+                                                foregroundColor: Theme.of(context).colorScheme.onSecondary,
                                                 padding: const EdgeInsets.symmetric(vertical: 14),
                                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                                               ),
@@ -279,8 +277,8 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
                                       child: OutlinedButton.icon(
                                         onPressed: _donateToClub,
                                         style: OutlinedButton.styleFrom(
-                                          side: const BorderSide(color: Color(0xFFEC4899)),
-                                          foregroundColor: const Color(0xFFEC4899),
+                                          side: BorderSide(color: Theme.of(context).colorScheme.tertiary),
+                                          foregroundColor: Theme.of(context).colorScheme.tertiary,
                                           padding: const EdgeInsets.symmetric(vertical: 14),
                                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                                         ),
@@ -306,8 +304,8 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
                                               }
                                             },
                                             style: OutlinedButton.styleFrom(
-                                              side: const BorderSide(color: Color(0xFF10B981)),
-                                              foregroundColor: const Color(0xFF10B981),
+                                              side: BorderSide(color: Theme.of(context).colorScheme.secondary),
+                                              foregroundColor: Theme.of(context).colorScheme.secondary,
                                               padding: const EdgeInsets.symmetric(vertical: 14),
                                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                                             ),
@@ -319,8 +317,8 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
                                         return ElevatedButton.icon(
                                           onPressed: _openSubscription,
                                           style: ElevatedButton.styleFrom(
-                                            backgroundColor: const Color(0xFFF59E0B),
-                                            foregroundColor: Colors.white,
+                                            backgroundColor: Theme.of(context).colorScheme.secondary,
+                                            foregroundColor: Theme.of(context).colorScheme.onSecondary,
                                             padding: const EdgeInsets.symmetric(vertical: 14),
                                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                                           ),
@@ -333,29 +331,29 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
                                 const SizedBox(height: 24),
 
                                 // О клубе (HTML)
-                                const Text(
+                                Text(
                                   'О клубе',
-                                  style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                                  style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 20, fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(height: 12),
                                 Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(12),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFF2D2D2D),
+                                    color: Theme.of(context).colorScheme.surfaceContainer,
                                     borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(color: Colors.grey[800]!),
+                                    border: Border.all(color: Theme.of(context).colorScheme.outline),
                                   ),
                                   child: Html(
                                     data: _club!.description,
                                     style: {
                                       'body': Style(
-                                        color: Colors.grey[300],
+                                        color: Theme.of(context).colorScheme.onSurface,
                                         fontSize: FontSize(16),
                                         lineHeight: LineHeight.number(1.5),
                                       ),
                                       'p': Style(margin: Margins.only(bottom: 8)),
-                                      'strong': Style(color: Colors.grey[100]),
+                                      'strong': Style(color: Theme.of(context).colorScheme.onSurface),
                                     },
                                   ),
                                 ),
@@ -364,9 +362,9 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
                                 
                                 // Ближайшая встреча
                                 if (_club!.nextMeeting != null) ...[
-                                const Text(
+                                Text(
                                     'Ближайшая встреча',
-                                    style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                                    style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 20, fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(height: 12),
                                   _buildNextMeetingCard(_club!.nextMeeting!),
@@ -377,21 +375,21 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
                                 if ((_club!.meetings?.isNotEmpty ?? false)) ...[
                                 Row(
                                   children: [
-                                      const Text(
+                                      Text(
                                         'Расписание встреч',
-                                        style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                                        style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 20, fontWeight: FontWeight.bold),
                                       ),
                                       const Spacer(),
                                       Container(
                                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                                         decoration: BoxDecoration(
-                                          color: const Color(0xFF2D2D2D),
+                                          color: Theme.of(context).colorScheme.surfaceContainer,
                                           borderRadius: BorderRadius.circular(20),
-                                          border: Border.all(color: Colors.grey[800]!),
+                                          border: Border.all(color: Theme.of(context).colorScheme.outline),
                                         ),
                                         child: Text(
                                           formatCountRu(_club!.meetings!.length, ['встреча', 'встречи', 'встреч']),
-                                          style: TextStyle(color: Colors.grey[300], fontSize: 12, fontWeight: FontWeight.w600),
+                                          style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 12, fontWeight: FontWeight.w600),
                                       ),
                                     ),
                                   ],
@@ -448,29 +446,29 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color(0xFF2D2D2D),
+        color: Theme.of(context).colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey[800]!),
+        border: Border.all(color: Theme.of(context).colorScheme.outline),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(dateLine.isNotEmpty ? dateLine : 'Встреча', style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600)),
+          Text(dateLine.isNotEmpty ? dateLine : 'Встреча', style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 16, fontWeight: FontWeight.w600)),
           const SizedBox(height: 4),
           Row(
             children: [
-              Icon(Icons.access_time, size: 14, color: Colors.grey),
+              Icon(Icons.access_time, size: 14, color: Theme.of(context).colorScheme.onSurfaceVariant),
               const SizedBox(width: 4),
-              Text('Длительность: ${meeting.getDuration()}', style: TextStyle(color: Colors.grey[400], fontSize: 12)),
+              Text('Длительность: ${meeting.getDuration()}', style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 12)),
             ],
           ),
           if ((meeting.speakers ?? '').isNotEmpty) ...[
             const SizedBox(height: 4),
             Row(
               children: [
-                const Icon(Icons.person, size: 14, color: Colors.grey),
+                Icon(Icons.person, size: 14, color: Theme.of(context).colorScheme.onSurfaceVariant),
                 const SizedBox(width: 4),
-                Expanded(child: Text(meeting.speakers!, style: TextStyle(color: Colors.grey[400], fontSize: 12))),
+                Expanded(child: Text(meeting.speakers!, style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 12))),
               ],
             ),
           ],
@@ -528,9 +526,9 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
             margin: EdgeInsets.only(bottom: index < meetings.length - 1 ? 12 : 0),
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: const Color(0xFF2D2D2D),
+              color: Theme.of(context).colorScheme.surfaceContainer,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.grey[800]!),
+              border: Border.all(color: Theme.of(context).colorScheme.outline),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -552,7 +550,7 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
                     children: [
                       Text(
                         _formatMeetingLine(meetings[index]),
-                        style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                        style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                       const SizedBox(height: 4),
                       Wrap(

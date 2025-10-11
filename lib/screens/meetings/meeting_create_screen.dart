@@ -36,9 +36,9 @@ class _MeetingCreateScreenState extends State<MeetingCreateScreen> {
   Widget _buildCoverPicker() {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF1F1F1F),
+        color: Theme.of(context).colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey[800]!),
+        border: Border.all(color: Theme.of(context).colorScheme.outline),
       ),
       child: Padding(
         padding: const EdgeInsets.all(12),
@@ -49,9 +49,9 @@ class _MeetingCreateScreenState extends State<MeetingCreateScreen> {
               width: 64,
               height: 64,
               decoration: BoxDecoration(
-                color: Colors.black26,
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.grey[800]!),
+                border: Border.all(color: Theme.of(context).colorScheme.outline),
                 image: _imageFilePath != null
                     ? DecorationImage(image: FileImage(File(_imageFilePath!)), fit: BoxFit.cover)
                     : null,
@@ -65,9 +65,9 @@ class _MeetingCreateScreenState extends State<MeetingCreateScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Обложка встречи',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                    style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 4),
                   Text(
@@ -103,7 +103,7 @@ class _MeetingCreateScreenState extends State<MeetingCreateScreen> {
               icon: const Icon(Icons.upload_file),
               label: const Text('Загрузить'),
               style: OutlinedButton.styleFrom(
-                foregroundColor: Colors.white,
+                foregroundColor: Theme.of(context).colorScheme.onPrimary,
                 side: const BorderSide(color: Colors.white24),
               ),
             )
@@ -169,11 +169,9 @@ class _MeetingCreateScreenState extends State<MeetingCreateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         title: const Text('Новая встреча'),
-        backgroundColor: const Color(0xFF1A1A1A),
-        foregroundColor: Colors.white,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -186,9 +184,9 @@ class _MeetingCreateScreenState extends State<MeetingCreateScreen> {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF2D2D2D),
+                    color: Theme.of(context).colorScheme.surfaceContainer,
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: Colors.grey[800]!),
+                    border: Border.all(color: Theme.of(context).colorScheme.outline),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -199,16 +197,16 @@ class _MeetingCreateScreenState extends State<MeetingCreateScreen> {
                             width: 40,
                             height: 40,
                             decoration: BoxDecoration(
-                              color: const Color(0xFF6B46C1).withOpacity(0.15),
+                              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child: const Icon(Icons.event, color: Color(0xFF6B46C1), size: 20),
+                            child: Icon(Icons.event, color: Theme.of(context).colorScheme.primary, size: 20),
                           ),
                           const SizedBox(width: 12),
-                          const Expanded(
+                          Expanded(
                             child: Text(
                               'Основная информация',
-                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16),
+                              style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w600, fontSize: 16),
                             ),
                           ),
                         ],
@@ -218,9 +216,9 @@ class _MeetingCreateScreenState extends State<MeetingCreateScreen> {
                   controller: _name,
                   decoration: InputDecoration(
                     labelText: 'Название *',
-                    labelStyle: TextStyle(color: Colors.grey[400]),
+                    labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                   ),
-                  style: const TextStyle(color: Colors.white),
+                  style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                   cursorColor: Colors.white,
                   validator: (v) => (v == null || v.trim().isEmpty) ? 'Укажите название' : null,
                 ),
@@ -229,10 +227,10 @@ class _MeetingCreateScreenState extends State<MeetingCreateScreen> {
                   controller: _description,
                   decoration: InputDecoration(
                     labelText: 'Описание',
-                    labelStyle: TextStyle(color: Colors.grey[400]),
+                    labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                   ),
                   maxLines: 3,
-                  style: const TextStyle(color: Colors.white),
+                  style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                   cursorColor: Colors.white,
                 ),
                     ],
@@ -242,9 +240,9 @@ class _MeetingCreateScreenState extends State<MeetingCreateScreen> {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF2D2D2D),
+                    color: Theme.of(context).colorScheme.surfaceContainer,
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: Colors.grey[800]!),
+                    border: Border.all(color: Theme.of(context).colorScheme.outline),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -261,10 +259,10 @@ class _MeetingCreateScreenState extends State<MeetingCreateScreen> {
                             child: const Icon(Icons.access_time, color: Color(0xFF3B82F6), size: 20),
                           ),
                           const SizedBox(width: 12),
-                          const Expanded(
+                          Expanded(
                             child: Text(
                               'Время и место проведения',
-                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16),
+                              style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w600, fontSize: 16),
                             ),
                           ),
                         ],
@@ -277,10 +275,10 @@ class _MeetingCreateScreenState extends State<MeetingCreateScreen> {
                         controller: _date,
                         decoration: InputDecoration(
                           labelText: 'Дата (YYYY-MM-DD) *',
-                          labelStyle: TextStyle(color: Colors.grey[400]),
+                          labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                         ),
-                        style: const TextStyle(color: Colors.white),
-                        cursorColor: Colors.white,
+                        style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+                        cursorColor: Theme.of(context).colorScheme.primary,
                       readOnly: true,
                       onTap: () async {
                         final today = DateTime.now();
@@ -306,10 +304,10 @@ class _MeetingCreateScreenState extends State<MeetingCreateScreen> {
                         controller: _startTime,
                         decoration: InputDecoration(
                           labelText: 'Начало (HH:MM) *',
-                          labelStyle: TextStyle(color: Colors.grey[400]),
+                          labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                         ),
-                        style: const TextStyle(color: Colors.white),
-                        cursorColor: Colors.white,
+                        style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+                        cursorColor: Theme.of(context).colorScheme.primary,
                       readOnly: true,
                       onTap: () async {
                         final picked = await showTimePicker(
@@ -336,10 +334,10 @@ class _MeetingCreateScreenState extends State<MeetingCreateScreen> {
                         controller: _endTime,
                         decoration: InputDecoration(
                           labelText: 'Конец (HH:MM) *',
-                          labelStyle: TextStyle(color: Colors.grey[400]),
+                          labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                         ),
-                        style: const TextStyle(color: Colors.white),
-                        cursorColor: Colors.white,
+                        style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+                        cursorColor: Theme.of(context).colorScheme.primary,
                       readOnly: true,
                       onTap: () async {
                         final picked = await showTimePicker(
@@ -371,16 +369,16 @@ class _MeetingCreateScreenState extends State<MeetingCreateScreen> {
                   value: _format,
                   decoration: InputDecoration(
                     labelText: 'Формат *',
-                    labelStyle: TextStyle(color: Colors.grey[400]),
+                    labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                   ),
-                  dropdownColor: const Color(0xFF2D2D2D),
-                  iconEnabledColor: Colors.white,
-                  iconDisabledColor: Colors.white,
-                  style: const TextStyle(color: Colors.white),
-                  items: const [
-                    DropdownMenuItem(value: 'online', child: Text('Онлайн', style: TextStyle(color: Colors.white))),
-                    DropdownMenuItem(value: 'offline', child: Text('Офлайн', style: TextStyle(color: Colors.white))),
-                    DropdownMenuItem(value: 'hybrid', child: Text('Гибрид', style: TextStyle(color: Colors.white))),
+                  dropdownColor: Theme.of(context).colorScheme.surfaceContainer,
+                  iconEnabledColor: Theme.of(context).colorScheme.onSurface,
+                  iconDisabledColor: Theme.of(context).colorScheme.onSurface,
+                  style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+                  items: [
+                    DropdownMenuItem(value: 'online', child: Text('Онлайн', style: TextStyle(color: Theme.of(context).colorScheme.onSurface))),
+                    DropdownMenuItem(value: 'offline', child: Text('Офлайн', style: TextStyle(color: Theme.of(context).colorScheme.onSurface))),
+                    DropdownMenuItem(value: 'hybrid', child: Text('Гибрид', style: TextStyle(color: Theme.of(context).colorScheme.onSurface))),
                   ],
                   onChanged: (v) => setState(() => _format = v ?? 'online'),
                 ),
@@ -393,20 +391,20 @@ class _MeetingCreateScreenState extends State<MeetingCreateScreen> {
                     controller: _platform,
                     decoration: InputDecoration(
                       labelText: 'Платформа (Zoom и т.п.)',
-                      labelStyle: TextStyle(color: Colors.grey[400]),
+                      labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                     ),
-                    style: const TextStyle(color: Colors.white),
-                    cursorColor: Colors.white,
+                    style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+                    cursorColor: Theme.of(context).colorScheme.primary,
                   ),
                   const SizedBox(height: 12),
                   TextFormField(
                     controller: _joinUrl,
                     decoration: InputDecoration(
                       labelText: 'Ссылка для подключения',
-                      labelStyle: TextStyle(color: Colors.grey[400]),
+                      labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                     ),
-                    style: const TextStyle(color: Colors.white),
-                    cursorColor: Colors.white,
+                    style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+                    cursorColor: Theme.of(context).colorScheme.primary,
                   ),
                 ],
                 if (_format != 'online') ...[
@@ -415,10 +413,10 @@ class _MeetingCreateScreenState extends State<MeetingCreateScreen> {
                     controller: _location,
                     decoration: InputDecoration(
                       labelText: 'Локация',
-                      labelStyle: TextStyle(color: Colors.grey[400]),
+                      labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                     ),
-                    style: const TextStyle(color: Colors.white),
-                    cursorColor: Colors.white,
+                    style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+                    cursorColor: Theme.of(context).colorScheme.primary,
                   ),
                 ],
                       const SizedBox(height: 12),
@@ -426,10 +424,10 @@ class _MeetingCreateScreenState extends State<MeetingCreateScreen> {
                   controller: _maxParticipants,
                   decoration: InputDecoration(
                     labelText: 'Макс. участников',
-                    labelStyle: TextStyle(color: Colors.grey[400]),
+                    labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                   ),
                   keyboardType: TextInputType.number,
-                  style: const TextStyle(color: Colors.white),
+                  style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                   cursorColor: Colors.white,
                 ),
                       const SizedBox(height: 12),
@@ -437,10 +435,10 @@ class _MeetingCreateScreenState extends State<MeetingCreateScreen> {
                   controller: _notes,
                   decoration: InputDecoration(
                     labelText: 'Заметки',
-                    labelStyle: TextStyle(color: Colors.grey[400]),
+                    labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                   ),
                   maxLines: 2,
-                  style: const TextStyle(color: Colors.white),
+                  style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                   cursorColor: Colors.white,
                 ),
                     ],

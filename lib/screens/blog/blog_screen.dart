@@ -116,25 +116,24 @@ class _BlogScreenState extends State<BlogScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1A1A1A),
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.white),
+          icon: Icon(Icons.menu, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
           onPressed: () => _scaffoldKey.currentState?.openDrawer(),
         ),
-        title: const Text(
+        title: Text(
           'Блог',
           style: TextStyle(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.onPrimary,
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onPrimary),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ],
@@ -155,7 +154,7 @@ class _BlogScreenState extends State<BlogScreen> {
               child: TextField(
                 controller: _searchController,
                 onChanged: _performSearch,
-                style: const TextStyle(color: Colors.white),
+                style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                 decoration: InputDecoration(
                   hintText: 'Поиск статей...',
                   hintStyle: const TextStyle(color: Colors.grey),
@@ -170,7 +169,7 @@ class _BlogScreenState extends State<BlogScreen> {
                         )
                       : null,
                   filled: true,
-                  fillColor: const Color(0xFF2D2D2D),
+                  fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none,
@@ -192,7 +191,7 @@ class _BlogScreenState extends State<BlogScreen> {
                               children: [
                                 Text(
                                   'Ошибка загрузки блога: $_error',
-                                  style: const TextStyle(color: Colors.white),
+                                  style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                                   textAlign: TextAlign.center,
                                 ),
                                 const SizedBox(height: 12),
@@ -213,12 +212,12 @@ class _BlogScreenState extends State<BlogScreen> {
                                     width: 80,
                                     height: 80,
                                     decoration: BoxDecoration(
-                                      color: const Color(0xFF8B5CF6).withAlpha(51),
+                                      color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
                                       borderRadius: BorderRadius.circular(20),
                                     ),
-                                    child: const Icon(
+                                    child: Icon(
                                       Icons.book,
-                                      color: Color(0xFF8B5CF6),
+                                      color: Theme.of(context).colorScheme.secondary,
                                       size: 40,
                                     ),
                                   ),
@@ -237,7 +236,7 @@ class _BlogScreenState extends State<BlogScreen> {
                                         ? 'Ничего не найдено по запросу "$_searchQuery"'
                                         : 'Профессиональные статьи, кейсы,\nметодические материалы и полезные советы\nот экспертов психотерапии',
                                     style: TextStyle(
-                                      color: Colors.grey[400],
+                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                                       fontSize: 16,
                                       height: 1.5,
                                     ),
@@ -249,16 +248,16 @@ class _BlogScreenState extends State<BlogScreen> {
                                       padding: const EdgeInsets.all(16),
                                       margin: const EdgeInsets.symmetric(horizontal: 24),
                                       decoration: BoxDecoration(
-                                        color: const Color(0xFF8B5CF6).withAlpha(51),
+                                        color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
                                         borderRadius: BorderRadius.circular(12),
                                         border: Border.all(
-                                          color: const Color(0xFF8B5CF6).withAlpha(128),
+                                          color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.5),
                                         ),
                                       ),
-                                      child: const Text(
+                                      child: Text(
                                         '✍️ Экспертные материалы\nКачественный контент для профессионального роста.',
                                         style: TextStyle(
-                                          color: Color(0xFF8B5CF6),
+                                          color: Theme.of(context).colorScheme.secondary,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -306,9 +305,9 @@ class _BlogScreenState extends State<BlogScreen> {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: const Color(0xFF2D2D2D),
+        color: Theme.of(context).colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey[800]!),
+        border: Border.all(color: Theme.of(context).colorScheme.outline),
       ),
       child: InkWell(
         onTap: () {
@@ -331,8 +330,8 @@ class _BlogScreenState extends State<BlogScreen> {
               // Заголовок
               Text(
                 post.title,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                   height: 1.3,
@@ -350,13 +349,13 @@ class _BlogScreenState extends State<BlogScreen> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF6B46C1).withAlpha(51),
+                        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
                         post.category!.name,
-                        style: const TextStyle(
-                          color: Color(0xFF8B5CF6),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
                         ),
@@ -367,7 +366,7 @@ class _BlogScreenState extends State<BlogScreen> {
                   Text(
                     _formatDate(post.publishedAt ?? post.createdAt),
                     style: TextStyle(
-                      color: Colors.grey[400],
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                       fontSize: 12,
                     ),
                   ),
@@ -380,7 +379,7 @@ class _BlogScreenState extends State<BlogScreen> {
               Text(
                 post.excerpt,
                 style: TextStyle(
-                  color: Colors.grey[300],
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                   fontSize: 14,
                   height: 1.4,
                 ),
@@ -396,13 +395,13 @@ class _BlogScreenState extends State<BlogScreen> {
                   if (post.author != null) ...[
                     CircleAvatar(
                       radius: 12,
-                      backgroundColor: const Color(0xFF6B46C1),
+                      backgroundColor: Theme.of(context).colorScheme.primary,
                       child: Text(
                         post.author!.fullName.isNotEmpty
                             ? post.author!.fullName[0].toUpperCase()
                             : '?',
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary,
                           fontSize: 10,
                           fontWeight: FontWeight.bold,
                         ),
@@ -413,7 +412,7 @@ class _BlogScreenState extends State<BlogScreen> {
                       child: Text(
                         post.author!.fullName,
                         style: TextStyle(
-                          color: Colors.grey[400],
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                           fontSize: 12,
                         ),
                         overflow: TextOverflow.ellipsis,

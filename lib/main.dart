@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:achpp/blocs/auth/auth_bloc.dart';
 import 'package:achpp/repositories/auth_repository.dart';
 import 'package:achpp/services/preload_service.dart';
+import 'package:achpp/providers/theme_provider.dart';
+import 'package:achpp/services/theme_service.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/auth/register_screen.dart';
 import 'screens/auth/forgot_password_screen.dart';
@@ -231,21 +234,25 @@ class _PsychologistAppState extends State<PsychologistApp> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    final theme = ThemeData(
-      useMaterial3: true,
-      colorScheme: const ColorScheme.dark(
-        primary: Color(0xFF6B46C1),
-        secondary: Color(0xFF8B5CF6),
-        surface: Color(0xFF2D2D2D),
-        background: Color(0xFF1A1A1A),
-      ),
-      scaffoldBackgroundColor: const Color(0xFF1A1A1A),
+  static final ThemeData lightTheme = ThemeData(
+    useMaterial3: true,
+    colorScheme: const ColorScheme.light(
+      primary: Color(0xFF6B46C1),
+      secondary: Color(0xFF8B5CF6),
+      surface: Color(0xFFF1F5F9),
+      background: Color(0xFFF8FAFC),
+      onSurface: Color(0xFF1F2937),
+      onBackground: Color(0xFF1F2937),
+      onPrimary: Colors.white,
+      onSecondary: Colors.white,
+      surfaceContainer: Color(0xFFE5E7EB),
+      surfaceContainerLowest: Color(0xFFF1F5F9),
+      onSurfaceVariant: Color(0xFF4B5563),
+      outline: Color(0xFFD1D5DB),
+    ),
+    scaffoldBackgroundColor: const Color(0xFFF8FAFC),
       appBarTheme: const AppBarTheme(
-        backgroundColor: Color(0xFF1A1A1A),
+        backgroundColor: Color(0xFF6B46C1),
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.white),
         titleTextStyle: TextStyle(
@@ -254,66 +261,153 @@ class _PsychologistAppState extends State<PsychologistApp> {
           fontWeight: FontWeight.bold,
         ),
       ),
-      fontFamilyFallback: ['Roboto', 'Noto Sans', 'Arial', 'sans-serif'],
-      textTheme: GoogleFonts.nunitoTextTheme(textTheme).copyWith(
-        bodyLarge: GoogleFonts.nunito(),
-        bodyMedium: GoogleFonts.nunito(),
-        bodySmall: GoogleFonts.nunito(),
-        headlineLarge: GoogleFonts.nunito(fontWeight: FontWeight.bold),
-        headlineMedium: GoogleFonts.nunito(fontWeight: FontWeight.bold),
-        headlineSmall: GoogleFonts.nunito(fontWeight: FontWeight.bold),
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF6B46C1),
-          foregroundColor: Colors.white,
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-      ),
-      outlinedButtonTheme: OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(
-          foregroundColor: const Color(0xFF6B46C1),
-          side: const BorderSide(color: Color(0xFF6B46C1)),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-      ),
-      inputDecorationTheme: InputDecorationTheme(
-        filled: true,
-        fillColor: const Color(0xFF2D2D2D),
-        border: OutlineInputBorder(
+    fontFamilyFallback: ['Roboto', 'Noto Sans', 'Arial', 'sans-serif'],
+    textTheme: GoogleFonts.nunitoTextTheme(ThemeData.light().textTheme).copyWith(
+      bodyLarge: GoogleFonts.nunito(color: const Color(0xFF1F2937)),
+      bodyMedium: GoogleFonts.nunito(color: const Color(0xFF1F2937)),
+      bodySmall: GoogleFonts.nunito(color: const Color(0xFF6B7280)),
+      headlineLarge: GoogleFonts.nunito(fontWeight: FontWeight.bold, color: const Color(0xFF1F2937)),
+      headlineMedium: GoogleFonts.nunito(fontWeight: FontWeight.bold, color: const Color(0xFF1F2937)),
+      headlineSmall: GoogleFonts.nunito(fontWeight: FontWeight.bold, color: const Color(0xFF1F2937)),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xFF6B46C1),
+        foregroundColor: Colors.white,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.grey[700]!),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(
-            color: Color(0xFF6B46C1),
-            width: 2,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.grey[700]!),
         ),
       ),
-    );
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: const Color(0xFF6B46C1),
+        side: const BorderSide(color: Color(0xFF6B46C1)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+    ),
+    inputDecorationTheme: const InputDecorationTheme(
+      filled: true,
+      fillColor: Colors.white,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+        borderSide: BorderSide(color: Color(0xFFD1D5DB)),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+        borderSide: BorderSide(
+          color: Color(0xFF6B46C1),
+          width: 2,
+        ),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+        borderSide: BorderSide(color: Color(0xFFD1D5DB)),
+      ),
+    ),
+  );
 
+  static final ThemeData darkTheme = ThemeData(
+    useMaterial3: true,
+    colorScheme: const ColorScheme.dark(
+      primary: Color(0xFF6B46C1),
+      secondary: Color(0xFF8B5CF6),
+      surface: Color(0xFF2D2D2D),
+      background: Color(0xFF1A1A1A),
+      onSurface: Colors.white,
+      onBackground: Colors.white,
+      onPrimary: Colors.white,
+      onSecondary: Colors.white,
+      surfaceContainer: Color(0xFF374151),
+      surfaceContainerLowest: Color(0xFF1F2937),
+      onSurfaceVariant: Color(0xFF9CA3AF),
+      outline: Color(0xFF4B5563),
+    ),
+    scaffoldBackgroundColor: const Color(0xFF1A1A1A),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Color(0xFF6B46C1),
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white),
+        titleTextStyle: TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    fontFamilyFallback: ['Roboto', 'Noto Sans', 'Arial', 'sans-serif'],
+    textTheme: GoogleFonts.nunitoTextTheme(ThemeData.dark().textTheme).copyWith(
+      bodyLarge: GoogleFonts.nunito(color: Colors.white),
+      bodyMedium: GoogleFonts.nunito(color: Colors.white),
+      bodySmall: GoogleFonts.nunito(color: Color(0xFF9CA3AF)),
+      headlineLarge: GoogleFonts.nunito(fontWeight: FontWeight.bold, color: Colors.white),
+      headlineMedium: GoogleFonts.nunito(fontWeight: FontWeight.bold, color: Colors.white),
+      headlineSmall: GoogleFonts.nunito(fontWeight: FontWeight.bold, color: Colors.white),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xFF6B46C1),
+        foregroundColor: Colors.white,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: const Color(0xFF6B46C1),
+        side: const BorderSide(color: Color(0xFF6B46C1)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+    ),
+    inputDecorationTheme: const InputDecorationTheme(
+      filled: true,
+      fillColor: Color(0xFF2D2D2D),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+        borderSide: BorderSide(color: Color(0xFF374151)),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+        borderSide: BorderSide(
+          color: Color(0xFF6B46C1),
+          width: 2,
+        ),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+        borderSide: BorderSide(color: Color(0xFF374151)),
+      ),
+    ),
+  );
+
+  @override
+  Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(create: (context) => _authRepository),
       ],
       child: BlocProvider<AuthBloc>.value(
         value: _authBloc,
-        child: MaterialApp.router(
-          title: 'АЧПП - Ассоциация частнопрактикующих психологов и психотерапевтов',
-          debugShowCheckedModeBanner: false,
-          theme: theme,
-          routerConfig: _router,
+        child: ChangeNotifierProvider(
+          create: (context) => ThemeProvider(ThemeService()),
+          child: Consumer<ThemeProvider>(
+            builder: (context, themeProvider, child) {
+              return MaterialApp.router(
+                title: 'АЧПП - Ассоциация частнопрактикующих психологов и психотерапевтов',
+                debugShowCheckedModeBanner: false,
+                theme: lightTheme,
+                darkTheme: darkTheme,
+                themeMode: themeProvider.materialThemeMode,
+                routerConfig: _router,
+              );
+            },
+          ),
         ),
       ),
     );
