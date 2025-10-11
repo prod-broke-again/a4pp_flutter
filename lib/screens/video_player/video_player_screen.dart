@@ -222,10 +222,13 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: Text(_video?.title ?? 'Видео'),
+        title: Text(
+          _video?.title ?? 'Видео',
+          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+        ),
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onPrimary),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -250,9 +253,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
+            Icon(
               Icons.error_outline,
-              color: Colors.red,
+              color: Theme.of(context).colorScheme.error,
               size: 64,
             ),
             const SizedBox(height: 16),
@@ -267,7 +270,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             const SizedBox(height: 8),
             Text(
               _error!,
-              style: const TextStyle(color: Colors.grey),
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 24),
@@ -435,10 +438,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                     },
                   )
                 else
-                  const Text(
+                  Text(
                     'Описание отсутствует',
                     style: TextStyle(
-                      color: Colors.grey,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                       fontSize: 14,
                       fontStyle: FontStyle.italic,
                     ),
@@ -639,8 +642,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                                     icon: const Icon(Icons.open_in_browser),
                                     label: const Text('Открыть видео'),
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: const Color(0xFF6B46C1),
-                                      foregroundColor: Colors.white,
+                                      backgroundColor: Theme.of(context).colorScheme.primary,
+                                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
                                     ),
                                   ),
                                 ],
@@ -785,10 +788,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                     },
                   )
                 else
-                  const Text(
+                  Text(
                     'Описание отсутствует',
                     style: TextStyle(
-                      color: Colors.grey,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                       fontSize: 16,
                       fontStyle: FontStyle.italic,
                     ),
@@ -853,8 +856,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                           icon: const Icon(Icons.chevron_left),
                           label: const Text('Предыдущее'),
                           style: OutlinedButton.styleFrom(
-                            foregroundColor: Colors.white,
-                            side: const BorderSide(color: Colors.white),
+                            foregroundColor: Theme.of(context).colorScheme.onSurface,
+                            side: BorderSide(color: Theme.of(context).colorScheme.outline),
                           ),
                         ),
                       ),
@@ -867,8 +870,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                           label: const Text('Следующее'),
                           icon: const Icon(Icons.chevron_right),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF6B46C1),
-                            foregroundColor: Colors.white,
+                            backgroundColor: Theme.of(context).colorScheme.primary,
+                            foregroundColor: Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
                       ),
@@ -892,13 +895,13 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: const Color(0xFF6B46C1), size: 16),
+          Icon(icon, color: Theme.of(context).colorScheme.primary, size: 16),
           const SizedBox(width: 6),
           Flexible(
             child: Text(
               text,
-              style: const TextStyle(
-                color: Colors.white,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimary,
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
               ),
