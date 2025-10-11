@@ -210,7 +210,15 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: widget.showAppBar
           ? AppBar(
-              title: _navigationStack.isNotEmpty ? Text(_currentFolder!.name) : Text(widget.title),
+              title: _navigationStack.isNotEmpty
+            ? Text(
+                _currentFolder!.name,
+                style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+              )
+            : Text(
+                widget.title,
+                style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+              ),
               elevation: 0,
               leading: _navigationStack.isNotEmpty
                   ? IconButton(
@@ -240,15 +248,15 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
                 onChanged: _performSearch,
                 decoration: InputDecoration(
                   hintText: 'Поиск видео и папок...',
-                  hintStyle: const TextStyle(color: Colors.grey),
-                  prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                  hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  prefixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.onSurfaceVariant),
                   suffixIcon: _searchQuery.isNotEmpty
                       ? IconButton(
                           onPressed: () {
                             _searchController.clear();
                             _performSearch('');
                           },
-                          icon: const Icon(Icons.clear, color: Colors.grey),
+                          icon: Icon(Icons.clear, color: Theme.of(context).colorScheme.onSurfaceVariant),
                         )
                       : null,
                   filled: true,
@@ -277,7 +285,7 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(Icons.folder_open, color: Colors.grey, size: 64),
+                              Icon(Icons.folder_open, color: Theme.of(context).colorScheme.onSurfaceVariant, size: 64),
                               const SizedBox(height: 16),
                               Text(
                                 _isSearchMode ? 'Ничего не найдено' : 'Папка пуста',
@@ -288,7 +296,7 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
                                 _isSearchMode
                                     ? 'Попробуйте изменить поисковый запрос'
                                     : 'В этой папке пока нет видео',
-                                style: const TextStyle(color: Colors.grey),
+                                style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                                 textAlign: TextAlign.center,
                               ),
                             ],
@@ -356,7 +364,7 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
                     padding: EdgeInsets.only(left: 8.0, top: 2.0),
                     child: Icon(
                       Icons.chevron_right,
-                      color: Colors.grey,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                       size: 24,
                     ),
                   ),
@@ -580,8 +588,8 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
                   if (video.videoFolder != null)
                     Text(
                       video.videoFolder!.name,
-                      style: const TextStyle(
-                        color: Colors.grey,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                       ),
@@ -596,26 +604,26 @@ class _VideoLibraryScreenState extends State<VideoLibraryScreen> {
                     children: [
                       Text(
                         '${video.viewCount} просмотров',
-                        style: const TextStyle(
-                          color: Colors.grey,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
                       if (video.publishedAt != null) ...[
                         const SizedBox(width: 8),
-                        const Text(
+                        Text(
                           '•',
                           style: TextStyle(
-                            color: Colors.grey,
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
                             fontSize: 12,
                           ),
                         ),
                         const SizedBox(width: 8),
                         Text(
                           _formatPublishedDate(video.publishedAt!),
-                          style: const TextStyle(
-                            color: Colors.grey,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
                           ),
