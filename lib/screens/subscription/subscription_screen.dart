@@ -552,10 +552,10 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                 onPressed: _isLoading ? null : () => _handlePlanSelection(plan),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: isCurrent
-                      ? Theme.of(context).colorScheme.surfaceContainerHighest
+                      ? Theme.of(context).colorScheme.secondary
                       : Theme.of(context).colorScheme.primary,
                   foregroundColor: isCurrent
-                      ? Theme.of(context).colorScheme.onSurfaceVariant
+                      ? Theme.of(context).colorScheme.onSecondary
                       : Theme.of(context).colorScheme.onPrimary,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
@@ -571,7 +571,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                           strokeWidth: 2,
                           valueColor: AlwaysStoppedAnimation<Color>(
                             isCurrent
-                                ? Theme.of(context).colorScheme.onSurfaceVariant
+                                ? Theme.of(context).colorScheme.onSecondary
                                 : Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
