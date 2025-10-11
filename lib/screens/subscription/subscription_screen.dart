@@ -309,7 +309,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
               Text(
                 'Доступные планы',
                 style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
@@ -354,7 +354,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                         Text(
                           'Важная информация',
                           style: TextStyle(
-                            color: Theme.of(context).colorScheme.onPrimary,
+                            color: Theme.of(context).colorScheme.onSurface,
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
