@@ -6,7 +6,9 @@ import 'package:achpp/models/profile_response.dart';
 import '../../widgets/app_drawer.dart';
 import 'package:achpp/services/auth_service.dart';
 import '../courses/courses_screen.dart';
+import '../courses/course_details_screen.dart';
 import '../clubs/clubs_screen.dart';
+import '../clubs/club_details_screen.dart';
 import '../meetings/meetings_screen.dart';
 import '../video_library/video_library_screen.dart';
 
@@ -274,20 +276,20 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
+            Icon(
               Icons.favorite_border,
               size: 72,
-              color: Colors.grey,
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
             ),
             const SizedBox(height: 16),
             Text(
               _searchQuery.isNotEmpty || _selectedFilter != 'Все'
                   ? 'Ничего не найдено'
                   : 'У вас пока нет избранного',
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
-                color: Colors.grey,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
               textAlign: TextAlign.center,
             ),
@@ -296,7 +298,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               _searchQuery.isNotEmpty || _selectedFilter != 'Все'
                   ? 'Попробуйте изменить фильтры или поисковый запрос'
                   : 'Откройте разделы и добавьте понравившиеся материалы в избранное.',
-              style: const TextStyle(color: Colors.grey),
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
               textAlign: TextAlign.center,
             ),
             if (_searchQuery.isEmpty && _selectedFilter == 'Все') ...[
@@ -451,13 +453,113 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
         onTap: () {
-          // TODO: Навигация к конкретному элементу
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Переход к $subtitle: $title'),
-              backgroundColor: Theme.of(context).colorScheme.primary,
-            ),
-          );
+          switch (type) {
+            case 'App\\Models\\Course':
+              // Переход к детальной странице курса
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CourseDetailsScreen(
+                    course: Course(
+                      id: favorable['id'] ?? 0,
+                      title: favorable['title'] ?? '',
+                      slug: favorable['slug'] ?? '',
+                      description: favorable['description'] ?? '',
+                      shortDescription: favorable['short_description'] ?? '',
+                      image: favorable['image'],
+                      maxParticipants: favorable['max_participants'] ?? 0,
+                      publishedAt: favorable['published_at'] != null
+                          ? DateTime.tryParse(favorable['published_at'])
+                          : null,
+                      formattedPublishedAt: favorable['formatted_published_at'] ?? '',
+                      zoomLink: favorable['zoom_link'],
+                      materialsFolderUrl: favorable['materials_folder_url'],
+                      autoMaterials: favorable['auto_materials'] ?? false,
+                      productLevel: favorable['product_level'] ?? 0,
+                      isHidden: favorable['is_hidden'] ?? false,
+                      isFavoritedByUser: true,
+                      createdAt: favorable['created_at'] != null
+                          ? DateTime.tryParse(favorable['created_at'])
+                          : DateTime.now(),
+                      updatedAt: favorable['updated_at'] != null
+                          ? DateTime.tryParse(favorable['updated_at'])
+                          : DateTime.now(),
+                      contentCount: favorable['content_count'] ?? 0,
+                    ),
+                  ),
+                ),
+              );
+              break;
+            case 'App\\Models\\Club':
+              // Переход к детальной странице клуба
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ClubDetailsScreen(
+                    club: Club(
+                      id: favorable['id'] ?? 0,
+                      name: favorable['name'] ?? '',
+                      slug: favorable['slug'] ?? '',
+                      description: favorable['description'] ?? '',
+                      image: favorable['image'],
+                      zoomLink: favorable['zoom_link'],
+                      materialsFolderUrl: favorable['materials_folder_url'],
+                      autoMaterials: favorable['auto_materials'] ?? false,
+                      currentDonations: (favorable['current_donations'] as num?)?.toDouble() ?? 0.0,
+                      formattedCurrentDonations: favorable['formatted_current_donations'] ?? '',
+                      status: favorable['status'] ?? '',
+                      productLevel: favorable['product_level'] ?? 0,
+                      owner: User(
+                        id: favorable['owner']?['id'] ?? 0,
+                        email: favorable['owner']?['email'] ?? '',
+                        balance: (favorable['owner']?['balance'] as num?)?.toDouble() ?? 0.0,
+                        auto: favorable['owner']?['auto'] ?? false,
+                        psyLance: favorable['owner']?['psy_lance'] ?? false,
+                        role: Role(
+                          name: favorable['owner']?['role']?['name'] ?? '',
+                          color: favorable['owner']?['role']?['color'] ?? '',
+                        ),
+                        createdAt: favorable['owner']?['created_at'] != null
+                            ? DateTime.tryParse(favorable['owner']?['created_at'])
+                            : DateTime.now(),
+                        updatedAt: favorable['owner']?['updated_at'] != null
+                            ? DateTime.tryParse(favorable['owner']?['updated_at'])
+                            : DateTime.now(),
+                      ),
+                      isFavoritedByUser: true,
+                      createdAt: favorable['created_at'] != null
+                          ? DateTime.tryParse(favorable['created_at'])
+                          : DateTime.now(),
+                      updatedAt: favorable['updated_at'] != null
+                          ? DateTime.tryParse(favorable['updated_at'])
+                          : DateTime.now(),
+                      speakers: favorable['speakers'] ?? '',
+                    ),
+                  ),
+                ),
+              );
+              break;
+            case 'App\\Models\\Meeting':
+              // Переход к странице встреч
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MeetingsScreen(
+                    user: widget.user,
+                    subscriptionStatus: widget.subscriptionStatus,
+                    products: widget.products,
+                  ),
+                ),
+              );
+              break;
+            default:
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Переход к $subtitle недоступен'),
+                  backgroundColor: Theme.of(context).colorScheme.error,
+                ),
+              );
+          }
         },
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -500,10 +602,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       ],
                     ),
                   ),
-                  const Icon(
+                  Icon(
                     Icons.arrow_forward_ios,
                     size: 16,
-                    color: Colors.grey,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                 ],
               ),
@@ -573,7 +675,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         const SizedBox(height: 4),
                         Row(
                           children: [
-                            const Icon(Icons.person, size: 12, color: Colors.grey),
+                            Icon(Icons.person, size: 12, color: Theme.of(context).colorScheme.onSurfaceVariant),
                             const SizedBox(width: 4),
                             Expanded(
                               child: Text(
@@ -600,19 +702,19 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: Colors.green.withAlpha(25),
+                        color: Theme.of(context).colorScheme.secondary.withAlpha(25),
                         borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: Colors.green.withAlpha(77)),
+                        border: Border.all(color: Theme.of(context).colorScheme.secondary.withAlpha(77)),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(Icons.videocam, size: 14, color: Colors.green),
+                          Icon(Icons.videocam, size: 14, color: Theme.of(context).colorScheme.secondary),
                           const SizedBox(width: 4),
-                          const Text(
+                          Text(
                             'Zoom доступен',
                             style: TextStyle(
-                              color: Colors.green,
+                              color: Theme.of(context).colorScheme.secondary,
                               fontSize: 11,
                               fontWeight: FontWeight.w500,
                             ),
