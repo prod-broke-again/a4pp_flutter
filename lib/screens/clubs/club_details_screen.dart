@@ -76,7 +76,7 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('Ошибка доната: $e'),
-                backgroundColor: Colors.red,
+                backgroundColor: Theme.of(context).colorScheme.error,
               ),
             );
           }
@@ -194,8 +194,8 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
                                   right: 16,
                                   child: Text(
                                     _club!.name,
-                                    style: TextStyle(
-                                      color: Theme.of(context).colorScheme.onSurface,
+                                    style: const TextStyle(
+                                      color: Colors.white,
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -263,7 +263,7 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
                                           return OutlinedButton(
                                             onPressed: null,
                                             style: OutlinedButton.styleFrom(
-                                              disabledForegroundColor: Colors.grey,
+                                              disabledForegroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
                                               padding: const EdgeInsets.symmetric(vertical: 14),
                                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                                             ),
@@ -411,12 +411,12 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(
         children: [
-          Icon(icon, color: const Color(0xFF6B46C1), size: 20),
+          Icon(icon, color: Theme.of(context).colorScheme.primary, size: 20),
           const SizedBox(width: 12),
           Text(
             '$label:',
-            style: const TextStyle(
-              color: Colors.white,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurface,
               fontWeight: FontWeight.w600,
               fontSize: 16,
             ),
@@ -426,7 +426,7 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
             child: Text(
               value,
               style: TextStyle(
-                color: Colors.grey[400],
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
                 fontSize: 16,
               ),
             ),
@@ -537,11 +537,11 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
                   width: 36,
                   height: 36,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF6B46C1).withAlpha(51),
+                    color: Theme.of(context).colorScheme.primary.withAlpha(51),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   alignment: Alignment.center,
-                  child: const Icon(Icons.event, color: Color(0xFF6B46C1), size: 18),
+                  child: Icon(Icons.event, color: Theme.of(context).colorScheme.primary, size: 18),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -576,18 +576,18 @@ class _ClubDetailsScreenState extends State<ClubDetailsScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
-        color: const Color(0xFF1F1F1F),
+        color: Theme.of(context).colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey[800]!),
+        border: Border.all(color: Theme.of(context).colorScheme.outline),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 14, color: Colors.grey[400]),
+          Icon(icon, size: 14, color: Theme.of(context).colorScheme.onSurfaceVariant),
           const SizedBox(width: 6),
           Text(
             text,
-            style: TextStyle(color: Colors.grey[300], fontSize: 12),
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 12),
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
             softWrap: false,

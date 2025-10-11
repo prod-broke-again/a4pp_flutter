@@ -198,10 +198,13 @@ class _ClubsScreenState extends State<ClubsScreen> {
       key: _scaffoldKey,
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: const Text('Клубы'),
+        title: Text(
+          'Клубы',
+          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+        ),
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.menu, color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white),
+          icon: Icon(Icons.menu, color: Theme.of(context).colorScheme.onPrimary),
           onPressed: () {
             _scaffoldKey.currentState?.openDrawer();
           },
@@ -226,11 +229,11 @@ class _ClubsScreenState extends State<ClubsScreen> {
             // Описание
             Container(
               padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-              child: const Text(
+              child: Text(
                 'Профессиональные сообщества с регулярными встречами для обмена опытом и развития навыков',
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.grey,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                   height: 1.5,
                 ),
               ),
@@ -249,8 +252,8 @@ class _ClubsScreenState extends State<ClubsScreen> {
                 onSubmitted: (_) => _loadClubs(),
                 decoration: InputDecoration(
                   hintText: 'Поиск клубов...',
-                  hintStyle: const TextStyle(color: Colors.grey),
-                  prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                  hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  prefixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.onSurfaceVariant),
                   suffixIcon: _searchQuery.isNotEmpty
                       ? IconButton(
                           onPressed: () {
@@ -260,7 +263,7 @@ class _ClubsScreenState extends State<ClubsScreen> {
                             });
                             _loadClubs();
                           },
-                          icon: const Icon(Icons.clear, color: Colors.grey),
+                          icon: Icon(Icons.clear, color: Theme.of(context).colorScheme.onSurfaceVariant),
                         )
                       : null,
                   filled: true,
@@ -283,7 +286,7 @@ class _ClubsScreenState extends State<ClubsScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(Icons.error, color: Colors.red, size: 64),
+                              Icon(Icons.error, color: Theme.of(context).colorScheme.error, size: 64),
                               const SizedBox(height: 16),
                               Text(
                                 'Ошибка загрузки',
@@ -292,7 +295,7 @@ class _ClubsScreenState extends State<ClubsScreen> {
                               const SizedBox(height: 8),
                               Text(
                                 _error!,
-                                style: const TextStyle(color: Colors.grey),
+                                style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                                 textAlign: TextAlign.center,
                               ),
                               const SizedBox(height: 16),
@@ -371,8 +374,8 @@ class _ClubsScreenState extends State<ClubsScreen> {
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) => Container(
                           height: 160,
-                          color: const Color(0xFF6B46C1),
-                          child: const Icon(Icons.group, color: Colors.white, size: 48),
+                          color: Theme.of(context).colorScheme.primary,
+                          child: Icon(Icons.group, color: Theme.of(context).colorScheme.onPrimary, size: 48),
                         ),
                       )
                     : Container(

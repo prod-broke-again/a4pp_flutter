@@ -3,6 +3,8 @@ import 'package:achpp/models/user.dart';
 import 'package:achpp/models/subscription.dart';
 import 'package:achpp/models/product.dart';
 import 'package:achpp/models/profile_response.dart';
+import 'package:achpp/models/course.dart';
+import 'package:achpp/models/club.dart';
 import '../../widgets/app_drawer.dart';
 import 'package:achpp/services/auth_service.dart';
 import '../courses/courses_screen.dart';
@@ -469,7 +471,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       image: favorable['image'],
                       maxParticipants: favorable['max_participants'] ?? 0,
                       publishedAt: favorable['published_at'] != null
-                          ? DateTime.tryParse(favorable['published_at'])
+                          ? DateTime.tryParse(favorable['published_at'] ?? '')
                           : null,
                       formattedPublishedAt: favorable['formatted_published_at'] ?? '',
                       zoomLink: favorable['zoom_link'],
@@ -478,12 +480,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       productLevel: favorable['product_level'] ?? 0,
                       isHidden: favorable['is_hidden'] ?? false,
                       isFavoritedByUser: true,
-                      createdAt: favorable['created_at'] != null
-                          ? DateTime.tryParse(favorable['created_at'])
-                          : DateTime.now(),
-                      updatedAt: favorable['updated_at'] != null
-                          ? DateTime.tryParse(favorable['updated_at'])
-                          : DateTime.now(),
+                      createdAt: DateTime.tryParse(favorable['created_at'] ?? '') ?? DateTime.now(),
+                      updatedAt: DateTime.tryParse(favorable['updated_at'] ?? '') ?? DateTime.now(),
                       contentCount: favorable['content_count'] ?? 0,
                     ),
                   ),
@@ -519,20 +517,12 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                           name: favorable['owner']?['role']?['name'] ?? '',
                           color: favorable['owner']?['role']?['color'] ?? '',
                         ),
-                        createdAt: favorable['owner']?['created_at'] != null
-                            ? DateTime.tryParse(favorable['owner']?['created_at'])
-                            : DateTime.now(),
-                        updatedAt: favorable['owner']?['updated_at'] != null
-                            ? DateTime.tryParse(favorable['owner']?['updated_at'])
-                            : DateTime.now(),
+                        createdAt: DateTime.tryParse(favorable['owner']?['created_at'] ?? '') ?? DateTime.now(),
+                        updatedAt: DateTime.tryParse(favorable['owner']?['updated_at'] ?? '') ?? DateTime.now(),
                       ),
                       isFavoritedByUser: true,
-                      createdAt: favorable['created_at'] != null
-                          ? DateTime.tryParse(favorable['created_at'])
-                          : DateTime.now(),
-                      updatedAt: favorable['updated_at'] != null
-                          ? DateTime.tryParse(favorable['updated_at'])
-                          : DateTime.now(),
+                      createdAt: DateTime.tryParse(favorable['created_at'] ?? '') ?? DateTime.now(),
+                      updatedAt: DateTime.tryParse(favorable['updated_at'] ?? '') ?? DateTime.now(),
                       speakers: favorable['speakers'] ?? '',
                     ),
                   ),
