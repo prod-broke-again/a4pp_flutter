@@ -398,7 +398,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
 
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainer,
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: isCurrent
@@ -436,7 +436,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                       Text(
                         plan.name,
                         style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
+                          color: Theme.of(context).colorScheme.onSurface,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
@@ -534,7 +534,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                     child: Text(
                       feature,
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimary,
+                        color: Theme.of(context).colorScheme.onSurface,
                         fontSize: 14,
                       ),
                     ),
